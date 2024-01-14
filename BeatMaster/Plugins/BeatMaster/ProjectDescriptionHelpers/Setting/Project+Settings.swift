@@ -64,6 +64,60 @@ extension Settings {
             ])], defaultSettings: .recommended)
     
     
+    public static let appDemoSetting: Settings = .settings(
+        base: [ "PRODUCT_NAME": "\(Project.Environment.appDemoName)",
+                "CFBundleDisplayName" : "\(Project.Environment.appDemoName)",
+                "MARKETING_VERSION": .string(.appVersion()),
+                "AS_AUTHENTICATION_SERVICES_ENABLED": "YES",
+                "PUSH_NOTIFICATIONS_ENABLED":"YES",
+                "ENABLE_BACKGROUND_MODES" : "YES",
+                "BACKGROUND_MODES" : "remote-notification",
+//                "ASSOCIATED_DOMAINS": "applinks:PingPong.page.link",
+                "CURRENT_PROJECT_VERSION": .string(.appBuildVersion()),
+                "CODE_SIGN_IDENTITY": "iPhone Developer",
+//                "CODE_SIGN_STYLE": "Automatic",
+                "DEVELOPMENT_TEAM": "\(Project.Environment.organizationTeamId)",
+                "VERSIONING_SYSTEM": "apple-generic",
+                "DEBUG_INFORMATION_FORMAT": "DWARF with dSYM File",
+                "DEVELOPMENT_ASSET_PATH" : "\"Resources/Preview Content\""]
+        ,configurations: [
+            .debug(name: .debug, settings: [
+                "PRODUCT_NAME" : "\(Project.Environment.appDemoName)",
+                "DISPLAY_NAME" : "\(Project.Environment.appDemoName)",
+                "PROVISIONING_PROFILE_SPECIFIER": "BeatMasterDemo",
+                "OTHER_LDFLAGS": [
+                      "-all_load", // Set the strip style to non-global symbols
+                ],
+                "STRIP_STYLE": [
+                    "non-global"
+                ],
+            ]),
+            .debug(name: "Dev", settings: [
+                "PRODUCT_NAME" : "\(Project.Environment.appDemoName)",
+                "DISPLAY_NAME" : "\(Project.Environment.appDemoName)",
+                "PROVISIONING_PROFILE_SPECIFIER": "BeatMasterDemo",
+                "OTHER_LDFLAGS": [
+                     "-all_load", // Set the strip style to non-global symbols
+                ],
+                "STRIP_STYLE": [
+                    "non-global"
+                ],
+                
+            ]),
+            .release(name: .release, settings: [
+                "DEVELOPMENT_ASSET_PATHS": "\"Resources/Preview Content\"",
+                "PRODUCT_NAME" : "\(Project.Environment.appDemoName)" ,
+                "DISPLAY_NAME" : "\(Project.Environment.appDemoName)" ,
+                "PROVISIONING_PROFILE_SPECIFIER": "BeatMasterDemo",
+                "OTHER_LDFLAGS": [
+                    "-all_load",
+                ],
+                "STRIP_STYLE": [
+                    "non-global"
+                ],
+                
+            ])], defaultSettings: .recommended)
+    
     public static let appBaseSetting: Settings = .settings(
         base: ["PRODUCT_NAME": "\(Project.Environment.appName)",
                "MARKETING_VERSION": .string(.appVersion()),

@@ -22,7 +22,7 @@ fetch:
 	$(FETCH)
 
 module:
-	tuist scaffold Module \
+	tuist scaffold  $(template) \
          --layer ${layer} \
 	 --name ${name} \
 	 --author "서원지"

@@ -2,8 +2,8 @@
 //  base.swift
 //  BeatMaster
 //
-//  Created by {{ author }} on {{ currentDate }}
-//  Copyright © {{ year }} Team.hae.jo, All rights reserved.
+//  Created by 서원지 on 2024/01/14
+//  Copyright © 2024 Team.hae.jo, All rights reserved.
 //
 
 import SwiftUI
@@ -20,3 +20,7 @@ struct BaseView: View {
     }
 }
 
+
+#Preview {
+    BaseView()
+}
