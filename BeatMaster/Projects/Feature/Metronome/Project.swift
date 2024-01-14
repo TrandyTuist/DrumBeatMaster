@@ -8,7 +8,7 @@ let project = Project.makeAppModule(
     name: "Metronome",
     bundleId: .appBundleID(name: ".Metronome"),
     product: .staticFramework,
-    settings:  .appBaseSetting,
+    settings:  .settings(),
     dependencies: [
         
     ],

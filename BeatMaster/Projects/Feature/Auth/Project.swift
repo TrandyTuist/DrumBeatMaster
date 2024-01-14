@@ -8,7 +8,7 @@ let project = Project.makeAppModule(
     name: "Auth",
     bundleId: .appBundleID(name: ".Auth"),
     product: .staticFramework,
-    settings:  .appBaseSetting,
+    settings:  .settings(),
     dependencies: [
         
     ],

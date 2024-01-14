@@ -69,13 +69,14 @@ extension Settings {
                "MARKETING_VERSION": .string(.appVersion()),
                "CURRENT_PROJECT_VERSION": .string(.appBuildVersion()),
                "CODE_SIGN_IDENTITY": "iPhone Developer",
+               "CODE_SIGN_STYLE": "Automatic",
                "DEVELOPMENT_TEAM": "\(Project.Environment.organizationTeamId)",
                "VERSIONING_SYSTEM": "apple-generic",
                "DEBUG_INFORMATION_FORMAT": "DWARF with dSYM File"],
         configurations: [
             .debug(name: .debug, settings: [
                 "PRODUCT_NAME": "\(Project.Environment.appName)",
-                "PROVISIONING_PROFILE_SPECIFIER": "BeatMaster",
+//                "PROVISIONING_PROFILE_SPECIFIER": "BeatMaster",
                 "OTHER_LDFLAGS": [
                       "-all_load", // Set the strip style to non-global symbols
                 ],
@@ -85,7 +86,7 @@ extension Settings {
             ]),
             .debug(name: "Dev", settings: [
                 "PRODUCT_NAME" : "\(Project.Environment.appDevName)",
-                "PROVISIONING_PROFILE_SPECIFIER": "BeatMaster",
+//                "PROVISIONING_PROFILE_SPECIFIER": "BeatMaster",
                 "OTHER_LDFLAGS": [
                      "-all_load", // Set the strip style to non-global symbols
                 ],
@@ -96,7 +97,7 @@ extension Settings {
             ]),
             .release(name: .release, settings: [
                 "PRODUCT_NAME": "\(Project.Environment.appName)",
-                "PROVISIONING_PROFILE_SPECIFIER": "BeatMaster",
+//                "PROVISIONING_PROFILE_SPECIFIER": "BeatMaster",
                 "OTHER_LDFLAGS": [
                     "-all_load",
                 ],

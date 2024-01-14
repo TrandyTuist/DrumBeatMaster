@@ -8,7 +8,7 @@ let project = Project.makeAppModule(
     name: "Constants",
     bundleId: .appBundleID(name: ".Constants"),
     product: .staticFramework,
-    settings:  .appBaseSetting,
+    settings:  .settings(),
     dependencies: [
         
     ],

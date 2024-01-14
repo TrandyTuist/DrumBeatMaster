@@ -8,7 +8,7 @@ let project = Project.makeAppModule(
     name: "ThirdParty",
     bundleId: .appBundleID(name: ".ThirdParty"),
     product: .staticFramework,
-    settings:  .appBaseSetting,
+    settings:  .settings(),
     dependencies: [
         .SPM.ComposableArchitecture
         
