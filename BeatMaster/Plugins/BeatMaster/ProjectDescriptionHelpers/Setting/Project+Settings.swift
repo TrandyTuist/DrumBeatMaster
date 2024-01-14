@@ -68,8 +68,9 @@ extension Settings {
         base: ["PRODUCT_NAME": "\(Project.Environment.appName)",
                "MARKETING_VERSION": .string(.appVersion()),
                "CURRENT_PROJECT_VERSION": .string(.appBuildVersion()),
-               "CODE_SIGN_STYLE": "Automatic",
+               "CODE_SIGN_IDENTITY": "iPhone Developer",
                "DEVELOPMENT_TEAM": "\(Project.Environment.organizationTeamId)",
+               "VERSIONING_SYSTEM": "apple-generic",
                "DEBUG_INFORMATION_FORMAT": "DWARF with dSYM File"],
         configurations: [
             .debug(name: .debug, settings: [
@@ -81,6 +82,17 @@ extension Settings {
                 "STRIP_STYLE": [
                     "non-global"
                 ],
+            ]),
+            .debug(name: "Dev", settings: [
+                "PRODUCT_NAME" : "\(Project.Environment.appDevName)",
+                "PROVISIONING_PROFILE_SPECIFIER": "BeatMaster",
+                "OTHER_LDFLAGS": [
+                     "-all_load", // Set the strip style to non-global symbols
+                ],
+                "STRIP_STYLE": [
+                    "non-global"
+                ],
+                
             ]),
             .release(name: .release, settings: [
                 "PRODUCT_NAME": "\(Project.Environment.appName)",
