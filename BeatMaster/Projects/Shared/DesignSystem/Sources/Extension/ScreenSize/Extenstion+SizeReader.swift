@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 public extension View {
-    public func readSize(onChange: @escaping (CGSize) -> Void) -> some View {
+    func readSize(onChange: @escaping (CGSize) -> Void) -> some View {
         background(
             GeometryReader { geometryProxy in
                 Color.clear
@@ -20,7 +20,7 @@ public extension View {
             .onPreferenceChange(FlexibleSizePreferenceKey.self, perform: onChange)
     }
     
-    public func readRect(onChange: @escaping (CGRect) -> Void) -> some View {
+    func readRect(onChange: @escaping (CGRect) -> Void) -> some View {
         background(
             GeometryReader { geometryProxy in
                 Color.clear
@@ -30,7 +30,7 @@ public extension View {
             .onPreferenceChange(FlexibleFramePreferenceKey.self, perform: onChange)
     }
     
-    public func readRect(name: String, onChange: @escaping (CGRect) -> Void) -> some View {
+    func readRect(name: String, onChange: @escaping (CGRect) -> Void) -> some View {
         background(
             GeometryReader { geometryProxy in
                 Color.clear

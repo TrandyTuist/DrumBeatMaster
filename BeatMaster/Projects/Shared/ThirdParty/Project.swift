@@ -10,7 +10,9 @@ let project = Project.makeAppModule(
     product: .staticFramework,
     settings:  .settings(),
     dependencies: [
-        .SPM.ComposableArchitecture
+        .SPM.ComposableArchitecture,
+        .SPM.Swinject,
+        .SPM.NeedleFoundation
         
         
     ],

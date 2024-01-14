@@ -22,7 +22,7 @@ let project = Project.makeAppModule(
         .Networking(implements: .Networkings)
     
     ],
-    sources: ["Sources/**"],
+    sources: ["Sources/**", "Resources/FontAsset/**"],
     resources: ["Resources/**"],
     infoPlist: .file(path: "Support/Info.plist"),
     entitlements: .file(path: "Entitlements/BeatMaster.entitlements")
