@@ -11,8 +11,8 @@ let project = Project.makeAppModule(
     settings:  .settings(),
     dependencies: [
         .SPM.ComposableArchitecture,
-        .SPM.Swinject,
-        .SPM.NeedleFoundation
+        .SPM.Swinject
+        
         
         
     ],

@@ -53,7 +53,7 @@ enum DemoModuleTemplate: CaseIterable {
             return .file(path:  .demoTestBasePath + "/Sources/Test.swift", templatePath: "test.stencil")
             
         case .resources:
-            return .directory(path: "Resources/Assets.xcassets" , sourcePath: "Assets.xcassets")
+            return .directory(path: .demoBasePath + "Resources/Assets.xcassets" , sourcePath: "Assets.xcassets")
 //            Resources
             
         }

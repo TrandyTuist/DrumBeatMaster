@@ -16,5 +16,5 @@ public extension TargetDependency.SPM {
     static let CombineMoya = TargetDependency.external(name: "CombineMoya", condition: .none)
     static let ComposableArchitecture = TargetDependency.external(name: "ComposableArchitecture", condition: .none)
     static let Swinject = TargetDependency.external(name: "Swinject", condition: .none)
-    static let NeedleFoundation = TargetDependency.external(name: "NeedleFoundation", condition: .none)
+//    static let NeedleFoundation = TargetDependency.external(name: "NeedleFoundation", condition: .none)
 }
