@@ -54,6 +54,7 @@ public extension ModulePath {
         case Networkings
         case Model
         case Service
+        case DiContainer
         case ThirdParty
         
         
