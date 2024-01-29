@@ -12,6 +12,7 @@ let project = Project.makeAppModule(
     dependencies: [
         .SPM.ComposableArchitecture,
         .SPM.Swinject
+
         
         
         

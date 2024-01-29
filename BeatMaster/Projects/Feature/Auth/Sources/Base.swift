@@ -8,8 +8,10 @@
 
 import SwiftUI
 
-struct BaseView: View {
-    var body: some View {
+public struct BaseView: View {
+    
+    public init() {}
+    public var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
