@@ -1,5 +1,5 @@
 import SwiftUI
-import Auth
+//import Auth
 
 @main
 struct BeatMasterApp: App {

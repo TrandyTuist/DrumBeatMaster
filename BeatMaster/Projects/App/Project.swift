@@ -20,7 +20,7 @@ let project = Project.makeAppModule(
         .Core(implements: .Core),
         .Shared(implements: .Shareds),
         .Networking(implements: .Networkings),
-        .SPM.Supabase
+//        .SPM.Supabase
         
         
     
