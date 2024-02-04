@@ -19,8 +19,7 @@ let project = Project.makeAppModule(
     dependencies: [
         .Core(implements: .Core),
         .Shared(implements: .Shareds),
-        .Networking(implements: .Networkings),
-        .SPM.Supabase
+        .Networking(implements: .Networkings)
         
         
     
