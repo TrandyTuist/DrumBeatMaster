@@ -20,10 +20,7 @@ let project = Project.makeAppModule(
         .Core(implements: .Core),
         .Shared(implements: .Shareds),
         .Networking(implements: .Networkings),
-//        .SPM.Supabase
         
-        
-    
     ],
     sources: ["Sources/**", "Resources/FontAsset/**"],
     resources: ["Resources/**"],

@@ -10,9 +10,9 @@ let project = Project.makeAppModule(
     product: .app,
     settings:  .appDemoSetting,
     dependencies: [
-        .Core(implements: .Core),
-        .Shared(implements: .Shareds),
-        .Networking(implements: .Networkings)
+//        .Core(implements: .Core),
+//        .Shared(implements: .Shareds),
+//        .Networking(implements: .Networkings)
     ],
     sources: ["Sources/**"],
     resources: ["Resources/**"],
