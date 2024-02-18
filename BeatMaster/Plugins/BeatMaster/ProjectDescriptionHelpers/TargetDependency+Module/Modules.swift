@@ -55,7 +55,7 @@ public extension ModulePath {
         case Model
         case Service
         case DiContainer
-        case ThirdParty
+        case ThirdPartys
         
         
         public static let name: String = "Networking"

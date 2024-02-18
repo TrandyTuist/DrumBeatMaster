@@ -5,8 +5,8 @@ import MyPlugin
 let localHelper = LocalHelper(name: "MyPlugin")
 
 let project = Project.makeAppModule(
-    name: "ThirdParty",
-    bundleId: .appBundleID(name: ".ThirdParty"),
+    name: "ThirdPartys",
+    bundleId: .appBundleID(name: ".ThirdPartys"),
     product: .staticFramework,
     settings:  .settings(),
     dependencies: [

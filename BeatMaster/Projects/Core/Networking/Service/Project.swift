@@ -10,7 +10,7 @@ let project = Project.makeAppModule(
     product: .staticFramework,
     settings:  .settings(),
     dependencies: [
-        .Networking(implements: .ThirdParty)
+        .Networking(implements: .ThirdPartys)
     ],
     sources: ["Sources/**"]
 )
