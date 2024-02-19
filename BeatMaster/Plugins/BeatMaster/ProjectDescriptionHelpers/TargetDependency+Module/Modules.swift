@@ -32,6 +32,7 @@ public extension ModulePath {
         case BPMCounter
         case Metronome
         case Splash
+        case Root
         
         public static let name: String = "Feature"
     }
