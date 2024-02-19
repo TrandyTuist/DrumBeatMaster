@@ -48,8 +48,16 @@ public struct AppView: View {
     }
 }
 
+#if DEV || DEBUG
 #Preview {
-    AppView(store: Store(initialState: AppFeature.State(), reducer: {
-        AppFeature()
-    }))
+    AppView(
+        store:
+            Store(
+                initialState: AppFeature.State(),
+                reducer: {
+                    AppFeature()
+                }
+            )
+    )
 }
+#endif
