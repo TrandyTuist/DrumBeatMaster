@@ -8,6 +8,7 @@
 
 import Foundation
 import ComposableArchitecture
+import DesignSystem
 
 @Reducer
 public struct SplashFeature {
@@ -16,7 +17,8 @@ public struct SplashFeature {
     @ObservableState
      public struct State {
          public init() {}
-         var isLogoHidden: Bool = true
+         var splashTitle: String = "BeatMaster"
+         var splashImage: ImageAsset = .empty
     }
     
     @Dependency(\.continuousClock) var clock
@@ -24,17 +26,21 @@ public struct SplashFeature {
     public enum Action {
         case appearLogoImage
         case presentRootView
+        case logoImage
     }
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .appearLogoImage:
-                state.isLogoHidden = false
                 return .run { send in
                     try await self.clock.sleep(for: .milliseconds(800))
                     await send(.presentRootView, animation: .easeOut(duration: 1))
                 }
+                
+            case .logoImage:
+                state.splashImage = .splash
+                return .none
                 
             case .presentRootView:
                 return .none
