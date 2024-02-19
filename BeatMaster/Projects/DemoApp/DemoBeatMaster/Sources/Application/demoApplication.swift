@@ -7,13 +7,16 @@
 //
 
 import SwiftUI
-
+import Splash
+import ComposableArchitecture
 
 @main
 struct DemoBeatMaster: App {
     var body: some Scene {
         WindowGroup {
-            BaseView()
+            SplashView(store: Store(initialState: SplashFeature.State(), reducer: {
+                SplashFeature()
+            }))
         }
     }
 }
