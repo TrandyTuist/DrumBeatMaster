@@ -19,5 +19,5 @@ jobs:
     - name: Build
       run: swift build -v
     - name: Run tests
-      run: tuist clean tuist fetch  tuist generate --project-directory=PingPong/
-        xcodebuild clean test -workspace PingPong/PingPong.xcworkspace -scheme PingPong -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=latest'
+      run: tuist clean tuist fetch  tuist generate --project-directory=BeatMaster/
+        xcodebuild clean test -workspace BeatMaster/BeatMaster.xcworkspace -scheme BeatMaster -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=latest'
