@@ -15,7 +15,7 @@ public struct SplashFeature {
     public init() {}
     
     @ObservableState
-     public struct State {
+    public struct State: Equatable {
          public init() {}
          var splashTitle: String = "BeatMaster"
          var splashImage: ImageAsset = .empty
@@ -34,7 +34,7 @@ public struct SplashFeature {
             switch action {
             case .appearLogoImage:
                 return .run { send in
-                    try await self.clock.sleep(for: .milliseconds(800))
+                    try await self.clock.sleep(for: .milliseconds(300))
                     await send(.presentRootView, animation: .easeOut(duration: 1))
                 }
                 

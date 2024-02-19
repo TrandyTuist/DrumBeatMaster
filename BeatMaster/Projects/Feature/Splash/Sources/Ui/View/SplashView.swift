@@ -19,7 +19,6 @@ public struct SplashView: View {
     }
     
     public var body: some View {
-        
         ZStack {
             Color.lightPurple
                 .edgesIgnoringSafeArea(.all)

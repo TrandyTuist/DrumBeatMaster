@@ -14,7 +14,8 @@ let project = Project.makeAppModule(
         .Feature(implements: .Auth),
         .Feature(implements: .BPMCounter),
         .Feature(implements: .Metronome),
-        .Feature(implements: .Splash)
+        .Feature(implements: .Splash),
+        .Feature(implements: .Root)
     ],
     sources: ["Sources/**"]
 )

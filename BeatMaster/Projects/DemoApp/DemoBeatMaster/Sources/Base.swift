@@ -23,6 +23,7 @@ struct BaseView: View {
 }
 
 
+#if DEV || DEBUG
 #Preview {
     SplashView(
         store:
@@ -33,3 +34,4 @@ struct BaseView: View {
             )
     )
 }
+#endif
