@@ -11,11 +11,25 @@ on:
 
 jobs:
   build:
-
     runs-on: macos-latest
-
     steps:
     - uses: actions/checkout@v3
+       - name: Install Tuist
+          run: curl -Ls https://install.tuist.io|bash
+
+        - name: Install Fastlane
+          run: brew install fastlane
+
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+
+      - name: Tuist clean
+        run: tuist clean
+
+      - name: Tuist fetch
+        run: tuist fetch
+    
     - name: Build
       run: swift build -v
     - name: Run tests
