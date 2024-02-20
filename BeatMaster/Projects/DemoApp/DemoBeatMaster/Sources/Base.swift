@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
+import Splash
 
 struct BaseView: View {
     var body: some View {
@@ -22,5 +24,12 @@ struct BaseView: View {
 
 
 #Preview {
-    BaseView()
+    SplashView(
+        store:
+            Store(
+                initialState: SplashFeature.State(), reducer: {
+                    SplashFeature()
+                }
+            )
+    )
 }

@@ -10,5 +10,5 @@ import Foundation
 import SwiftUI
 
 public extension Color {
-    
+    static let lightPurple = Color(hex: "cfd0ff")
 }

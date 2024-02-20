@@ -9,25 +9,35 @@
 import Foundation
 import ComposableArchitecture
 import SwiftUI
+import Splash
 
 @Reducer
-struct AppFeature {
-    
+public struct AppFeature {
+    public init() {}
     
     @ObservableState
-    struct State {
+    public enum State {
+        case splash(SplashFeature.State)
         
+        public init() {
+            self = .splash(SplashFeature.State())
+        }
     }
     
-    enum Action {
-        
+    public enum Action {
+        case presentSplashView
+        case splash(SplashFeature.Action)
     }
     
     
-    var body: some ReducerOf<Self> {
+    public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .splash(.presentRootView):
+                return .none
                 
+            default:
+                return .none
             }
         }
     }

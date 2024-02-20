@@ -9,5 +9,7 @@
 import Foundation
 
 public enum ImageAsset: String {
+    case splash
+    
     case empty
 }

@@ -10,12 +10,12 @@ let project = Project.makeAppModule(
     product: .app,
     settings:  .appDemoSetting,
     dependencies: [
-//        .Core(implements: .Core),
-//        .Shared(implements: .Shareds),
-//        .Networking(implements: .Networkings)
+        .Core(implements: .Core),
+        .Shared(implements: .Shareds),
+        .Networking(implements: .Networkings)
     ],
     sources: ["Sources/**"],
-    resources: ["Resources/**"],
+    resources: ["Resources/**", "Resources/FontAsset/**"],
     infoPlist: .file(path: "Support/Info.plist"),
     entitlements: .file(path: "Entitlements/BeatMasterDemo.entitlements")
     
