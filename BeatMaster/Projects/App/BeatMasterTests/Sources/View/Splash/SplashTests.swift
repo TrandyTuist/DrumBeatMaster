@@ -14,11 +14,11 @@ import Splash
 @MainActor
 final class SplashTests: XCTestCase {
     func test_이미지로드() async {
-//        let store = TestStore(initialState: SplashFeature.State()) {
-//           SplashFeature()
-//         }
-//        
-//        await store.send(.logoImage)
+        let store = TestStore(initialState: SplashFeature.State()) {
+           SplashFeature()
+         }
+        
+        await store.send(.logoImage)
         
     }
 
