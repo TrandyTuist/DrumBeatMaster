@@ -16,9 +16,10 @@ public struct SplashFeature {
     
     @ObservableState
     public struct State: Equatable {
-         public init() {}
          var splashTitle: String = "BeatMaster"
          var splashImage: ImageAsset = .empty
+        
+        public init() {}
     }
     
     @Dependency(\.continuousClock) var clock
