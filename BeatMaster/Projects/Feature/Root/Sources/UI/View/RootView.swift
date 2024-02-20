@@ -13,14 +13,14 @@ import Auth
 import DesignSystem
 
 public struct RootView: View {
-   let store: StoreOf<RootFeature>
+   @Bindable var store: StoreOf<RootFeature>
     
     public init(store: StoreOf<RootFeature>) {
         self.store = store
     }
     
     public var body: some View {
-        NavigationStackStore(store.scope(state: \.path, action: \.path)) {
+        NavigationStack(path: $store.scope(state: \.path, action: \.path))  {
             VStack {
                 
                 Spacer()
@@ -37,15 +37,23 @@ public struct RootView: View {
                 Spacer()
             }
         } destination: { swithStore in
+            
+            //MARK: -  1.7 이하
             switch swithStore.state {
             case .auth:
-                if let authStore = swithStore.scope(state: \.auth, action: \.auth) {
+                if let authStore = swithStore.scope(
+                    state: \.auth,
+                    action: \.auth
+                ) {
                     AuthView(store: authStore) {
                         store.send(.removePath)
                     }
                     .navigationBarBackButtonHidden()
                 }
             }
+            
+            
+            
         }
 
     }
