@@ -11,10 +11,10 @@ let project = Project.makeAppModule(
     settings:  .settings(),
     dependencies: [
         .Core(implements: .Authorization),
-        .Feature(implements: .Auth),
         .Feature(implements: .BPMCounter),
         .Feature(implements: .Metronome),
-        .Feature(implements: .Splash)
+        .Feature(implements: .Splash),
+        .Feature(implements: .Root)
     ],
     sources: ["Sources/**"]
 )

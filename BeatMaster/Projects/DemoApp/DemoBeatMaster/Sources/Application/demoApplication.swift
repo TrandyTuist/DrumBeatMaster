@@ -14,7 +14,11 @@ import ComposableArchitecture
 struct DemoBeatMaster: App {
     var body: some Scene {
         WindowGroup {
-            SplashView(store: Store(initialState: SplashFeature.State(), reducer: {
+            SplashView(
+                store:
+                    Store(
+                        initialState: SplashFeature.State(),
+                        reducer: {
                 SplashFeature()
             }))
         }

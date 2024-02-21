@@ -8,7 +8,10 @@
 
 import SwiftUI
 import ComposableArchitecture
+
 import Splash
+import Root
+
 
 struct BaseView: View {
     var body: some View {
@@ -23,6 +26,7 @@ struct BaseView: View {
 }
 
 
+#if DEV || DEBUG
 #Preview {
     SplashView(
         store:
@@ -33,3 +37,18 @@ struct BaseView: View {
             )
     )
 }
+#endif
+
+
+#if DEV || DEBUG
+#Preview {
+    RootView(
+        store:
+            Store(
+                initialState: RootFeature.State(), reducer: {
+                    RootFeature()
+                }
+            )
+    )
+}
+#endif

@@ -10,6 +10,7 @@ import Foundation
 import ComposableArchitecture
 import SwiftUI
 import Splash
+import Root
 
 @Reducer
 public struct AppFeature {
@@ -18,6 +19,7 @@ public struct AppFeature {
     @ObservableState
     public enum State {
         case splash(SplashFeature.State)
+        case root(RootFeature.State)
         
         public init() {
             self = .splash(SplashFeature.State())
@@ -26,7 +28,11 @@ public struct AppFeature {
     
     public enum Action {
         case presentSplashView
+        case presentRootView
+        
         case splash(SplashFeature.Action)
+        case root(RootFeature.Action)
+        
     }
     
     
@@ -35,10 +41,20 @@ public struct AppFeature {
             switch action {
             case .splash(.presentRootView):
                 return .none
+             
+            case .presentRootView:
+                state = .root(.init())
+                return .none
                 
             default:
                 return .none
             }
+        }
+        .ifCaseLet(/State.splash, action:  /Action.splash) {
+            SplashFeature()
+        }
+        .ifCaseLet(/State.root, action: /Action.root) {
+            RootFeature()
         }
     }
 }

@@ -1,5 +1,6 @@
 import SwiftUI
 //import Auth
+import ComposableArchitecture
 
 @main
 struct BeatMasterApp: App {
@@ -11,7 +12,16 @@ struct BeatMasterApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AppView(
+                store:
+                    Store(
+                        initialState: AppFeature.State(),
+                        reducer: {
+                            AppFeature()
+                                ._printChanges()
+                        }
+                    )
+            )
         }
     }
     
