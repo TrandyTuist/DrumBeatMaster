@@ -6,10 +6,10 @@
 //
 
 import ProjectDescription
-import MyPlugin
+import DependencyPlugin
+import ProjectTemplatePlugin
 
 // Local plugin loaded
-let localHelper = LocalHelper(name: "MyPlugin")
 
 let project = Project.makeAppModule(
     name: Project.Environment.appName,

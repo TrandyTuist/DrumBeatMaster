@@ -7,9 +7,8 @@
 
 import Foundation
 import ProjectDescription
-import MyPlugin
+import ProjectTemplatePlugin
 
-let localHelper = LocalHelper(name: "MyPlugin")
 
 let workspace = Workspace(
 name: Project.Environment.appName,

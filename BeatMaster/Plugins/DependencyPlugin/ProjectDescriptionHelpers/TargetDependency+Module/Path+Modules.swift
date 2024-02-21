@@ -1,8 +1,8 @@
 //
 //  Path+Modules.swift
-//  MyPlugin
+//  Plugins
 //
-//  Created by 서원지 on 1/6/24.
+//  Created by 서원지 on 2/21/24.
 //
 
 import Foundation
@@ -62,6 +62,7 @@ public extension ProjectDescription.Path {
         return .relativeToRoot("Projects/\(ModulePath.Cores.name)/\(ModulePath.Networkings.name)/\(module.rawValue)")
     }
 }
+
 
 
 

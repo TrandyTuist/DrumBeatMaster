@@ -1,8 +1,8 @@
 import Foundation
 import ProjectDescription
-import MyPlugin
+import ProjectTemplatePlugin
+import DependencyPlugin
 
-let localHelper = LocalHelper(name: "MyPlugin")
 
 let project = Project.makeAppModule(
     name: "Networkings",

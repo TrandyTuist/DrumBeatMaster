@@ -1,9 +1,6 @@
 import ProjectDescription
-import MyPlugin
-
-// Local plugin loaded
-let localHelper = LocalHelper(name: "MyPlugin")
-
+import ProjectTemplatePlugin
+import DependencyPlugin
 
 let project = Project.makeAppModule(
     name: "Authorization",

@@ -1,8 +1,7 @@
 import Foundation
 import ProjectDescription
-import MyPlugin
-
-let localHelper = LocalHelper(name: "MyPlugin")
+import ProjectTemplatePlugin
+import DependencyPackagePlugin
 
 let project = Project.makeAppModule(
     name: "ThirdParty",
@@ -10,8 +9,8 @@ let project = Project.makeAppModule(
     product: .framework,
     settings:  .settings(),
     dependencies: [
-        .SPM.ComposableArchitecture,
-        .SPM.Swinject
+        .SPM.composableArchitecture,
+        .SPM.swinject
         
         
         

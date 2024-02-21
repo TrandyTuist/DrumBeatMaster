@@ -1,8 +1,8 @@
 import Foundation
 import ProjectDescription
-import MyPlugin
+import ProjectTemplatePlugin
+import DependencyPackagePlugin
 
-let localHelper = LocalHelper(name: "MyPlugin")
 
 let project = Project.makeAppModule(
     name: "DiContainer",
@@ -10,7 +10,7 @@ let project = Project.makeAppModule(
     product: .staticFramework,
     settings:  .settings(),
     dependencies: [
-        .SPM.Swinject
+        .SPM.swinject
     ],
     sources: ["Sources/**"]
 )

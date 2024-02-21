@@ -14,7 +14,7 @@ public extension UIApplication {
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
     
-    public static let safeAreaInsets = UIApplication.shared.windows[0].safeAreaInsets
-    public static let contentsHeight = UIScreen.screenHeight - UIApplication.safeAreaInsets.top - UIApplication.safeAreaInsets.bottom
-    public static let contentsWidth = UIScreen.screenWidth - UIApplication.safeAreaInsets.left - UIApplication.safeAreaInsets.right
+    static let safeAreaInsets = UIApplication.shared.windows[0].safeAreaInsets
+    static let contentsHeight = UIScreen.screenHeight - UIApplication.safeAreaInsets.top - UIApplication.safeAreaInsets.bottom
+    static let contentsWidth = UIScreen.screenWidth - UIApplication.safeAreaInsets.left - UIApplication.safeAreaInsets.right
 }

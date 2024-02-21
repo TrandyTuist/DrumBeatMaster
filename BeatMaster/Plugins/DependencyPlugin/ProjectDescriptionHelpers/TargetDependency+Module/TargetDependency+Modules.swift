@@ -1,8 +1,8 @@
 //
 //  TargetDependency+Modules.swift
-//  MyPlugin
+//  Plugins
 //
-//  Created by 서원지 on 1/6/24.
+//  Created by 서원지 on 2/21/24.
 //
 
 import Foundation
@@ -49,5 +49,6 @@ public extension TargetDependency {
         return .project(target: module.rawValue, path: .Networking(implementation: module))
     }
 }
+
 
 
