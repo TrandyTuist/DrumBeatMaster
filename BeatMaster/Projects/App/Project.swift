@@ -7,7 +7,7 @@
 
 import ProjectDescription
 import DependencyPlugin
-import ProjectTempletePlugin
+import ProjectTemplatePlugin
 
 // Local plugin loaded
 

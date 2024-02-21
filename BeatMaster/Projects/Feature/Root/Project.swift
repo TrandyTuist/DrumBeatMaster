@@ -1,6 +1,6 @@
 import Foundation
 import ProjectDescription
-import ProjectTempletePlugin
+import ProjectTemplatePlugin
 import DependencyPlugin
 
 

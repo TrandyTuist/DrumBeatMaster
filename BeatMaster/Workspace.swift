@@ -7,7 +7,7 @@
 
 import Foundation
 import ProjectDescription
-import ProjectTempletePlugin
+import ProjectTemplatePlugin
 
 
 let workspace = Workspace(

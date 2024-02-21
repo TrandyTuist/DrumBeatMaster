@@ -12,10 +12,10 @@ public extension TargetDependency {
 }
 
 public extension TargetDependency.SPM {
-    static let Moya = TargetDependency.external(name: "Moya", condition: .none)
-    static let CombineMoya = TargetDependency.external(name: "CombineMoya", condition: .none)
-    static let ComposableArchitecture = TargetDependency.external(name: "ComposableArchitecture", condition: .none)
-    static let Swinject = TargetDependency.external(name: "Swinject", condition: .none)
+    static let moya = TargetDependency.external(name: "Moya", condition: .none)
+    static let combineMoya = TargetDependency.external(name: "CombineMoya", condition: .none)
+    static let composableArchitecture = TargetDependency.external(name: "ComposableArchitecture", condition: .none)
+    static let swinject = TargetDependency.external(name: "Swinject", condition: .none)
     static let Supabase = TargetDependency.external(name: "Supabase", condition: .none)
 }
 

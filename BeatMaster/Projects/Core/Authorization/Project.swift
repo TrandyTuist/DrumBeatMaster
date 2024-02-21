@@ -1,5 +1,5 @@
 import ProjectDescription
-import ProjectTempletePlugin
+import ProjectTemplatePlugin
 import DependencyPlugin
 
 let project = Project.makeAppModule(

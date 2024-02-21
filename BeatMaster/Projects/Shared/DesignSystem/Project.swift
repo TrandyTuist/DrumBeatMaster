@@ -1,6 +1,6 @@
 import Foundation
 import ProjectDescription
-import ProjectTempletePlugin
+import ProjectTemplatePlugin
 
 let project = Project.makeAppModule(
     name: "DesignSystem",

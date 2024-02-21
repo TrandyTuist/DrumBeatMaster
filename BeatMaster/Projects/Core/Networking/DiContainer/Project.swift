@@ -1,6 +1,6 @@
 import Foundation
 import ProjectDescription
-import ProjectTempletePlugin
+import ProjectTemplatePlugin
 import DependencyPackagePlugin
 
 
@@ -10,7 +10,7 @@ let project = Project.makeAppModule(
     product: .staticFramework,
     settings:  .settings(),
     dependencies: [
-        .SPM.Swinject
+        .SPM.swinject
     ],
     sources: ["Sources/**"]
 )

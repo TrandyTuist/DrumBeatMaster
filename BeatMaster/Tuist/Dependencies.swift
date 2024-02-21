@@ -29,7 +29,7 @@ let swiftpackage = SwiftPackageManagerDependencies(
      )
 )
 
-let dependencie = Dependencies(
+let dependencies = Dependencies(
     swiftPackageManager: swiftpackage,
     platforms: [.iOS]
 )

@@ -1,6 +1,6 @@
 import Foundation
 import ProjectDescription
-import ProjectTempletePlugin
+import ProjectTemplatePlugin
 import DependencyPackagePlugin
 
 let project = Project.makeAppModule(
@@ -9,8 +9,8 @@ let project = Project.makeAppModule(
     product: .framework,
     settings:  .settings(),
     dependencies: [
-        .SPM.ComposableArchitecture,
-        .SPM.Swinject
+        .SPM.composableArchitecture,
+        .SPM.swinject
         
         
         

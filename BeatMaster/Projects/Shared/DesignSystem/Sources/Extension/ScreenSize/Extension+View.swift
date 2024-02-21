@@ -12,11 +12,11 @@ import UIKit
 
 public extension View {
     
-    public func getRect()->CGRect{
+    func getRect()->CGRect{
         UIScreen.main.bounds
     }
     
-    public func getSafeArea() -> UIEdgeInsets {
+    func getSafeArea() -> UIEdgeInsets {
         guard let screen = UIApplication.shared.connectedScenes.first as? UIWindowScene else{
             return .zero
         }
@@ -28,7 +28,7 @@ public extension View {
         return safeArea
     }
     
-    public func asImage() -> UIImage {
+    func asImage() -> UIImage {
         let controller = UIHostingController(rootView: self)
         let view = controller.view
         let size = controller.sizeThatFits(in: UIScreen.main.bounds.size)

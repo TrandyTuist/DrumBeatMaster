@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 public extension UIDevice {
-  public static var hasNotch: Bool {
+    static var hasNotch: Bool {
         let bottom = UIApplication.shared.windows[0].safeAreaInsets.bottom
         return bottom > 0
     }
