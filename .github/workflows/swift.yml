@@ -17,8 +17,9 @@ jobs:
       - name: Setup Xcode version
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: 15.2.0
+          xcode-version: '15.2.0'
 
+      # This step was corrected for proper indentation
       - name: Bring ignored files
         uses: actions/checkout@v3
         with:
@@ -28,17 +29,18 @@ jobs:
         run: echo -n "${{ secrets.MASTER_KEY }}" > ./Tuist/master.key
         env:
           MASTER_KEY: ${{ secrets.MASTER_KEY }}
-          
 
+      # Corrected indentation for the "Install Tuist" step
       - name: Install Tuist
-         run: curl -Ls https://install.tuist.io|bash
+        run: curl -Ls https://install.tuist.io | bash
 
-       - name: Install Fastlane
+      # Corrected indentation for the "Install Fastlane" step
+      - name: Install Fastlane
         run: brew install fastlane
 
       - uses: actions/setup-ruby@v1
         with:
-          ruby-version: 2.7
+          ruby-version: '2.7'
 
       - name: Tuist clean
         run: tuist clean
@@ -48,9 +50,14 @@ jobs:
 
       - name: Tuist Signing Decrypt
         run: tuist signing decrypt
-    
-    - name: Build
-      run: swift build -v
-    - name: Run tests
-      run: tuist clean tuist fetch  tuist generate --project-directory=BeatMaster/
-        xcodebuild clean test -workspace BeatMaster/BeatMaster.xcworkspace -scheme BeatMaster 
+
+      - name: Build
+        run: swift build -v
+        
+      - name: Run tests
+        run: |
+          tuist clean
+          tuist fetch
+          tuist generate --project-directory=BeatMaster/
+          xcodebuild clean test -workspace BeatMaster/BeatMaster.xcworkspace -scheme BeatMaster
+
