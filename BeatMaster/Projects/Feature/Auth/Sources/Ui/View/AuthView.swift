@@ -32,7 +32,7 @@ public struct AuthView: View {
                 .frame(height: 20)
             
             NavigationBackButton(buttonAction: backAction)
-            
+             
             Spacer()
             
             Text(store.state.title)
