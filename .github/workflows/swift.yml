@@ -26,7 +26,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
 
       - name: Setting Master Key
-        run: echo -n "${{ secrets.MASTER_KEY }}" > ./Tuist/master.key
+        run:  echo "$MASTER_KEY" > Tuist/master.key
         env:
           MASTER_KEY: ${{ secrets.MASTER_KEY }}
 
