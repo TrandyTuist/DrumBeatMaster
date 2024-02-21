@@ -44,10 +44,10 @@ jobs:
           ruby-version: '2.7'
 
       - name: Tuist clean
-        run: tuist clean
+        run: make clean
 
       - name: Tuist fetch
-        run: tuist fetch
+        run: make fetch
 
       - name: Tuist Signing Decrypt
         run: tuist signing decrypt
