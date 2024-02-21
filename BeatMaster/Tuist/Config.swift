@@ -4,6 +4,10 @@ let config = Config(
     compatibleXcodeVersions: ["15.2"],
     swiftVersion: "5.9.0",
     plugins: [
-        .local(path: .relativeToManifest("../../Plugins/BeatMaster")),
-    ]
+        .local(path: .relativeToRoot("Plugins/ProjectTempletePlugin")),
+        .local(path: .relativeToRoot("Plugins/DependencyPackagePlugin")),
+        .local(path: .relativeToRoot("Plugins/DependencyPlugin")),
+    ],
+    generationOptions: .options()
 )
+

@@ -1,8 +1,7 @@
 import Foundation
 import ProjectDescription
-import MyPlugin
-
-let localHelper = LocalHelper(name: "MyPlugin")
+import ProjectTempletePlugin
+import DependencyPlugin
 
 let settings: SettingsDictionary = [:].otherSwiftFlags("-enable-actor-data-race-checks")
 

@@ -1,8 +1,7 @@
 import Foundation
 import ProjectDescription
-import MyPlugin
+import ProjectTempletePlugin
 
-let localHelper = LocalHelper(name: "MyPlugin")
 
 let project = Project.makeAppModule(
     name: "Model",

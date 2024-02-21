@@ -1,8 +1,6 @@
 import Foundation
 import ProjectDescription
-import MyPlugin
-
-let localHelper = LocalHelper(name: "MyPlugin")
+import ProjectTempletePlugin
 
 let project = Project.makeAppModule(
     name: "DesignSystem",

@@ -1,8 +1,8 @@
 import Foundation
 import ProjectDescription
-import MyPlugin
+import ProjectTempletePlugin
+import DependencyPackagePlugin
 
-let localHelper = LocalHelper(name: "MyPlugin")
 
 let project = Project.makeAppModule(
     name: "DiContainer",

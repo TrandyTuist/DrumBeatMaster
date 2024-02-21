@@ -1,8 +1,7 @@
 import Foundation
 import ProjectDescription
-import MyPlugin
-
-let localHelper = LocalHelper(name: "MyPlugin")
+import ProjectTempletePlugin
+import DependencyPackagePlugin
 
 let project = Project.makeAppModule(
     name: "ThirdParty",
