@@ -45,9 +45,11 @@ jobs:
 
       - name: Tuist clean
         run: tuist clean
+        working-directory: ./BeatMaster
 
       - name: Tuist fetch
         run: tuist fetch
+        working-directory: ./BeatMaster
 
       - name: Tuist Signing Decrypt
         run: tuist signing decrypt
