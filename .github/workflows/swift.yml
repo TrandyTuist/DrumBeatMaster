@@ -58,9 +58,11 @@ jobs:
 
       - name: Tuist Signing Decrypt
         run: tuist signing decrypt
+        working-directory: ./BeatMaster
 
       - name: Build
         run: swift build -v
+        working-directory: ./BeatMaster
         
       - name: Run tests
         run: |
