@@ -61,7 +61,7 @@ jobs:
         working-directory: ./BeatMaster
 
       - name: Tuist build
-        run: tuist build
+        run: tuist build BeatMaster
         working-directory: ./BeatMaster
         
       - name: Run tests
