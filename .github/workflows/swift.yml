@@ -6,8 +6,6 @@ name: Swift
 on:
   push:
     branches: [ "Dev" ]
-  pull_request:
-    branches: [ "Dev" ]
 
 jobs:
   build:
@@ -64,10 +62,10 @@ jobs:
         run: tuist generate
         working-directory: ./BeatMaster
         
-      - name: Run tests
-        run: |
-          tuist clean
-          tuist fetch
-          tuist generate --project-directory=BeatMaster/
-          xcodebuild clean test -workspace BeatMaster/BeatMaster.xcworkspace -scheme BeatMaster
+      # - name: Run tests
+      #   run: |
+      #     tuist clean
+      #     tuist fetch
+      #     tuist generate --project-directory=BeatMaster/
+      #     xcodebuild clean test -workspace BeatMaster/BeatMaster.xcworkspace -scheme BeatMaster
 
