@@ -20,6 +20,16 @@ jobs:
         with:
           xcode-version: '14.2.0'
 
+           # Existing steps unchanged...
+
+      - name: Install Swift Version Manager (swiftenv) - Optional
+        run: brew install swiftenv
+
+      - name: Set Swift 5.9.0 - Optional
+        run: swiftenv local 5.9.0
+
+      # Continue with other steps...
+
       # This step was corrected for proper indentation
       - name: Bring ignored files
         uses: actions/checkout@v3
