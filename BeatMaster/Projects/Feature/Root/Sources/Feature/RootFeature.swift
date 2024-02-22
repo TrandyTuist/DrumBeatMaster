@@ -30,7 +30,7 @@ public struct RootFeature{
         case removePath
     }
     
-    @Reducer(state: .equatable)
+     고
     public enum Destination {
         case auth(AuthFeature)
     }
