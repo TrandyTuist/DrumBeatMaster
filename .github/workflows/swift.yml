@@ -18,17 +18,9 @@ jobs:
       - name: Setup Xcode version
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: '14.2.0'
+          xcode-version: 14.2.0
 
-           # Existing steps unchanged...
-
-      - name: Install Swift Version Manager (swiftenv) - Optional
-        run: brew install swiftenv
-
-      - name: Set Swift 5.9.0 - Optional
-        run: swiftenv local 5.9.0
-
-      # Continue with other steps...
+    
 
       # This step was corrected for proper indentation
       - name: Bring ignored files
@@ -44,10 +36,12 @@ jobs:
       # Corrected indentation for the "Install Tuist" step
       - name: Install Tuist
         run: curl -Ls https://install.tuist.io | bash
+        working-directory: ./BeatMaster
 
       # Corrected indentation for the "Install Fastlane" step
       - name: Install Fastlane
         run: brew install fastlane
+        working-directory: ./BeatMaster
 
       - uses: actions/setup-ruby@v1
         with:
