@@ -43,9 +43,10 @@ jobs:
         run: brew install fastlane
         working-directory: ./BeatMaster
 
-      - uses: actions/setup-ruby@v1
+      - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.3
+         ruby-version: '3.3' # Not needed with a .ruby-version file
+         bundler-cache: true #
 
       - name: Tuist clean
         run: tuist clean
