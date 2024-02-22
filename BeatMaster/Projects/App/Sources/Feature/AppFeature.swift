@@ -50,10 +50,10 @@ public struct AppFeature {
                 return .none
             }
         }
-        .ifCaseLet(/State.splash, action:  /Action.splash) {
+        .ifCaseLet(\.splash, action:  \.splash) {
             SplashFeature()
         }
-        .ifCaseLet(/State.root, action: /Action.root) {
+        .ifCaseLet(\.root, action: \.root) {
             RootFeature()
         }
     }

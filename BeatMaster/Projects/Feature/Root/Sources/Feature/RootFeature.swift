@@ -19,37 +19,44 @@ public struct RootFeature{
         public init() {}
         
         var title: String = "Root"
-        var path: StackState<Path.State> = .init()
+        var path: StackState<Destination.State> = .init()
         
     }
     
-    public enum Action: Equatable {
-        case path(StackAction<Path.State, Path.Action>)
+    @CasePathable
+    public enum Action {
+        case path(StackAction<Destination.State, Destination.Action>)
         case presentAuth
         case removePath
     }
     
-    @Reducer
-    public struct Path {
-        public init() {}
-        
-        
-        @ObservableState
-        public enum State: Equatable {
-            case auth(AuthFeature.State)
-        }
-        
-        public enum Action: Equatable {
-            case auth(AuthFeature.Action)
-        }
-        
-        
-        public var body: some ReducerOf<Self> {
-            Scope(state: /State.auth, action: /Action.auth) {
-                AuthFeature()
-            }
-        }
+    @Reducer(state: .equatable)
+    public enum Destination {
+        case auth(AuthFeature)
     }
+    
+    //MARK: - 1.8 이하 버전 path 추가
+//    @Reducer
+//    public struct Path {
+//        public init() {}
+//        
+//        
+//        @ObservableState
+//        public enum State: Equatable {
+//            case auth(AuthFeature.State)
+//        }
+//        
+//        public enum Action: Equatable {
+//            case auth(AuthFeature.Action)
+//        }
+//        
+//        
+//        public var body: some ReducerOf<Self> {
+//            Scope(state: /State.auth, action: /Action.auth) {
+//                AuthFeature()
+//            }
+//        }
+//    }
     
     
     
@@ -68,9 +75,11 @@ public struct RootFeature{
                 return .none
             }
         }
-        .forEach(\.path, action: /Action.path){
-            Path()
-        }
+        //MARK: -  1.8 이하
+//        .forEach(\.path, action: \.path) {
+//            Path()
+//        }
+        .forEach(\.path, action: \.path)
     }
 }
 

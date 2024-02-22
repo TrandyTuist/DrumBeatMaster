@@ -37,20 +37,27 @@ public struct RootView: View {
                 Spacer()
             }
         } destination: { swithStore in
+            switch swithStore.case {
+            case let .auth(authStore):
+                AuthView(store: authStore) {
+                    store.send(.removePath)
+                }
+                .navigationBarBackButtonHidden()
+            }
             
             //MARK: -  1.7 이하
-            switch swithStore.state {
-            case .auth:
-                if let authStore = swithStore.scope(
-                    state: \.auth,
-                    action: \.auth
-                ) {
-                    AuthView(store: authStore) {
-                        store.send(.removePath)
-                    }
-                    .navigationBarBackButtonHidden()
-                }
-            }
+//            switch swithStore.state {
+//            case .auth:
+//                if let authStore = swithStore.scope(
+//                    state: \.auth,
+//                    action: \.auth
+//                ) {
+//                    AuthView(store: authStore) {
+//                        store.send(.removePath)
+//                    }
+//                    .navigationBarBackButtonHidden()
+//                }
+//            }
             
             
             
