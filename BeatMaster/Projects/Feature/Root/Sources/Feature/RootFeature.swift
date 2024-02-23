@@ -19,19 +19,18 @@ public struct RootFeature{
         public init() {}
         
         var title: String = "Root"
-        var path: StackState<Destination.State> = .init()
+        var path: StackState<Path.State> = .init()
         
     }
     
-    @CasePathable
     public enum Action {
-        case path(StackAction<Destination.State, Destination.Action>)
+        case path(StackAction<Path.State, Path.Action>)
         case presentAuth
         case removePath
     }
     
     @Reducer(state: .equatable)
-    public enum Destination {
+    public enum Path {
         case auth(AuthFeature)
     }
     

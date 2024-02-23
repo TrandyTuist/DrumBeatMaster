@@ -20,7 +20,7 @@ public struct RootView: View {
     }
     
     public var body: some View {
-        NavigationStack(path: $store.scope(state: \.path, action: \.path))  {
+        NavigationStack(path: self.$store.scope(state: \.path, action: \.path)){
             VStack {
                 
                 Spacer()
@@ -58,9 +58,6 @@ public struct RootView: View {
 //                    .navigationBarBackButtonHidden()
 //                }
 //            }
-            
-            
-            
         }
 
     }

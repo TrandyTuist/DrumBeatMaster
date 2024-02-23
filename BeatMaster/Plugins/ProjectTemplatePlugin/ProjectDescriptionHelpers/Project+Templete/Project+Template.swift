@@ -15,7 +15,8 @@ public extension Project {
         product: Product,
         organizationName: String = Environment.organizationName,
         packages: [Package] = [],
-        deploymentTarget: DeploymentTarget = Environment.deploymentTarget,
+        deploymentTarget: DeploymentTargets = Environment.deploymentTarget,
+        destinations: Destinations = Environment.deploymentDestination,
         settings: Settings,
         dependencies: [TargetDependency] = [],
         sources: SourceFilesList = .sources,
@@ -26,10 +27,10 @@ public extension Project {
     ) -> Project {
         let appTarget = Target(
             name: name,
-            platform: platform,
+            destinations: destinations,
             product: product,
             bundleId: bundleId,
-            deploymentTarget: deploymentTarget,
+            deploymentTargets: deploymentTarget,
             infoPlist: infoPlist,
             sources: sources,
             resources: resources,
@@ -40,25 +41,24 @@ public extension Project {
         
         let appDevTarget = Target(
             name: "\(name)-Dev",
-            platform: .iOS,
+            destinations: destinations,
             product: product,
             bundleId: "\(bundleId)",
-            deploymentTarget: deploymentTarget,
+            deploymentTargets: deploymentTarget,
             infoPlist: infoPlist,
             sources: sources,
             resources: resources,
             entitlements: entitlements,
             scripts: [],
             dependencies: dependencies
-            
         )
         
         let appTestTarget = Target(
             name: "\(name)Tests",
-            platform: platform,
+            destinations: destinations,
             product: .unitTests,
             bundleId: "\(bundleId).\(name)Tests",
-            deploymentTarget: deploymentTarget,
+            deploymentTargets: deploymentTarget,
             infoPlist: .default,
             sources: ["\(name)Tests/Sources/**"],
             dependencies: [.target(name: name)]
