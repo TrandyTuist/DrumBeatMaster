@@ -8,7 +8,7 @@ let project = Project.makeAppModule(
     name: "Splash",
     bundleId: .appBundleID(name: ".Splash"),
     product: .staticFramework,
-    settings: .appBaseSetting(appName: "Splash"),
+    settings: .settings(),
     dependencies: [
         .Shared(implements: .Shareds)
     ],

@@ -66,7 +66,7 @@ desc "Install Profiles and Build My App"
    # output_path: "./fastlane/Signing/")
 
   gym(
- configuration: "Release"
+ configuration: "Release",
      workspace: "BeatMaster.xcworkspace",
      scheme: "BeatMaster",
     silent: true,

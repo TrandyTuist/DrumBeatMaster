@@ -2,7 +2,7 @@
 //  AuthView.swift
 //  Auth
 //
-//  Created by 서원지 on 2/20/24.
+//  Created by 서원지 on 2/25/24.
 //  Copyright © 2024 Wonji suh. All rights reserved.
 //
 
@@ -42,5 +42,6 @@ public struct AuthView: View {
         }
     }
 }
+
 
 
