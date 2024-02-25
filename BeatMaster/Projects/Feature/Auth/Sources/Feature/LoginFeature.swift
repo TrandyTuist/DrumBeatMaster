@@ -1,5 +1,5 @@
 //
-//  AuthFeature.swift
+//  LoginFeature.swift
 //  Auth
 //
 //  Created by 서원지 on 2/25/24.
@@ -8,28 +8,34 @@
 
 import Foundation
 import ComposableArchitecture
-import DesignSystem
 
 @Reducer
-public struct AuthFeature {
+public struct LoginFeature {
     public init() {}
     
     @ObservableState
     public struct State: Equatable {
-        var authMainImage: ImageAsset = .logoIcon
-        var authMainViewTitle: String = "BeatMaster"
+        var title: String = "Login"
+        
         public init() {}
     }
     
     public enum Action: Equatable {
-        
+        case backAction
     }
+    
+    @Dependency(\.dismiss) var dismiss
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-                
+            case .backAction:
+                return .run { _ in 
+                    await self.dismiss()
+                    
+                }
             }
         }
     }
 }
+

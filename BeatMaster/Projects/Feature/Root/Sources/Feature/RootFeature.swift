@@ -26,12 +26,14 @@ public struct RootFeature{
     public enum Action {
         case path(StackAction<Path.State, Path.Action>)
         case presentAuth
+        case presentLogin
         case removePath
     }
     
     @Reducer(state: .equatable)
     public enum Path {
         case auth(AuthFeature)
+        case login(LoginFeature)
     }
     
     //MARK: - 1.8 이하 버전 path 추가
@@ -67,6 +69,10 @@ public struct RootFeature{
                 
             case .presentAuth:
                 state.path.append(.auth(.init()))
+                return .none
+                
+            case .presentLogin:
+                state.path.append(.login(.init()))
                 return .none
                 
             case .removePath:

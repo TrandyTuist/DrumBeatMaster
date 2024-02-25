@@ -39,10 +39,19 @@ public struct RootView: View {
         } destination: { swithStore in
             switch swithStore.case {
             case let .auth(authStore):
-                AuthView(store: authStore) {
+                AuthView(store: authStore, backAction: {
+                    store.send(.removePath)
+                }, loginAction: {
+                    store.send(.presentLogin)
+                })
+                .navigationBarBackButtonHidden()
+                
+            case let .login(loginStore):
+                LoginView(store: loginStore) {
                     store.send(.removePath)
                 }
                 .navigationBarBackButtonHidden()
+                
             }
             
             //MARK: -  1.7 이하
