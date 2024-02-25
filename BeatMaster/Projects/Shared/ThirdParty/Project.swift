@@ -9,8 +9,8 @@ let project = Project.makeAppModule(
     product: .staticFramework,
     settings:  .settings(),
     dependencies: [
-        .SPM.composableArchitecture,
-        .SPM.swinject    
+        .SPM.composableArchitecture
+//        .SPM.supabase
     ],
     sources: ["Sources/**"]
 )
