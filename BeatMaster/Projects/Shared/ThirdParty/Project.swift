@@ -6,14 +6,11 @@ import DependencyPackagePlugin
 let project = Project.makeAppModule(
     name: "ThirdParty",
     bundleId: .appBundleID(name: ".ThirdParty"),
-    product: .framework,
+    product: .staticFramework,
     settings:  .settings(),
     dependencies: [
         .SPM.composableArchitecture,
-        .SPM.swinject
-        
-        
-        
+        .SPM.swinject    
     ],
     sources: ["Sources/**"]
 )

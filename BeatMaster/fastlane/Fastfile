@@ -15,12 +15,12 @@ SCHEME = "BeatMaster"
 
 KEYCHAIN_NAME = ENV["KEYCHAIN_NAME"]
 KEYCHAIN_PASSWORD = ENV["KEYCHAIN_PASSWORD"]
-require 'spaceship'
-Spaceship::ConnectAPI::App.const_set('ESSENTIAL_INCLUDES', 'appStoreVersions')
+#require 'spaceship'
+#Spaceship::ConnectAPI::App.const_set('ESSENTIAL_INCLUDES', 'appStoreVersions')
 ENV["FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT"] = "600"
 
 # Uncomment the line if you want fastlane to automatically update itself
-# update_fastlane
+update_fastlane
 
 default_platform(:ios)
 
@@ -54,33 +54,37 @@ platform :ios do
 desc "Install Profiles and Build My App"
   lane :build_ipa do
     clear_derived_data
-    gym(
-      configuration: "Release",
-      workspace: "#{APP_NAME}.xcworkspace",
-      output_name: "#{APP_NAME}.ipa",
-      scheme: "chaevi",
-      export_method: "app-store",
-     xcodebuild_command: "xcodebuild",
-     # include_bitcode: false,
-     skip_build_archive: false,
-      xcodebuild_formatter: "xcpretty",
-      output_directory: "./fastlane/output/",
-      clean: true,
-      silent: true,
-     # include_symbols: false,
-      xcargs: "ARCHIVE=YES",
-     disable_package_automatic_updates: false,
-      skip_package_ipa: false,
-     skip_package_dependencies_resolution: false,
-      skip_package_pkg: false,
-        export_options: {
-         signingStyle: "automatic",
-          uploadBitcode: false,
-          provisioningProfiles: {
-            "com.Haejoo.BeatMaster" => "BeatMaster"
-             }
+
+     sh"tuist signing decrypt"
+
+   # get_certificates(
+   # filename: "release.cer",
+   # output_path: "./fastlane/Signing/")
+  # get_provisioning_profile(
+   # app_identifier: "com.Haejoo.BeatMaster",
+   # filename: "#{APP_NAME}.Release.mobileprovision",
+   # output_path: "./fastlane/Signing/")
+
+  gym(
+ configuration: "Release"
+     workspace: "BeatMaster.xcworkspace",
+     scheme: "BeatMaster",
+    silent: true,
+   xcargs: "SWIFT_VERSION=5.9",
+   clean: true,
+  output_directory: "./fastlane/output/",
+  output_name: "BeatMaster.ipa",
+ export_method: "app-store",
+#     signingStyle: "manual",
+     export_options: {
+        uploadBitcode: false,
+        provisioningProfiles: {
+       "com.Haejoo.BeatMaster" => "BeatMaster",
+      "com.Haejoo.BeatMaster.Demo" => "BeatMasterDemo"
            }
-       ) 
+        }
+    )
+ 
    end
 
  # ✅ 테스트 플라이트 업로드
@@ -98,10 +102,11 @@ desc "Install Profiles and Build My App"
     output_name: "BeatMaster.ipa",
       export_method: "app-store",
       export_options: {
-       signingStyle: "automatic",
+      #signingStyle: "automatic",
           uploadBitcode: false,
           provisioningProfiles: {
-            "com.Haejoo.BeatMaster" => "BeatMaster"
+            "com.Haejoo.BeatMaster" => "BeatMaster",
+             "com.Haejoo.BeatMaster.Demo" => "BeatMasterDemo"
              }
         }
     )

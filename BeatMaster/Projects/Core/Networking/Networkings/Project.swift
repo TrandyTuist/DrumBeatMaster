@@ -8,7 +8,7 @@ let project = Project.makeAppModule(
     name: "Networkings",
     bundleId: .appBundleID(name: ".Networkings"),
     product: .staticFramework,
-    settings:  .settings(),
+    settings: .appBaseSetting(appName: "Networkings"),
     dependencies: [
         .Networking(implements: .Model),
         .Networking(implements: .Service),

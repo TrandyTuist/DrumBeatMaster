@@ -7,7 +7,7 @@ let project = Project.makeAppModule(
     name: "BPMCounter",
     bundleId: .appBundleID(name: ".BPMCounter"),
     product: .staticFramework,
-    settings:  .settings(),
+    settings: .appBaseSetting(appName: "BPMCounter"),
     dependencies: [
         
     ],

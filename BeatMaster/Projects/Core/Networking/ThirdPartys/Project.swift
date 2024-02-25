@@ -8,7 +8,7 @@ let project = Project.makeAppModule(
     name: "ThirdPartys",
     bundleId: .appBundleID(name: ".ThirdPartys"),
     product: .staticFramework,
-    settings:  .settings(),
+    settings: .appBaseSetting(appName: "ThirdPartys") ,
     dependencies: [
         .SPM.combineMoya,
         .SPM.moya
