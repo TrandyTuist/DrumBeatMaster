@@ -15,6 +15,7 @@ SCHEME = "BeatMaster"
 
 KEYCHAIN_NAME = ENV["KEYCHAIN_NAME"]
 KEYCHAIN_PASSWORD = ENV["KEYCHAIN_PASSWORD"]
+KEYCHAIN_PASSWORD_DB =  ENV["KEYCHAIN_PASSWORD_DB"]
 #require 'spaceship'
 #Spaceship::ConnectAPI::App.const_set('ESSENTIAL_INCLUDES', 'appStoreVersions')
 ENV["FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT"] = "600"
@@ -65,6 +66,11 @@ desc "Install Profiles and Build My App"
    # filename: "#{APP_NAME}.Release.mobileprovision",
    # output_path: "./fastlane/Signing/")
 
+  unlock_keychain(
+    path: "/Users/suhwonji/Library/Keychains/BeatMaster-db",
+    password: "$KEYCHAIN_PASSWORD_DB"
+  )
+  
   gym(
  configuration: "Release",
      workspace: "BeatMaster.xcworkspace",

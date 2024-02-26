@@ -47,7 +47,7 @@ public struct BounceAnimationView: View {
                 }
             }
             .onAppear{
-                DispatchQueue.main.asyncAfter(deadline: .now() + (0.8 + baseTime)) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + (0.4 + baseTime)) {
                     opacity = 1
                     offsetYForBounce = 0
                 }

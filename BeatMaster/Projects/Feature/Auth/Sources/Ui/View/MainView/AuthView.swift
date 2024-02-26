@@ -41,10 +41,10 @@ public struct AuthView: View {
             
             BounceAnimationView(text: store.state.authMainViewTitle, startTime: 0.0, fontSize: 40)
             
-            loginButtonView()
-            
             signUpButtonView()
             
+            loginButtonView()
+               
             Spacer()
         }
     }
@@ -69,16 +69,15 @@ fileprivate extension AuthView {
     @ViewBuilder
     private func loginButtonView() -> some View {
         Spacer()
-            .frame(height: UIScreen.screenHeight*0.2)
-        
-        
+            .frame(height: 8)
+
         LazyVStack {
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.primaryOrange, style: .init(lineWidth: 2))
+                .stroke(Color.basicBlack, style: .init(lineWidth: 2))
                 .frame(height: 56)
                 .overlay {
                     Text("로그인하기")
-                        .foregroundStyle(Color.primaryOrangeText)
+                        .foregroundStyle(Color.basicBlack)
                         .pretendardFont(family: .SemiBold, size: 16)
                     
                 }
@@ -94,11 +93,11 @@ fileprivate extension AuthView {
     @ViewBuilder
     private func signUpButtonView() -> some View {
         Spacer()
-            .frame(height: 8)
+            .frame(height: UIScreen.screenHeight*0.2)
         
         LazyVStack {
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color.primaryOrange)
+                .fill(Color.basicBlack.opacity(0.9))
                 .frame(height: 56)
                 .overlay {
                     Text("회원가입 하기")
