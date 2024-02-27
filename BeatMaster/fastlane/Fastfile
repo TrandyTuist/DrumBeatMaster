@@ -40,13 +40,13 @@ platform :ios do
     )
 
     import_certificate(
-      certificate_path: "Tuist/Signing/release.cer",
+      certificate_path: "./Tuist/Signing/release.cer",
       keychain_name: "#{KEYCHAIN_NAME}",
       keychain_password: "#{KEYCHAIN_PASSWORD}"
     )
 
     import_certificate(
-      certificate_path: "Tuist/Signing/release.p12",
+      certificate_path: "./Tuist/Signing/release.p12",
       keychain_name: "#{KEYCHAIN_NAME}",
       keychain_password: "#{KEYCHAIN_PASSWORD}"
     )
@@ -58,36 +58,28 @@ desc "Install Profiles and Build My App"
 
      sh"tuist signing decrypt"
 
-   # get_certificates(
-   # filename: "release.cer",
-   # output_path: "./fastlane/Signing/")
-  # get_provisioning_profile(
-   # app_identifier: "com.Haejoo.BeatMaster",
-   # filename: "#{APP_NAME}.Release.mobileprovision",
-   # output_path: "./fastlane/Signing/")
+   install_provisioning_profile(path: "Tuist/Signing/#{APP_NAME}.Release.mobileprovision")
 
   unlock_keychain(
     path: "/Users/suhwonji/Library/Keychains/BeatMaster-db",
     password: "$KEYCHAIN_PASSWORD_DB"
   )
   
-  gym(
- configuration: "Release",
-     workspace: "BeatMaster.xcworkspace",
-     scheme: "BeatMaster",
+   build_app(
+      workspace: "#{APP_NAME}.xcworkspace",
+      scheme: "#{SCHEME}",
     silent: true,
-   xcargs: "SWIFT_VERSION=5.9",
-   clean: true,
-  output_directory: "./fastlane/output/",
-  output_name: "BeatMaster.ipa",
- export_method: "app-store",
-#     signingStyle: "manual",
-     export_options: {
-        uploadBitcode: false,
-        provisioningProfiles: {
-       "com.Haejoo.BeatMaster" => "BeatMaster",
-      "com.Haejoo.BeatMaster.Demo" => "BeatMasterDemo"
-           }
+    clean: true,
+    output_directory: "./fastlane/output/",
+    output_name: "BeatMaster.ipa",
+      export_method: "app-store",
+      export_options: {
+      #signingStyle: "automatic",
+          uploadBitcode: false,
+          provisioningProfiles: {
+            "com.Haejoo.BeatMaster" => "BeatMaster",
+             "com.Haejoo.BeatMaster.Demo" => "BeatMasterDemo"
+             }
         }
     )
  
