@@ -41,8 +41,6 @@ public struct RootView: View {
             case let .auth(authStore):
                 AuthView(store: authStore, backAction: {
                     store.send(.removePath)
-                }, loginAction: {
-                    store.send(.presentLogin)
                 })
                 .navigationBarBackButtonHidden()
                 

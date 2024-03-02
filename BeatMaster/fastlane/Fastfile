@@ -58,13 +58,11 @@ desc "Install Profiles and Build My App"
 
      sh"tuist signing decrypt"
 
-   install_provisioning_profile(path: "Tuist/Signing/#{APP_NAME}.Release.mobileprovision")
-
-  unlock_keychain(
-    path: "/Users/suhwonji/Library/Keychains/BeatMaster-db",
-    password: "$KEYCHAIN_PASSWORD_DB"
-  )
-  
+  install_provisioning_profile(path: "./Tuist/Signing/#{APP_NAME}.Release.mobileprovision")
+  #unlock_keychain(
+    #path: "/Users/suhwonji/Library/Keychains/BeatMaster-db",
+   #password: "$KEYCHAIN_PASSWORD_DB"
+ #) 
    build_app(
       workspace: "#{APP_NAME}.xcworkspace",
       scheme: "#{SCHEME}",
@@ -74,11 +72,11 @@ desc "Install Profiles and Build My App"
     output_name: "BeatMaster.ipa",
       export_method: "app-store",
       export_options: {
-      #signingStyle: "automatic",
+      signingStyle: "automatic",
           uploadBitcode: false,
-          provisioningProfiles: {
+            provisioningProfiles: {
             "com.Haejoo.BeatMaster" => "BeatMaster",
-             "com.Haejoo.BeatMaster.Demo" => "BeatMasterDemo"
+           # "com.Haejoo.BeatMaster" => "BeatMasterAppStore"
              }
         }
     )
@@ -100,7 +98,7 @@ desc "Install Profiles and Build My App"
     output_name: "BeatMaster.ipa",
       export_method: "app-store",
       export_options: {
-      #signingStyle: "automatic",
+      signingStyle: "automatic",
           uploadBitcode: false,
           provisioningProfiles: {
             "com.Haejoo.BeatMaster" => "BeatMaster",

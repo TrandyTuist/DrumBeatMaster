@@ -22,13 +22,14 @@ public struct AuthFeature {
     }
     
     public enum Action: Equatable {
-        
+        case presentLogin
     }
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-                
+            case .presentLogin:
+                return .none
             }
         }
     }

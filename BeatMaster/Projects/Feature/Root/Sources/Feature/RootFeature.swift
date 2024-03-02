@@ -26,7 +26,6 @@ public struct RootFeature{
     public enum Action {
         case path(StackAction<Path.State, Path.Action>)
         case presentAuth
-        case presentLogin
         case removePath
     }
     
@@ -64,19 +63,23 @@ public struct RootFeature{
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .path:
-                return .none
+//            case .path:
+//                return .none
                 
             case .presentAuth:
                 state.path.append(.auth(.init()))
                 return .none
                 
-            case .presentLogin:
+            case .path(.element(id:_, action: .auth(.presentLogin))):
                 state.path.append(.login(.init()))
                 return .none
                 
+                
             case .removePath:
                 state.path.removeLast()
+                return .none
+                
+            default:
                 return .none
             }
         }
