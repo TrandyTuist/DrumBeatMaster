@@ -33,6 +33,7 @@ public struct RootFeature{
     public enum Path {
         case auth(AuthFeature)
         case login(LoginFeature)
+        case signUp(SignUpFeature)
     }
     
     //MARK: - 1.8 이하 버전 path 추가
@@ -74,6 +75,9 @@ public struct RootFeature{
                 state.path.append(.login(.init()))
                 return .none
                 
+            case .path(.element(id: _, action: .auth(.presentSignUp))):
+                state.path.append(.signUp(.init()))
+                return .none
                 
             case .removePath:
                 state.path.removeLast()

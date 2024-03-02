@@ -1,36 +1,35 @@
 //
-//  AuthFeature.swift
+//  SignUpFeature.swift
 //  Auth
 //
-//  Created by 서원지 on 2/25/24.
+//  Created by 서원지 on 3/2/24.
 //  Copyright © 2024 Wonji suh. All rights reserved.
 //
 
 import Foundation
 import ComposableArchitecture
-import DesignSystem
 
 @Reducer
-public struct AuthFeature {
+public struct SignUpFeature {
     public init() {}
     
     @ObservableState
     public struct State: Equatable {
-        var authMainImage: ImageAsset = .logoIcon
-        var authMainViewTitle: String = "BeatMaster"
+        var title: String = "SignUp"
         public init() {}
     }
     
     public enum Action: Equatable {
-        case presentLogin
+        case presentSignUp
     }
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .presentLogin:
+            case .presentSignUp:
                 return .none
             }
         }
     }
 }
+

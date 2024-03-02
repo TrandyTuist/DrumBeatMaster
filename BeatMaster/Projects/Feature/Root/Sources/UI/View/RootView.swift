@@ -50,6 +50,11 @@ public struct RootView: View {
                 }
                 .navigationBarBackButtonHidden()
                 
+            case let .signUp(signUpStore):
+                SignUpView(store: signUpStore) {
+                    store.send(.removePath)
+                }
+                .navigationBarBackButtonHidden()
             }
             
             //MARK: -  1.7 이하

@@ -102,6 +102,9 @@ fileprivate extension AuthView {
                         .pretendardFont(family: .SemiBold, size: 16)
                     
                 }
+                .onTapGesture {
+                    store.send(.presentSignUp)
+                }
             
         }
         .padding(.horizontal, 20)
