@@ -8,6 +8,7 @@
 
 import Foundation
 import ComposableArchitecture
+import DesignSystem
 
 @Reducer
 public struct LoginFeature {
@@ -15,7 +16,8 @@ public struct LoginFeature {
     
     @ObservableState
     public struct State: Equatable {
-        var title: String = "Login"
+        var loginMainImage: ImageAsset = .logoIcon
+        var loginMainViewTitle: String = "BeatMaster"
         
         public init() {}
     }
