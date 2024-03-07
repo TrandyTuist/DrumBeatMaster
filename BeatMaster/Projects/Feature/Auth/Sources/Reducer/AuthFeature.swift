@@ -18,12 +18,15 @@ public struct AuthFeature {
     public struct State: Equatable {
         var authMainImage: ImageAsset = .logoIcon
         var authMainViewTitle: String = "BeatMaster"
+        @Presents var loginFeature: LoginFeature.State?
         public init() {}
     }
     
     public enum Action: Equatable {
         case presentLogin
         case presentSignUp
+        case presentBottomSheet(PresentationAction<LoginFeature.Action>)
+        case presntLoginBottomSheet
     }
     
     public var body: some ReducerOf<Self> {
@@ -33,7 +36,17 @@ public struct AuthFeature {
                 return .none
             case .presentSignUp:
                 return .none
+                
+            case .presentBottomSheet:
+                return .none
+            case .presntLoginBottomSheet:
+                state.loginFeature = LoginFeature.State()
+                return .none
             }
         }
+        .ifLet(\.$loginFeature, action: \.presentBottomSheet) {
+            LoginFeature()
+        }
+        
     }
 }

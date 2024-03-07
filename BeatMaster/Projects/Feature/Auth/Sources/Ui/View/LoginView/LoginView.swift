@@ -30,15 +30,6 @@ public struct LoginView: View {
             Spacer()
                 .frame(height: 20)
             
-            NavigationBackButton(buttonAction: backAction)
-            
-            logoImage()
-            
-            Spacer()
-                .frame(height: 20)
-            
-            BounceAnimationView(text: store.state.loginMainViewTitle, startTime: 0.0, fontSize: 40)
-            
             appleLoginButton()
             
             kakoTalkLoginButton()
@@ -51,23 +42,11 @@ public struct LoginView: View {
 
 fileprivate extension LoginView {
     
-    @ViewBuilder
-    private func logoImage() -> some View {
-        LazyVStack {
-            Spacer()
-                .frame(height: UIScreen.screenHeight*0.1)
-            
-            Image(asset: self.store.state.loginMainImage)
-                .resizable()
-                .scaledToFit()
-                .frame(width: UIScreen.screenWidth*0.5, height: 200)
-        }
-    }
     
     @ViewBuilder
     private func appleLoginButton() -> some View {
         Spacer()
-            .frame(height: UIScreen.screenHeight*0.2)
+            .frame(height: UIScreen.screenHeight*0.03)
         
         LazyVStack {
             RoundedRectangle(cornerRadius: 12)
@@ -87,7 +66,7 @@ fileprivate extension LoginView {
     @ViewBuilder
     private func kakoTalkLoginButton() -> some View {
         Spacer()
-            .frame(height: 8)
+            .frame(height: 12)
         
         LazyVStack {
             RoundedRectangle(cornerRadius: 12)

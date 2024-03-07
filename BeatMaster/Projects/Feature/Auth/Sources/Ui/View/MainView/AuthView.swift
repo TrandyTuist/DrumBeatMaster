@@ -44,6 +44,12 @@ public struct AuthView: View {
                
             Spacer()
         }
+        .sheet(item: $store.scope(state: \.loginFeature, action: \.presentBottomSheet)) { loginStore in
+            LoginView(store: loginStore, backAction: {})
+                .presentationDetents([.fraction(0.3)])
+                .presentationCornerRadius(20)
+                .presentationDragIndicator(.visible)
+        }
     }
 }
 
@@ -79,7 +85,7 @@ fileprivate extension AuthView {
                     
                 }
                 .onTapGesture {
-                    store.send(.presentLogin)
+                    store.send(.presntLoginBottomSheet)
                 }
             
         }
