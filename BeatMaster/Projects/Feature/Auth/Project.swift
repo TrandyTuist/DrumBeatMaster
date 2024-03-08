@@ -10,7 +10,9 @@ let project = Project.makeAppModule(
     product: .staticFramework,
     settings: .settings(),
     dependencies: [
-        .Shared(implements: .Shareds)
+        .Shared(implements: .Shareds),
+        .Networking(implements: .Networkings)
+        
     ],
     sources: ["Sources/**"]
 )

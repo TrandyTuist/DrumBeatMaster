@@ -8,6 +8,8 @@
 
 import Foundation
 import Auth
+import Model
+
 import ComposableArchitecture
 
 @Reducer
@@ -19,14 +21,17 @@ public struct RootFeature{
         public init() {}
         
         var title: String = "Root"
+        var isLogin: Bool = false
         var path: StackState<Path.State> = .init()
-        
+        var userModel: IdentifiedArrayOf<Auth> = []
     }
     
     public enum Action {
         case path(StackAction<Path.State, Path.Action>)
         case presentAuth
+        case isLoginPresntAuth
         case removePath
+        case removeAllPath
     }
     
     @Reducer(state: .equatable)
@@ -67,12 +72,21 @@ public struct RootFeature{
 //            case .path:
 //                return .none
                 
+            case .isLoginPresntAuth:
+                if state.userModel.first?.isLogin == true {
+                    state.userModel.append(Auth(isLogin: true, token: "", name: "", email: ""))
+                } else {
+                    state.userModel.append(Auth(isLogin: false, token: "", name: "", email: ""))
+                }
+                
+                return .none
+                
             case .presentAuth:
-                state.path.append(.auth(.init()))
+                state.path.append(.auth(.init(auth: .init(isLogin: false, token: "", name: "", email: ""))))
                 return .none
                 
             case .path(.element(id:_, action: .auth(.presentLogin))):
-                state.path.append(.login(.init()))
+                state.path.append(.login(.init(auth: Auth(isLogin: false, token: "", name: "", email: ""))))
                 return .none
                 
             case .path(.element(id: _, action: .auth(.presentSignUp))):
@@ -81,6 +95,10 @@ public struct RootFeature{
                 
             case .removePath:
                 state.path.removeLast()
+                return .none
+                
+            case .removeAllPath:
+                state.path.removeAll()
                 return .none
                 
             default:

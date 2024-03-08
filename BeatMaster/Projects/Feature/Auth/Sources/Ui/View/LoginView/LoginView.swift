@@ -58,6 +58,9 @@ fileprivate extension LoginView {
                         .pretendardFont(family: .SemiBold, size: 16)
                     
                 }
+                .onTapGesture {
+                    store.send(.isLogin)
+                }
             
         }
         .padding(.horizontal, 20)

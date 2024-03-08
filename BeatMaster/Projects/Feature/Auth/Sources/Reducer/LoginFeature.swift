@@ -9,6 +9,7 @@
 import Foundation
 import ComposableArchitecture
 import DesignSystem
+import Model
 
 @Reducer
 public struct LoginFeature {
@@ -18,12 +19,17 @@ public struct LoginFeature {
     public struct State: Equatable {
         var loginMainImage: ImageAsset = .logoIcon
         var loginMainViewTitle: String = "BeatMaster"
+        var auth: Auth
         
-        public init() {}
+        public init(auth: Auth) {
+            self.auth = auth
+        }
     }
     
     public enum Action: Equatable {
         case backAction
+        case isLogin
+        
     }
     
     @Dependency(\.dismiss) var dismiss
@@ -36,6 +42,11 @@ public struct LoginFeature {
                     await self.dismiss()
                     
                 }
+                
+            case .isLogin:
+                state.auth.isLogin.toggle()
+                print("눌림, \(state.auth)")
+                return .none
             }
         }
     }

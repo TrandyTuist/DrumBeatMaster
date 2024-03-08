@@ -9,6 +9,7 @@
 import Foundation
 import ComposableArchitecture
 import DesignSystem
+import Model
 
 @Reducer
 public struct AuthFeature {
@@ -19,7 +20,14 @@ public struct AuthFeature {
         var authMainImage: ImageAsset = .logoIcon
         var authMainViewTitle: String = "BeatMaster"
         @Presents var loginFeature: LoginFeature.State?
-        public init() {}
+        var auth: Auth
+        
+        public init(
+            auth: Auth
+        ) {
+            self.auth = auth
+        }
+        
     }
     
     public enum Action: Equatable {
@@ -34,13 +42,18 @@ public struct AuthFeature {
             switch action {
             case .presentLogin:
                 return .none
+                
             case .presentSignUp:
                 return .none
                 
             case .presentBottomSheet:
+                state.auth = state.auth
+                state.loginFeature = LoginFeature.State(auth: state.auth)
                 return .none
+                
             case .presntLoginBottomSheet:
-                state.loginFeature = LoginFeature.State()
+                state.auth = state.auth
+                state.loginFeature = LoginFeature.State(auth: state.auth)
                 return .none
             }
         }

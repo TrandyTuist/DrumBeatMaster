@@ -71,7 +71,10 @@ public struct RootView: View {
 //                }
 //            }
         }
-
+        .onAppear{
+            print("로그인: \(store.userModel)")
+            store.send(.isLoginPresntAuth)
+        }
     }
 }
 
