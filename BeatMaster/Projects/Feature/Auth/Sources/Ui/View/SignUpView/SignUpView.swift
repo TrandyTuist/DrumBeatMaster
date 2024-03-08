@@ -15,6 +15,7 @@ import DesignSystem
 
 public struct SignUpView: View {
     @Bindable var store: StoreOf<SignUpFeature>
+    
     var backAction: () -> Void = { }
     
     public init(
@@ -33,13 +34,69 @@ public struct SignUpView: View {
             
             NavigationBackButton(buttonAction: backAction)
             
-            Spacer()
+            policyTitle()
             
-            Text(store.state.title)
-                .pretendardFont(family: .Bold, size: 40)
+            serviceUseAgreeTextView()
             
             Spacer()
             
         }
     }
+}
+
+
+fileprivate extension SignUpView {
+    
+    @ViewBuilder
+    private func policyTitle() -> some View {
+        Spacer()
+            .frame(height: 20)
+        
+        VStack(spacing: .zero) {
+            HStack {
+                Text(store.state.policyTitle)
+                    .pretendardFont(family: .SemiBold, size: 24)
+                    .foregroundColor(Color.lightPurple)
+                
+                Text("에")
+                    .pretendardFont(family: .SemiBold, size: 24)
+                    .foregroundColor(Color.basicBlack)
+                Spacer()
+            }
+            .padding(.horizontal, 20)
+            
+            HStack {
+                Text("동의해주세요")
+                    .pretendardFont(family: .SemiBold, size: 24)
+                    .foregroundColor(Color.basicBlack)
+                Spacer()
+            }
+            .padding(.horizontal, 20)
+        }
+       
+        
+    }
+    
+    @ViewBuilder
+    private func serviceUseAgreeTextView() -> some View {
+        Spacer()
+            .frame(height: 20)
+        
+        AgreeMentListView(
+            checkAgreeButton: $store.isAllAgreed,
+            showleft: false,
+            title: "서비스 이용약관 동의",
+            agreeAllService: false,
+            essential: .essential,
+            safariURL: "",
+            webViewLoading: .constant(false),
+            confirmAction: {
+                store.send(.didTapAgreeAllPolicy)
+            }
+        )
+    }
+    
+    
+    
+    
 }
