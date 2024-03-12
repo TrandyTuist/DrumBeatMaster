@@ -37,6 +37,7 @@ public struct AuthFeature {
         case presentSignUp
         case presentBottomSheet(PresentationAction<LoginFeature.Action>)
         case presntLoginBottomSheet
+        case addLoginBottomSheet
     }
     
     public var body: some ReducerOf<Self> {
@@ -59,16 +60,19 @@ public struct AuthFeature {
                 return .none
                 
             case .presntLoginBottomSheet:
-                var auths = state.loginFeature
-                print("\(state.auth.first?.isLogin)")
-                state.loginFeature = LoginFeature.State(auth: .init(isLogin: auths?.auth?.isLogin ?? false, token: "", name: "", email: ""))
-                guard let auth = state.auth.first  else {
-                    return .none
-                }
-                state.loginFeature?.auth = auth
-                state.loginFeature = nil
-                
+                state.loginFeature = LoginFeature.State(auth: Auth(isLogin: false, token: "", name: "", email: ""))
                 return .none
+                
+            case .addLoginBottomSheet:
+                guard let auth = state.loginFeature?.auth
+                else { return .none}
+                state.auth.append(auth)
+                state.loginFeature = nil
+                return .run { send in
+                    if auth.isLogin == true {
+                        print("로그인 성공")
+                    }
+                }
             }
         }
         .ifLet(\.$loginFeature, action: \.presentBottomSheet) {

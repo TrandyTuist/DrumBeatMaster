@@ -8,8 +8,9 @@
 
 import Foundation
 
-public struct AuthModel: Equatable {
+public struct AuthModel: Equatable, Identifiable {
     public var data: Auth
+    public var id: UUID = UUID()
     
     public init(data: Auth) {
         self.data = data

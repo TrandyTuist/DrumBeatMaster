@@ -38,7 +38,7 @@ public struct AuthView: View {
             
             BounceAnimationView(text: store.state.authMainViewTitle, startTime: 0.0, fontSize: 40)
             
-            Text(self.store.loginFeature?.auth?.isLogin.description ?? "")
+            Text(self.store.auth.first?.isLogin.description ?? "")
             
             signUpButtonView()
             
@@ -51,7 +51,9 @@ public struct AuthView: View {
         }
         
         .sheet(item: $store.scope(state: \.loginFeature, action: \.presentBottomSheet)) { loginStore in
-            LoginView(store: loginStore, backAction: {})
+            LoginView(store: loginStore, backAction: {
+                self.store.send(.addLoginBottomSheet)
+            })
                 .presentationDetents([.fraction(0.3)])
                 .presentationCornerRadius(20)
                 .presentationDragIndicator(.visible)

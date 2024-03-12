@@ -36,6 +36,7 @@ public struct LoginFeature {
     @Dependency(\.dismiss) var dismiss
     
     public var body: some ReducerOf<Self> {
+//        BindingReducer()
         Reduce { state, action in
             switch action {
             case .backAction:
@@ -45,14 +46,16 @@ public struct LoginFeature {
                 }
                 
             case .isLogin:
-                state.auth = state.auth
                 state.auth?.isLogin.toggle()
-                print("눌림, \(state.auth)")
+                state.auth = state.auth
                 return .none
                 
             case .disappear:
                 state.auth = state.auth
                 return .none
+                
+//            case .binding(_):
+//                return .none
             }
         }
         
