@@ -59,7 +59,7 @@ fileprivate extension LoginView {
                     
                 }
                 .onTapGesture {
-                    store.send(.isLogin)
+                    store.send(.isLogin, animation: .default)
                 }
             
         }

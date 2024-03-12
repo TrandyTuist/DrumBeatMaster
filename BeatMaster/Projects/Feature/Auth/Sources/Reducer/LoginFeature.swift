@@ -19,9 +19,9 @@ public struct LoginFeature {
     public struct State: Equatable {
         var loginMainImage: ImageAsset = .logoIcon
         var loginMainViewTitle: String = "BeatMaster"
-        var auth: Auth
+        var auth: Auth?
         
-        public init(auth: Auth) {
+        public init(auth: Auth? = nil) {
             self.auth = auth
         }
     }
@@ -29,6 +29,7 @@ public struct LoginFeature {
     public enum Action: Equatable {
         case backAction
         case isLogin
+        case disappear
         
     }
     
@@ -44,11 +45,17 @@ public struct LoginFeature {
                 }
                 
             case .isLogin:
-                state.auth.isLogin.toggle()
+                state.auth = state.auth
+                state.auth?.isLogin.toggle()
                 print("눌림, \(state.auth)")
+                return .none
+                
+            case .disappear:
+                state.auth = state.auth
                 return .none
             }
         }
+        
     }
 }
 

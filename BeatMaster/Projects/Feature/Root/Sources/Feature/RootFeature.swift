@@ -23,7 +23,6 @@ public struct RootFeature{
         var title: String = "Root"
         var isLogin: Bool = false
         var path: StackState<Path.State> = .init()
-        var userModel: IdentifiedArrayOf<Auth> = []
     }
     
     public enum Action {
@@ -73,20 +72,20 @@ public struct RootFeature{
 //                return .none
                 
             case .isLoginPresntAuth:
-                if state.userModel.first?.isLogin == true {
-                    state.userModel.append(Auth(isLogin: true, token: "", name: "", email: ""))
-                } else {
-                    state.userModel.append(Auth(isLogin: false, token: "", name: "", email: ""))
-                }
+//                if state.userModel.first?.isLogin == true {
+//                    state.userModel.append(Auth(isLogin: true, token: "", name: "", email: ""))
+//                } else {
+//                    state.userModel.append(Auth(isLogin: false, token: "", name: "", email: ""))
+//                }
                 
                 return .none
                 
             case .presentAuth:
-                state.path.append(.auth(.init(auth: .init(isLogin: false, token: "", name: "", email: ""))))
+                state.path.append(.auth(.init()))
                 return .none
                 
             case .path(.element(id:_, action: .auth(.presentLogin))):
-                state.path.append(.login(.init(auth: Auth(isLogin: false, token: "", name: "", email: ""))))
+                state.path.append(.login(.init()))
                 return .none
                 
             case .path(.element(id: _, action: .auth(.presentSignUp))):

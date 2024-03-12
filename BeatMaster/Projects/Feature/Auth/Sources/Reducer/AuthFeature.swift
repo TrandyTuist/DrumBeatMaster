@@ -20,17 +20,19 @@ public struct AuthFeature {
         var authMainImage: ImageAsset = .logoIcon
         var authMainViewTitle: String = "BeatMaster"
         @Presents var loginFeature: LoginFeature.State?
-        var auth: Auth
+        var auth: IdentifiedArrayOf<Auth> = []
+       
         
         public init(
-            auth: Auth
+//            auth: Auth
         ) {
-            self.auth = auth
+//            self.auth = auth
         }
         
     }
     
     public enum Action: Equatable {
+        case appearLogin
         case presentLogin
         case presentSignUp
         case presentBottomSheet(PresentationAction<LoginFeature.Action>)
@@ -45,21 +47,32 @@ public struct AuthFeature {
                 
             case .presentSignUp:
                 return .none
+            
+            case .appearLogin:
+//                var auths = state.loginFeature
+//                auths?.auth =  state.auth.first ?? .init(isLogin: false, token: "", name: "", email: "")
+//                print("\(state.auth.first?.isLogin)")
+//                state.loginFeature = LoginFeature.State(auth: .init(isLogin: auths?.auth.isLogin ?? false, token: "", name: "", email: ""))
+                return .none
                 
             case .presentBottomSheet:
-                state.auth = state.auth
-                state.loginFeature = LoginFeature.State(auth: state.auth)
                 return .none
                 
             case .presntLoginBottomSheet:
-                state.auth = state.auth
-                state.loginFeature = LoginFeature.State(auth: state.auth)
+                var auths = state.loginFeature
+                print("\(state.auth.first?.isLogin)")
+                state.loginFeature = LoginFeature.State(auth: .init(isLogin: auths?.auth?.isLogin ?? false, token: "", name: "", email: ""))
+                guard let auth = state.auth.first  else {
+                    return .none
+                }
+                state.loginFeature?.auth = auth
+                state.loginFeature = nil
+                
                 return .none
             }
         }
         .ifLet(\.$loginFeature, action: \.presentBottomSheet) {
             LoginFeature()
         }
-        
     }
 }
