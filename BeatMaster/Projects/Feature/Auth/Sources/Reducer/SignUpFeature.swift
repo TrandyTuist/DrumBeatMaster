@@ -21,7 +21,9 @@ public struct SignUpFeature {
         var policyTitle: String = "서비스 이용약관"
         
         var isAllAgreed: Bool = false
+        var isTermsofServiceAgreed: Bool = false
         var isServicePolicyAgreed: Bool = false
+        var isMarketingInformationAgreed: Bool = false
         var isPrivacyPolicyAgreed: Bool = false
         var isConfirmButtonActivated: Bool = false
         
@@ -40,7 +42,7 @@ public struct SignUpFeature {
     }
     
     public var body: some ReducerOf<Self> {
-//        BindingReducer()
+        BindingReducer()
         
         Reduce { state, action in
             switch action {
@@ -53,8 +55,9 @@ public struct SignUpFeature {
             case .didTapAgreeAllPolicy:
                 state.isAllAgreed.toggle()
                 
+                state.isTermsofServiceAgreed = state.isAllAgreed
                 state.isServicePolicyAgreed = state.isAllAgreed
-                state.isPrivacyPolicyAgreed = state.isAllAgreed
+                state.isMarketingInformationAgreed = state.isAllAgreed
                 state.isConfirmButtonActivated = state.isAllAgreed
                 return .none
                 

@@ -52,13 +52,16 @@ public struct AgreeMentListView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 20, height: 20)
-                            .foregroundColor(checkAgreeButton ? .primaryOrange : .basicGray5)
+                            .foregroundColor(checkAgreeButton ? .lightPurple : .basicGray5)
+                            .onTapGesture {
+                                confirmAction()
+                            }
                     } else {
                         Image(systemName: checkAgreeButton ? "checkmark.circle.fill" : "checkmark.circle")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 20, height: 20)
-                            .foregroundColor(checkAgreeButton ? .primaryOrange : .basicGray5)
+                            .foregroundColor(checkAgreeButton ? .lightPurple : .basicGray5)
                             .onTapGesture {
                                 checkAgreeButton.toggle()
 //                                confirmAction()
@@ -72,7 +75,7 @@ public struct AgreeMentListView: View {
                     if !agreeAllService {
                         Text(essential.rawValue)
                             .font(.system(size: 16))
-                            .foregroundColor(essential == .essential ? .primaryOrange : .basicGray5)
+                            .foregroundColor(essential == .essential ? .lightPurple : .basicGray5)
                     }
                     
                     
@@ -97,14 +100,25 @@ public struct AgreeMentListView: View {
                     
                 }
             }
+            .onTapGesture {
+                if !agreeAllService {
+                    checkAgreeButton.toggle()
+                } else {
+                    confirmAction()
+                }
+            }
             .padding(.vertical, 5)
             .padding(.horizontal, 20)
-            .onTapGesture {
-                confirmAction()
-            }
         }
         .frame(height: agreeAllService ? 56 : 35)
         .padding(.horizontal, 20)
+        .onTapGesture {
+            if !agreeAllService {
+                    checkAgreeButton.toggle()
+            } else {
+                confirmAction()
+            }
+        }
     }
 }
 

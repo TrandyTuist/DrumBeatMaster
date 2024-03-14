@@ -25,7 +25,7 @@ public struct RootFeature{
         var path: StackState<Path.State> = .init()
     }
     
-    public enum Action {
+    public enum Action{
         case path(StackAction<Path.State, Path.Action>)
         case presentAuth
         case isLoginPresntAuth
@@ -62,7 +62,6 @@ public struct RootFeature{
 //            }
 //        }
 //    }
-    
     
     
     public var body: some ReducerOf<Self> {
