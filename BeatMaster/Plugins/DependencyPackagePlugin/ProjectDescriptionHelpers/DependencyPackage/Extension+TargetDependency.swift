@@ -17,5 +17,6 @@ public extension TargetDependency.SPM {
     static let composableArchitecture = TargetDependency.external(name: "ComposableArchitecture", condition: .none)
     static let swinject = TargetDependency.external(name: "Swinject", condition: .none)
     static let supabase = TargetDependency.external(name: "Supabase", condition: .none)
+    static let sdwebImage = TargetDependency.external(name: "SDWebImageSwiftUI", condition: .none)
 }
 

@@ -8,7 +8,9 @@
 
 import Foundation
 import Auth
+import DesignSystem
 import Model
+
 
 import ComposableArchitecture
 
@@ -22,11 +24,14 @@ public struct RootFeature{
         
         var title: String = "Root"
         var isLogin: Bool = false
+        var webLoading: Bool = false
         var path: StackState<Path.State> = .init()
     }
     
-    public enum Action{
+    public enum Action: BindableAction{
         case path(StackAction<Path.State, Path.Action>)
+        
+        case binding(BindingAction<State>)
         case presentAuth
         case isLoginPresntAuth
         case removePath
@@ -38,6 +43,7 @@ public struct RootFeature{
         case auth(AuthFeature)
         case login(LoginFeature)
         case signUp(SignUpFeature)
+        case web(WebFeature)
     }
     
     //MARK: - 1.8 이하 버전 path 추가
@@ -65,6 +71,7 @@ public struct RootFeature{
     
     
     public var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
 //            case .path:
@@ -91,12 +98,19 @@ public struct RootFeature{
                 state.path.append(.signUp(.init()))
                 return .none
                 
+            case .path(.element(id: _, action: .signUp(.presentWeb))):
+                state.path.append(.web(.init(url: "")))
+                return .none
+                
             case .removePath:
                 state.path.removeLast()
                 return .none
                 
             case .removeAllPath:
                 state.path.removeAll()
+                return .none
+                
+            case  .binding(_):
                 return .none
                 
             default:

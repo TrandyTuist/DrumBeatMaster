@@ -93,7 +93,7 @@ fileprivate extension SignUpView {
                 webViewLoading: .constant(false),
                 confirmAction: {
                     store.send(.didTapAgreeAllPolicy)
-                }
+                }, gotoWebView: {}
             )
             
             Spacer()
@@ -108,6 +108,8 @@ fileprivate extension SignUpView {
                 safariURL: "",
                 webViewLoading: .constant(false),
                 confirmAction: {
+                }, gotoWebView: {
+                    self.store.send(.presentWeb)
                 }
             )
             
@@ -124,6 +126,8 @@ fileprivate extension SignUpView {
                 webViewLoading: .constant(false),
                 confirmAction: {
 //                    store.send(.didTapAgreeAllPolicy)
+                }, gotoWebView: {
+                    self.store.send(.presentWeb)
                 }
             )
             
@@ -139,6 +143,8 @@ fileprivate extension SignUpView {
                 safariURL: "",
                 webViewLoading: .constant(false),
                 confirmAction: {
+                }, gotoWebView: {
+                    self.store.send(.presentWeb)
                 }
             )
             

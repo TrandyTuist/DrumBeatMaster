@@ -20,6 +20,7 @@ public struct SignUpFeature {
         var title: String = "SignUp"
         var policyTitle: String = "서비스 이용약관"
         
+        var webLoading: Bool = false
         var isAllAgreed: Bool = false
         var isTermsofServiceAgreed: Bool = false
         var isServicePolicyAgreed: Bool = false
@@ -31,6 +32,7 @@ public struct SignUpFeature {
     
     public enum Action: Equatable, BindableAction {
         case presentSignUp
+        case presentWeb
         case binding(BindingAction<State>)
         case didTapAgreeAllPolicy
         case didTapAgreeServicePolicy
@@ -47,6 +49,9 @@ public struct SignUpFeature {
         Reduce { state, action in
             switch action {
             case .presentSignUp:
+                return .none
+               
+            case .presentWeb:
                 return .none
                 
             case .binding(_):

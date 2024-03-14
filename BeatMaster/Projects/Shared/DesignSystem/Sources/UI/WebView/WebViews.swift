@@ -8,32 +8,40 @@
 
 import Foundation
 import SwiftUI
-//import SDWebImageSwiftUI
+
+import SDWebImageSwiftUI
+import ComposableArchitecture
 
 public struct WebViews: View {
+    @Bindable var store: StoreOf<WebFeature>
+    
     var url: String
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @Binding var loading: Bool
     
-    public init(url: String, loading: Binding<Bool>) {
-        self.url = url
-        self._loading = loading
-    }
+    public init(
+        url: String,
+        store: StoreOf<WebFeature>,
+        loading: Binding<Bool>) {
+            self.url = url
+            self.store = store
+            self._loading = loading
+        }
     
     public var body: some View {
         VStack {
             if loading {
-               
-                Spacer()
-                
-//                AnimatedImage(name: "bakeLoading.gif", isAnimating: .constant(true))
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: 200, height: 200)
                 
                 Spacer()
-                    
+                
+                AnimatedImage(name: "loading.gif", isAnimating: .constant(true))
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                
+                Spacer()
+                
             } else {
                 WebView(urlToLoad: url)
             }
@@ -54,18 +62,18 @@ public struct WebViews: View {
         }
         
     }
-
+    
     //MARK: - 뒤로 가기 버튼
     @ViewBuilder
     private func customBackButton() -> some View {
         Button {
-            self.presentationMode.wrappedValue.dismiss()
+            self.store.send(.didTapBackButton)
         } label: {
             Image(systemName: "chevron.left")
                 .frame(width: 30, height: 30)
                 .foregroundColor(.black)
         }
-
+        
     }
 }
 

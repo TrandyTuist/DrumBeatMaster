@@ -17,6 +17,7 @@ public struct AgreeMentListView: View {
     var title: String
     var agreeAllService: Bool
     var essential: TermsEssential
+    var gotoWebView: () -> Void =  { }
     var confirmAction: () -> Void  = { }
     let safariURL: String
     
@@ -28,7 +29,8 @@ public struct AgreeMentListView: View {
         essential: TermsEssential,
         safariURL: String,
         webViewLoading: Binding<Bool>,
-        confirmAction: @escaping () -> Void
+        confirmAction: @escaping () -> Void,
+        gotoWebView: @escaping ()  -> Void
     ) {
         self._checkAgreeButton = checkAgreeButton
         self.showleft = showleft
@@ -38,6 +40,7 @@ public struct AgreeMentListView: View {
         self.safariURL = safariURL
         self._webViewLoading = webViewLoading
         self.confirmAction = confirmAction
+        self.gotoWebView = gotoWebView
     }
     
     
@@ -82,9 +85,8 @@ public struct AgreeMentListView: View {
                     Spacer()
                     
                     if showleft {
-                        NavigationLink {
-                            WebViews(url: safariURL, loading: $webViewLoading)
-                            
+                        Button {
+                            gotoWebView()
                         } label: {
                             Image(systemName: "chevron.right")
                                 .resizable()
