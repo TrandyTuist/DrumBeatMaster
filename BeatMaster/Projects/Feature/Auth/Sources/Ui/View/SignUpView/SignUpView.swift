@@ -38,6 +38,8 @@ public struct SignUpView: View {
             
             serviceUseAgreeTextView()
             
+            activeServiceButton()
+            
             Spacer()
             
         }
@@ -149,5 +151,29 @@ fileprivate extension SignUpView {
             )
             
         }
+    }
+    
+    @ViewBuilder
+    private func activeServiceButton() -> some View {
+        Spacer()
+            .frame(height: UIScreen.screenHeight*0.4)
+        
+        VStack {
+            RoundedRectangle(cornerRadius: 12)
+                .fill(self.store.isConfirmButtonActivated ? Color.lightPurple : Color.gray)
+                .frame(height: 56)
+                .overlay {
+                    Text("다음")
+                        .foregroundStyle(Color.basicWhite)
+                        .pretendardFont(family: .SemiBold, size: 16)
+                    
+                }
+                .onTapGesture {
+                    
+                }
+                .disabled(!self.store.isConfirmButtonActivated)
+        }
+        .padding(.horizontal, 20)
+        
     }
 }
