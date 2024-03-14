@@ -27,7 +27,7 @@ public struct AuthFeature {
         var authMainViewTitle: String = "BeatMaster"
         @Presents var loginFeature: LoginFeature.State?
         var auth: IdentifiedArrayOf<Auth> = []
-        var path: StackState<Path.State> = .init()
+        var path: StackState<AuthFeature.Path.State> = .init()
         var webLoading: Bool = false
         
         
@@ -63,6 +63,7 @@ public struct AuthFeature {
                 return .none
             
             case .appearLogin:
+                state.path.removeAll()
 //                var auths = state.loginFeature
 //                auths?.auth =  state.auth.first ?? .init(isLogin: false, token: "", name: "", email: "")
 //                print("\(state.auth.first?.isLogin)")
@@ -100,9 +101,10 @@ public struct AuthFeature {
             }
             
         }
+        .forEach(\.path, action: \.path)
+        
         .ifLet(\.$loginFeature, action: \.presentBottomSheet) {
             LoginFeature()
         }
-        .forEach(\.path, action: \.path)
     }
 }
