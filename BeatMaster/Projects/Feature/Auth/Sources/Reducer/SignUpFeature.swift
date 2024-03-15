@@ -32,7 +32,9 @@ public struct SignUpFeature {
     
     public enum Action: Equatable, BindableAction {
         case presentSignUp
-        case presentWeb
+        case presentWebTermsofServiceAgreed
+        case presentMarketingInformationAgreed
+        case presentPolicyAgreedWeb
         case binding(BindingAction<State>)
         case didTapAgreeAllPolicy
         case didTapAgreeServicePolicy
@@ -51,7 +53,13 @@ public struct SignUpFeature {
             case .presentSignUp:
                 return .none
                
-            case .presentWeb:
+            case .presentWebTermsofServiceAgreed:
+                return .none
+                
+            case .presentMarketingInformationAgreed:
+                return .none
+                
+            case .presentPolicyAgreedWeb:
                 return .none
                 
             case .binding(_):

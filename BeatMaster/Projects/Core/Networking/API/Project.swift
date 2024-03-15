@@ -5,13 +5,12 @@ import DependencyPlugin
 
 
 let project = Project.makeAppModule(
-    name: "Service",
-    bundleId: .appBundleID(name: "Service"),
+    name: "API",
+    bundleId: .appBundleID(name: ".API"),
     product: .staticFramework,
-    settings: .appBaseSetting(appName: "Service"),
+    settings:  .settings(),
     dependencies: [
-        .Networking(implements: .ThirdPartys),
-        .Networking(implements: .API)
+        
     ],
     sources: ["Sources/**"]
 )

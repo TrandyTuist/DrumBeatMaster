@@ -57,8 +57,11 @@ public struct RootView: View {
                 .navigationBarBackButtonHidden()
                 
             case let .web(webStore):
-                WebViews(url: "", store: webStore, loading: $store.webLoading)
-                    .navigationBarBackButtonHidden()
+                WebViews(
+                    store: webStore,
+                    loading: $store.webLoading
+                )
+                .navigationBarBackButtonHidden()
             }
             
             //MARK: -  1.7 이하

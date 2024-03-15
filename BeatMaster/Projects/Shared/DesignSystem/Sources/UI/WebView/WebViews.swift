@@ -15,16 +15,13 @@ import ComposableArchitecture
 public struct WebViews: View {
     @Bindable var store: StoreOf<WebFeature>
     
-    var url: String
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @Binding var loading: Bool
     
     public init(
-        url: String,
         store: StoreOf<WebFeature>,
         loading: Binding<Bool>) {
-            self.url = url
             self.store = store
             self._loading = loading
         }
@@ -43,7 +40,7 @@ public struct WebViews: View {
                 Spacer()
                 
             } else {
-                WebView(urlToLoad: url)
+                WebView(urlToLoad: store.url)
             }
         }
         .navigationBarBackButtonHidden(true)

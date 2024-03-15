@@ -18,8 +18,7 @@ public struct AgreeMentListView: View {
     var agreeAllService: Bool
     var essential: TermsEssential
     var gotoWebView: () -> Void =  { }
-    var confirmAction: () -> Void  = { }
-    let safariURL: String
+    var allServiceAction: () -> Void  = { }
     
     public init(
         checkAgreeButton: Binding<Bool>,
@@ -27,9 +26,8 @@ public struct AgreeMentListView: View {
         title: String,
         agreeAllService: Bool,
         essential: TermsEssential,
-        safariURL: String,
         webViewLoading: Binding<Bool>,
-        confirmAction: @escaping () -> Void,
+        allServiceAction: @escaping () -> Void,
         gotoWebView: @escaping ()  -> Void
     ) {
         self._checkAgreeButton = checkAgreeButton
@@ -37,9 +35,8 @@ public struct AgreeMentListView: View {
         self.title = title
         self.agreeAllService = agreeAllService
         self.essential = essential
-        self.safariURL = safariURL
         self._webViewLoading = webViewLoading
-        self.confirmAction = confirmAction
+        self.allServiceAction = allServiceAction
         self.gotoWebView = gotoWebView
     }
     
@@ -57,7 +54,7 @@ public struct AgreeMentListView: View {
                             .frame(width: 20, height: 20)
                             .foregroundColor(checkAgreeButton ? .lightPurple : .basicGray5)
                             .onTapGesture {
-                                confirmAction()
+                                allServiceAction()
                             }
                     } else {
                         Image(systemName: checkAgreeButton ? "checkmark.circle.fill" : "checkmark.circle")
@@ -67,7 +64,6 @@ public struct AgreeMentListView: View {
                             .foregroundColor(checkAgreeButton ? .lightPurple : .basicGray5)
                             .onTapGesture {
                                 checkAgreeButton.toggle()
-//                                confirmAction()
                             }
                     }
                     
@@ -106,7 +102,7 @@ public struct AgreeMentListView: View {
                 if !agreeAllService {
                     checkAgreeButton.toggle()
                 } else {
-                    confirmAction()
+                    allServiceAction()
                 }
             }
             .padding(.vertical, 5)
@@ -116,9 +112,9 @@ public struct AgreeMentListView: View {
         .padding(.horizontal, 20)
         .onTapGesture {
             if !agreeAllService {
-                    checkAgreeButton.toggle()
+                checkAgreeButton.toggle()
             } else {
-                confirmAction()
+                allServiceAction()
             }
         }
     }

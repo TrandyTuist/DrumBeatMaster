@@ -85,18 +85,20 @@ fileprivate extension SignUpView {
             Spacer()
                 .frame(height: 40)
             
+
             AgreeMentListView(
                 checkAgreeButton: $store.isAllAgreed,
                 showleft: false,
                 title: "전체 약관에 동의합니다",
                 agreeAllService: true,
                 essential: .essential,
-                safariURL: "",
                 webViewLoading: .constant(false),
-                confirmAction: {
+                allServiceAction: {
                     store.send(.didTapAgreeAllPolicy)
-                }, gotoWebView: {}
+                },
+                gotoWebView: {}
             )
+            
             
             Spacer()
                 .frame(height: 20)
@@ -107,11 +109,10 @@ fileprivate extension SignUpView {
                 title: "서비스 이용약관 동의",
                 agreeAllService: false,
                 essential: .essential,
-                safariURL: "",
-                webViewLoading: .constant(false),
-                confirmAction: {
-                }, gotoWebView: {
-                    self.store.send(.presentWeb)
+                webViewLoading: .constant(false), 
+                allServiceAction: { } ,
+                gotoWebView: {
+                    self.store.send(.presentWebTermsofServiceAgreed)
                 }
             )
             
@@ -124,12 +125,10 @@ fileprivate extension SignUpView {
                 title: "개인정보 수집 및 이용동의",
                 agreeAllService: false,
                 essential: .essential,
-                safariURL: "",
                 webViewLoading: .constant(false),
-                confirmAction: {
-//                    store.send(.didTapAgreeAllPolicy)
-                }, gotoWebView: {
-                    self.store.send(.presentWeb)
+                allServiceAction: { },
+                gotoWebView: {
+                    self.store.send(.presentPolicyAgreedWeb)
                 }
             )
             
@@ -138,15 +137,14 @@ fileprivate extension SignUpView {
             
             AgreeMentListView(
                 checkAgreeButton: $store.isMarketingInformationAgreed,
-                showleft: false,
+                showleft: true,
                 title: "마켓팅 정보  수신 동의",
                 agreeAllService: false,
                 essential: .choice,
-                safariURL: "",
                 webViewLoading: .constant(false),
-                confirmAction: {
-                }, gotoWebView: {
-                    self.store.send(.presentWeb)
+                allServiceAction: {},
+                gotoWebView: {
+                    self.store.send(.presentMarketingInformationAgreed)
                 }
             )
             

@@ -9,6 +9,7 @@
 import Foundation
 import Auth
 import DesignSystem
+import API
 import Model
 
 
@@ -98,8 +99,16 @@ public struct RootFeature{
                 state.path.append(.signUp(.init()))
                 return .none
                 
-            case .path(.element(id: _, action: .signUp(.presentWeb))):
-                state.path.append(.web(.init(url: "")))
+            case .path(.element(id: _, action: .signUp(.presentPolicyAgreedWeb))):
+                state.path.append(.web(.init(url: APIManger.shared.privacyPolicyURL)))
+                return .none
+                
+            case .path(.element(id: _, action: .signUp(.presentWebTermsofServiceAgreed))):
+                state.path.append(.web(.init(url: APIManger.shared.serviceAgreeMentURL)))
+                return .none
+                
+            case .path(.element(id: _, action: .signUp(.presentMarketingInformationAgreed))):
+                state.path.append(.web(.init(url: APIManger.shared.marketAgreeMentURL)))
                 return .none
                 
             case .removePath:

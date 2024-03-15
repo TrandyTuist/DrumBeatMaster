@@ -30,18 +30,15 @@ public struct WebView: UIViewRepresentable {
         webView.scrollView.showsVerticalScrollIndicator = false
         webView.scrollView.minimumZoomScale = 1.0
         webView.scrollView.maximumZoomScale = 1.0
+        webView.allowsLinkPreview = true
 //        webView.scrollView.setZoomScale(0.3, animated: false)
         //웹뷰를 로드한다
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             let request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy)
             let configuration = webView.configuration
-            if let cookie = HTTPCookie(properties: [.domain: url.host!,
-                                                    .path: "/",
-                                                    .name: "CookieName",
-                                                    .value: "CookieValue"]) {
-                configuration.websiteDataStore.httpCookieStore.setCookie(cookie)
-            }
+            
             // Set power-saving preferences
+            webView.configuration.upgradeKnownHostsToHTTPS = true
             configuration.preferences.minimumFontSize = 16
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 webView.load(request)

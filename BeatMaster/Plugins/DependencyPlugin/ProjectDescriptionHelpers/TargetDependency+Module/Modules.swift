@@ -52,7 +52,7 @@ public extension ModulePath {
 //MARK: -  CoreDomainModule
 public extension ModulePath {
     enum Networkings: String, CaseIterable {
-        case Networking
+        case API
         case Networkings
         case Model
         case Service
