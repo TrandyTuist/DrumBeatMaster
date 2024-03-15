@@ -19,6 +19,7 @@ public struct AgreeMentListView: View {
     var essential: TermsEssential
     var gotoWebView: () -> Void =  { }
     var allServiceAction: () -> Void  = { }
+    var serviceAction: () -> Void  = { }
     
     public init(
         checkAgreeButton: Binding<Bool>,
@@ -28,6 +29,7 @@ public struct AgreeMentListView: View {
         essential: TermsEssential,
         webViewLoading: Binding<Bool>,
         allServiceAction: @escaping () -> Void,
+        serviceAction: @escaping () -> Void,
         gotoWebView: @escaping ()  -> Void
     ) {
         self._checkAgreeButton = checkAgreeButton
@@ -37,6 +39,7 @@ public struct AgreeMentListView: View {
         self.essential = essential
         self._webViewLoading = webViewLoading
         self.allServiceAction = allServiceAction
+        self.serviceAction = serviceAction
         self.gotoWebView = gotoWebView
     }
     
@@ -101,6 +104,7 @@ public struct AgreeMentListView: View {
             .onTapGesture {
                 if !agreeAllService {
                     checkAgreeButton.toggle()
+                    serviceAction()
                 } else {
                     allServiceAction()
                 }
@@ -113,6 +117,7 @@ public struct AgreeMentListView: View {
         .onTapGesture {
             if !agreeAllService {
                 checkAgreeButton.toggle()
+                serviceAction()
             } else {
                 allServiceAction()
             }

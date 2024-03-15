@@ -39,9 +39,9 @@ public struct SignUpFeature {
         case didTapAgreeAllPolicy
         case didTapAgreeServicePolicy
         case didTapAgreePrivacyPolicy
+        case didTapAgreeMarketingInformation
         
-        case didTapServicePolicyDetail
-        case didTapPrivacyPolicyDetail
+        
         
     }
     
@@ -67,7 +67,6 @@ public struct SignUpFeature {
                 
             case .didTapAgreeAllPolicy:
                 state.isAllAgreed.toggle()
-                
                 state.isTermsofServiceAgreed = state.isAllAgreed
                 state.isServicePolicyAgreed = state.isAllAgreed
                 state.isMarketingInformationAgreed = state.isAllAgreed
@@ -75,22 +74,23 @@ public struct SignUpFeature {
                 return .none
                 
             case .didTapAgreePrivacyPolicy:
-                state.isPrivacyPolicyAgreed.toggle()
-                state.isAllAgreed = state.isPrivacyPolicyAgreed && state.isServicePolicyAgreed
+                state.isTermsofServiceAgreed.toggle()
+                state.isAllAgreed = state.isTermsofServiceAgreed && state.isServicePolicyAgreed
                 state.isConfirmButtonActivated = state.isAllAgreed
                 return .none
                 
             case .didTapAgreeServicePolicy:
                 state.isServicePolicyAgreed.toggle()
-                state.isAllAgreed = state.isPrivacyPolicyAgreed && state.isServicePolicyAgreed
+                state.isAllAgreed = state.isTermsofServiceAgreed && state.isServicePolicyAgreed
                 state.isConfirmButtonActivated = state.isAllAgreed
                 return .none
                 
-            case .didTapServicePolicyDetail:
+            case .didTapAgreeMarketingInformation:
+                state.isMarketingInformationAgreed.toggle()
+                state.isAllAgreed = state.isTermsofServiceAgreed && state.isServicePolicyAgreed 
+                state.isConfirmButtonActivated = state.isAllAgreed
                 return .none
                 
-            case .didTapPrivacyPolicyDetail:
-                return .none
             }
         }
     }

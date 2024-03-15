@@ -96,6 +96,7 @@ fileprivate extension SignUpView {
                 allServiceAction: {
                     store.send(.didTapAgreeAllPolicy)
                 },
+                serviceAction: {},
                 gotoWebView: {}
             )
             
@@ -111,6 +112,9 @@ fileprivate extension SignUpView {
                 essential: .essential,
                 webViewLoading: .constant(false), 
                 allServiceAction: { } ,
+                serviceAction: {
+                    store.send(.didTapAgreeServicePolicy)
+                },
                 gotoWebView: {
                     self.store.send(.presentWebTermsofServiceAgreed)
                 }
@@ -127,6 +131,9 @@ fileprivate extension SignUpView {
                 essential: .essential,
                 webViewLoading: .constant(false),
                 allServiceAction: { },
+                serviceAction: {
+                    store.send(.didTapAgreePrivacyPolicy)
+                },
                 gotoWebView: {
                     self.store.send(.presentPolicyAgreedWeb)
                 }
@@ -143,6 +150,9 @@ fileprivate extension SignUpView {
                 essential: .choice,
                 webViewLoading: .constant(false),
                 allServiceAction: {},
+                serviceAction: {
+//                    store.send(.didTapAgreeMarketingInformation)
+                },
                 gotoWebView: {
                     self.store.send(.presentMarketingInformationAgreed)
                 }
