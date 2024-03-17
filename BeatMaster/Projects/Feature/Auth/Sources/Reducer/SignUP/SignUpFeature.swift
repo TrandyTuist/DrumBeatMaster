@@ -8,6 +8,7 @@
 
 import Foundation
 import ComposableArchitecture
+import Model
 
 @Reducer
 public struct SignUpFeature {
@@ -15,7 +16,7 @@ public struct SignUpFeature {
     
     @ObservableState
     public struct State: Equatable {
-        public init() {}
+       
         
         var title: String = "SignUp"
         var policyTitle: String = "서비스 이용약관"
@@ -28,6 +29,14 @@ public struct SignUpFeature {
         var isPrivacyPolicyAgreed: Bool = false
         var isConfirmButtonActivated: Bool = false
         
+        @Presents var selectSocial: SelectSocialFeature.State?
+        
+        var auth: Auth?
+        
+        public init(auth: Auth? = nil) {
+            self.auth = auth
+        }
+        
     }
     
     public enum Action: Equatable, BindableAction {
@@ -35,13 +44,16 @@ public struct SignUpFeature {
         case presentWebTermsofServiceAgreed
         case presentMarketingInformationAgreed
         case presentPolicyAgreedWeb
+        case presentAuthInformation
+        
         case binding(BindingAction<State>)
         case didTapAgreeAllPolicy
         case didTapAgreeServicePolicy
         case didTapAgreePrivacyPolicy
         case didTapAgreeMarketingInformation
         
-        
+        case selectSocial(PresentationAction<SelectSocialFeature.Action>)
+        case selectSocialBottomSheet
         
     }
     
@@ -60,6 +72,15 @@ public struct SignUpFeature {
                 return .none
                 
             case .presentPolicyAgreedWeb:
+                return .none
+                
+            case .presentAuthInformation:
+                state.selectSocial = nil
+                guard let auth = state.selectSocial?.auth
+                else { return .none }
+                state.auth = auth
+                state.selectSocial = SelectSocialFeature.State(auth: auth)
+                print(auth)
                 return .none
                 
             case .binding(_):
@@ -91,7 +112,17 @@ public struct SignUpFeature {
                 state.isConfirmButtonActivated = state.isAllAgreed
                 return .none
                 
+                
+            case .selectSocial:
+                return .none
+                
+            case .selectSocialBottomSheet:
+                state.selectSocial = SelectSocialFeature.State(auth: state.selectSocial?.auth)
+                return .none
             }
+        }
+        .ifLet(\.$selectSocial, action: \.selectSocial){
+            SelectSocialFeature()
         }
     }
 }

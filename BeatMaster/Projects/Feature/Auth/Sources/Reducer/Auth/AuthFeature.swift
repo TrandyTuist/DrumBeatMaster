@@ -80,7 +80,7 @@ public struct AuthFeature {
                 return .none
                 
             case .presntLoginBottomSheet:
-                state.loginFeature = LoginFeature.State(auth: Auth(isLogin: false, token: "", name: "", email: ""))
+                state.loginFeature = LoginFeature.State(auth: Auth(isLogin: false, token: "", socialType: .apple, name: "", email: ""))
                 return .none
                 
             case .addLoginBottomSheet:

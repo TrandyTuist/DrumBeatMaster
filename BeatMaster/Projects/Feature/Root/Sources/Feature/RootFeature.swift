@@ -42,6 +42,7 @@ public struct RootFeature{
     @Reducer(state: .equatable)
     public enum Path {
         case auth(AuthFeature)
+        case authInformation(AuthInfromationFeature)
         case login(LoginFeature)
         case signUp(SignUpFeature)
         case web(WebFeature)
@@ -79,13 +80,13 @@ public struct RootFeature{
 //                return .none
                 
             case .isLoginPresntAuth:
+                return .none
 //                if state.userModel.first?.isLogin == true {
 //                    state.userModel.append(Auth(isLogin: true, token: "", name: "", email: ""))
 //                } else {
 //                    state.userModel.append(Auth(isLogin: false, token: "", name: "", email: ""))
 //                }
                 
-                return .none
                 
             case .presentAuth:
                 state.path.append(.auth(.init()))
@@ -94,6 +95,10 @@ public struct RootFeature{
             case .path(.element(id:_, action: .auth(.presentLogin))):
                 state.path.append(.login(.init()))
                 return .none
+                
+//            case .path(.element(id:_, action: .auth(.presentAuthInformation))):
+//                state.path.append(.authInformation(.init()))
+//                return .none
                 
             case .path(.element(id: _, action: .auth(.presentSignUp))):
                 state.path.append(.signUp(.init()))
@@ -109,6 +114,10 @@ public struct RootFeature{
                 
             case .path(.element(id: _, action: .signUp(.presentMarketingInformationAgreed))):
                 state.path.append(.web(.init(url: APIManger.shared.marketAgreeMentURL)))
+                return .none
+                
+            case .path(.element(id: _, action: .signUp(.presentAuthInformation))):
+                state.path.append(.authInformation(.init()))
                 return .none
                 
             case .removePath:

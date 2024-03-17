@@ -43,6 +43,16 @@ public struct SignUpView: View {
             Spacer()
             
         }
+        .sheet(item: $store.scope(state: \.selectSocial, action: \.selectSocial)) { selectSocialStore in
+            
+            SelectSocialTypeView(store: selectSocialStore, selectLoginAction: {
+                store.send(.presentAuthInformation)
+            })
+                .presentationDetents([.fraction(0.3)])
+                .presentationCornerRadius(20)
+                .presentationDragIndicator(.visible)
+            
+        }
     }
 }
 
@@ -177,7 +187,7 @@ fileprivate extension SignUpView {
                     
                 }
                 .onTapGesture {
-                    
+                    self.store.send(.selectSocialBottomSheet)
                 }
                 .disabled(!self.store.isConfirmButtonActivated)
         }
