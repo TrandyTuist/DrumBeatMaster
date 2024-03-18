@@ -25,24 +25,29 @@ public struct AuthFeature {
         
         var authMainImage: ImageAsset = .logoIcon
         var authMainViewTitle: String = "BeatMaster"
-        @Presents var loginFeature: LoginFeature.State?
+        
         var auth: IdentifiedArrayOf<Auth> = []
-        var path: StackState<AuthFeature.Path.State> = .init()
+        var path: StackState<Path.State> = .init()
+        
         var webLoading: Bool = false
         
-        
+        @Presents var loginFeature: LoginFeature.State?
     }
+    
+    @Dependency(\.dismiss) var dismiss
     
     public enum Action:  BindableAction {
         case path(StackAction<Path.State, Path.Action>)
         case binding(BindingAction<State>)
+        case presentBottomSheet(PresentationAction<LoginFeature.Action>)
+        
         case appearLogin
         case presentLogin
         case presentSignUp
         
-        case presentBottomSheet(PresentationAction<LoginFeature.Action>)
         case presntLoginBottomSheet
         case addLoginBottomSheet
+        case backAction
     }
     
     @Reducer(state: .equatable)
@@ -50,6 +55,8 @@ public struct AuthFeature {
         case signup(SignUpFeature)
         case web(WebFeature)
     }
+        
+    
     
     public var body: some ReducerOf<Self> {
         BindingReducer()

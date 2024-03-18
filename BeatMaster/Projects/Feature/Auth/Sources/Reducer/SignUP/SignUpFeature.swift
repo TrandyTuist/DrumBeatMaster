@@ -47,7 +47,7 @@ public struct SignUpFeature {
         case presentWebTermsofServiceAgreed
         case presentMarketingInformationAgreed
         case presentPolicyAgreedWeb
-        case presentAuthInformation
+//        case presentAuthInformation
         
         case binding(BindingAction<State>)
         case didTapAgreeAllPolicy
@@ -60,7 +60,6 @@ public struct SignUpFeature {
         case selectSocialBottomSheet
         case saveSelectSocial
         case presntAuthInfo
-        case saveAuthInfo
         case appear
     }
     
@@ -81,14 +80,8 @@ public struct SignUpFeature {
             case .presentPolicyAgreedWeb:
                 return .none
                 
-            case .presentAuthInformation:
-                state.selectSocial = nil
-                guard let auth = state.selectSocial?.auth
-                else { return .none }
-                state.auth = auth
-                state.selectSocial = SelectSocialFeature.State(auth: auth)
-                print(auth)
-                return .none
+//            case .presentAuthInformation:
+//                return .none
                 
             case .binding(_):
               return .none
@@ -125,9 +118,6 @@ public struct SignUpFeature {
                 return .none
                 
             case .selectSocial:
-                guard let auth = state.authInformation?.auth
-                else { return .none}
-                state.auths.append(auth)
                 return .none
                 
             case .authInformation:
@@ -150,16 +140,12 @@ public struct SignUpFeature {
                     }
                 }
                 
-            case .saveAuthInfo:
-                return .none
-                
-                
             case .presntAuthInfo:
                 state.authInformation = AuthInfromationFeature.State(auth: Auth(isLogin: false, token: "", socialType: state.auth?.socialType, name: "", email: ""))
                 return .none
                 
             case .selectSocialBottomSheet:
-                state.selectSocial = SelectSocialFeature.State(auth: Auth(isLogin: false, token: "", socialType: state.auths.first?.socialType, name: "", email: ""))
+                state.selectSocial = SelectSocialFeature.State(auth: Auth(isLogin: false, token: "", socialType:  state.auth?.socialType, name: "", email: ""))
                 return .none
             }
         }

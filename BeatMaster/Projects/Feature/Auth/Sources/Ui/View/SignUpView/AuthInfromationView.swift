@@ -39,13 +39,9 @@ public struct AuthInfromationView: View {
            Spacer()
                .frame(height: 30)
            
-           Text(self.store.title)
-               .pretendardFont(family: .SemiBold, size: 30)
-               .foregroundColor(Color.basicBlack)
+           headerView()
            
-           Text(self.store.auth?.socialType?.desc ?? "")
-               .pretendardFont(family: .SemiBold, size: 30)
-               .foregroundColor(Color.basicBlack)
+           signupSocailType()
            
            
            Spacer()
@@ -56,3 +52,33 @@ public struct AuthInfromationView: View {
     }
 }
 
+fileprivate extension AuthInfromationView {
+    
+    @ViewBuilder
+    private func headerView() -> some View {
+        LazyVStack  {
+            HStack {
+                Text(self.store.title)
+                    .pretendardFont(family: .SemiBold, size: 30)
+                    .foregroundColor(Color.basicBlack)
+                
+                Spacer()
+            }
+        }
+        .padding(.horizontal, 20)
+    }
+    
+    @ViewBuilder
+    private func signupSocailType() -> some View {
+         LazyVStack {
+             HStack {
+                 Text(self.store.auth?.socialType?.desc ?? "")
+                     .pretendardFont(family: .SemiBold, size: 30)
+                     .foregroundColor(Color.basicBlack)
+                 
+                 Spacer()
+             }
+        }
+         .padding(.horizontal, 20)
+    }
+}
