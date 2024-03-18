@@ -42,7 +42,6 @@ public struct RootFeature{
     @Reducer(state: .equatable)
     public enum Path {
         case auth(AuthFeature)
-        case authInformation(AuthInfromationFeature)
         case login(LoginFeature)
         case signUp(SignUpFeature)
         case web(WebFeature)
@@ -116,9 +115,6 @@ public struct RootFeature{
                 state.path.append(.web(.init(url: APIManger.shared.marketAgreeMentURL)))
                 return .none
                 
-            case .path(.element(id: _, action: .signUp(.presentAuthInformation))):
-                state.path.append(.authInformation(.init()))
-                return .none
                 
             case .removePath:
                 state.path.removeLast()

@@ -43,15 +43,23 @@ public struct SignUpView: View {
             Spacer()
             
         }
+        .onAppear {
+            store.send(.appear)
+        }
         .sheet(item: $store.scope(state: \.selectSocial, action: \.selectSocial)) { selectSocialStore in
-            
             SelectSocialTypeView(store: selectSocialStore, selectLoginAction: {
-                store.send(.presentAuthInformation)
+                store.send(.saveSelectSocial)
             })
                 .presentationDetents([.fraction(0.3)])
                 .presentationCornerRadius(20)
                 .presentationDragIndicator(.visible)
             
+        }
+        .navigationDestination(item: $store.scope(state: \.authInformation, action: \.authInformation)) { authInfoStore in
+            AuthInfromationView(store: authInfoStore, backAction: {
+                store.send(.appear)
+            })
+            .navigationBarBackButtonHidden()
         }
     }
 }

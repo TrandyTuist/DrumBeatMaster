@@ -21,7 +21,6 @@ public struct AuthInfromationFeature {
     public struct State: Equatable {
         var title: String = "회원가입 정보입력"
         var auth: Auth?
-        var auths: IdentifiedArrayOf<Auth> = []
         public init(auth: Auth? = nil) {
             self.auth = auth
         }
@@ -45,10 +44,6 @@ public struct AuthInfromationFeature {
                 
             case .appear:
                 state.auth = state.auth
-                guard let auth = state.auth
-                else { return .none }
-                state.auths.append(auth)
-                print(state.auths)
                 return .none
                         
             }

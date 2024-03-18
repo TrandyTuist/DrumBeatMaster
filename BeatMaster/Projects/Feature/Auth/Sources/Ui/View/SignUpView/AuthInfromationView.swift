@@ -30,7 +30,11 @@ public struct AuthInfromationView: View {
            Spacer()
                .frame(height: 20)
            
-           NavigationBackButton(buttonAction: backAction)
+           NavigationBackButton(buttonAction: {
+               self.store.send(.backAction)
+               
+               backAction()
+           })
            
            Spacer()
                .frame(height: 30)
@@ -48,7 +52,6 @@ public struct AuthInfromationView: View {
            
        }
        .onAppear {
-           store.send(.appear)
        }
     }
 }

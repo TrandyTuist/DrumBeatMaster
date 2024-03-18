@@ -63,11 +63,6 @@ public struct RootView: View {
                 )
                 .navigationBarBackButtonHidden()
                 
-            case let .authInformation(authInformation):
-                AuthInfromationView(store: authInformation) {
-                    store.send(.removePath)
-                }
-                .navigationBarBackButtonHidden()
             }
             
             //MARK: -  1.7 이하

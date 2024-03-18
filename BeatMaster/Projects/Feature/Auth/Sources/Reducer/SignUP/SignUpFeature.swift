@@ -30,8 +30,11 @@ public struct SignUpFeature {
         var isConfirmButtonActivated: Bool = false
         
         @Presents var selectSocial: SelectSocialFeature.State?
+        @Presents var authInformation: AuthInfromationFeature.State?
         
         var auth: Auth?
+        var auths: IdentifiedArrayOf<Auth> = []
+        
         
         public init(auth: Auth? = nil) {
             self.auth = auth
@@ -53,8 +56,12 @@ public struct SignUpFeature {
         case didTapAgreeMarketingInformation
         
         case selectSocial(PresentationAction<SelectSocialFeature.Action>)
+        case authInformation(PresentationAction<AuthInfromationFeature.Action>)
         case selectSocialBottomSheet
-        
+        case saveSelectSocial
+        case presntAuthInfo
+        case saveAuthInfo
+        case appear
     }
     
     public var body: some ReducerOf<Self> {
@@ -112,17 +119,55 @@ public struct SignUpFeature {
                 state.isConfirmButtonActivated = state.isAllAgreed
                 return .none
                 
+            case .appear:
+                state.auth = nil
+                state.auths = []
+                return .none
                 
             case .selectSocial:
+                guard let auth = state.authInformation?.auth
+                else { return .none}
+                state.auths.append(auth)
+                return .none
+                
+            case .authInformation:
+                return .none
+                
+            case .saveSelectSocial:
+                guard let auth = state.selectSocial?.auth
+                else { return .none}
+                state.auths.append(auth)
+                state.selectSocial = nil
+                state.auth = auth
+                return .run { send in
+                    switch auth.socialType {
+                    case .apple:
+                        await send(.presntAuthInfo)
+                    case .kakao:
+                        await send(.presntAuthInfo)
+                    case .none:
+                        break
+                    }
+                }
+                
+            case .saveAuthInfo:
+                return .none
+                
+                
+            case .presntAuthInfo:
+                state.authInformation = AuthInfromationFeature.State(auth: Auth(isLogin: false, token: "", socialType: state.auth?.socialType, name: "", email: ""))
                 return .none
                 
             case .selectSocialBottomSheet:
-                state.selectSocial = SelectSocialFeature.State(auth: state.selectSocial?.auth)
+                state.selectSocial = SelectSocialFeature.State(auth: Auth(isLogin: false, token: "", socialType: state.auths.first?.socialType, name: "", email: ""))
                 return .none
             }
         }
         .ifLet(\.$selectSocial, action: \.selectSocial){
             SelectSocialFeature()
+        }
+        .ifLet(\.$authInformation, action: \.authInformation){
+            AuthInfromationFeature()
         }
     }
 }
