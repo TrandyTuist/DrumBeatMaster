@@ -14,5 +14,5 @@ public protocol AuthUseCaseProtocol {
     func handleAppleLoginResult(
         result: Result<ASAuthorization, Error>,
         completion: @escaping (String) -> Void
-    ) async throws -> Auth
+    )
 }

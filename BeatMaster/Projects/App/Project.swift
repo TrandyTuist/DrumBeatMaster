@@ -18,6 +18,7 @@ let project = Project.makeAppModule(
     settings: .appMainSetting,
     dependencies: [
         .Core(implements: .Core),
+        .Feature(implements: .Auth),
         .Shared(implements: .Shareds),
         .Networking(implements: .Networkings),
         

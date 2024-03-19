@@ -34,12 +34,12 @@ public struct LoginFeature {
         case isLogin(socialType: SocialType)
         case disappear
         case binding(BindingAction<State>)
-//        case appleLogin(result: Result<ASAuthorization, Error>,completion: (String) -> Void)
+        case appleLogin(result: Result<ASAuthorization, Error>,completion: (String) -> Void)
         
     }
     
     @Dependency(\.dismiss) var dismiss
-//    @Dependency(\.authUseCase) var authUseCase
+    @Dependency(AuthUseCase.self) var authUseCase
     
     public var body: some ReducerOf<Self> {
         BindingReducer()
@@ -61,8 +61,14 @@ public struct LoginFeature {
                     state.auth = state.auth
                     state.auth?.socialType = .kakao
                     state.auth?.isLogin?.toggle()
+                    
                 }
                 return .none
+                
+            case let .appleLogin(result: result, completion: completion):
+                return .run {send in
+                     authUseCase.handleAppleLoginResult(result: result, completion: completion)
+                }
                 
             case .disappear:
                 state.auth = state.auth
@@ -70,6 +76,8 @@ public struct LoginFeature {
                 
             case .binding(_):
                 return .none
+            
+                
             }
         }
         

@@ -15,7 +15,7 @@ import Model
 import DiContainer
 import ComposableArchitecture
 
-public final class AuthUseCase: AuthUseCaseProtocol , ObservableObject {
+public struct AuthUseCase: AuthUseCaseProtocol  {
     
     
     private let repository: AuthRepositoryProtocol
@@ -25,57 +25,33 @@ public final class AuthUseCase: AuthUseCaseProtocol , ObservableObject {
     ) {
         self.repository = repository
     }
-    var authModel: Auth?
+    
     
     //MARK: -  애플 로그인
     public func handleAppleLoginResult(
         result: Result<ASAuthorization, Error>,
         completion: @escaping (String) -> Void
-    ) async throws -> Model.Auth {
-        return try await repository.handleAppleLoginResult(result: result, completion: completion)
-//        switch result {
-//        case .success(let authResults):
-//            switch authResults.credential {
-//            case let appleIDCredential as ASAuthorizationAppleIDCredential:
-//                if let tokenData = appleIDCredential.identityToken,
-//                   let identityToken = String(data: tokenData, encoding: .utf8) {
-//                    
-//                }
-//                let lastName = appleIDCredential.fullName?.familyName ?? ""
-//                let firstName = appleIDCredential.fullName?.givenName ?? ""
-//                let name = "\(lastName)\(firstName)"
-//                let email = appleIDCredential.email ?? ""
-//                
-//                authModel?.email = email
-//                
-//                print("이메일 \(authModel?.email)")
-//                
-//                
-//            default:
-//                break
-//            }
-//        case .failure(let error):
-//            print(error.localizedDescription)
-//            print("error")
-//        }
-//        return authModel ?? .init(token: "", socialType: .apple, name: "", email: "")
+    ) {
+        repository.handleAppleLoginResult(result: result, completion: completion)
+        
     }
     
 }
 
 extension AuthUseCase: DependencyKey {
     public static let liveValue: AuthUseCase = {
-        let authRepository = DIContainer.container.resolve(AuthRepositoryProtocol.self) ?? DefaultAuthRepository()
-        return AuthUseCase(repository: authRepository)
-    }()
+           let authRepository = DIContainer.container.resolve(AuthRepositoryProtocol.self) ?? DefaultAuthRepository()
+           return AuthUseCase(repository: authRepository)
+       }()
 }
 
-extension DependencyValues {
-    public var authUseCase: AuthUseCaseProtocol {
+public extension DependencyValues {
+    var authUseCase: AuthUseCaseProtocol {
         get { self[AuthUseCase.self] }
-        set { self[AuthUseCase.self] = newValue as! AuthUseCase }
+        set { self[AuthUseCase.self] = newValue as! AuthUseCase}
     }
 }
+
 
 //public extension DependencyValues {
 //    var authUseCase: AuthUseCaseProtocol {

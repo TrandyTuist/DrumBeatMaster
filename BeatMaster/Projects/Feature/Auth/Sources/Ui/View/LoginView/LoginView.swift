@@ -57,12 +57,8 @@ fileprivate extension LoginView {
                     SignInWithAppleButton(.signIn) { _ in
                         //
                     } onCompletion: { result  in
-                        switch result {
-                        case .success(let authResult):
-                            break
-                        case .failure(let error):
-                            break
-                        }
+                        store.send(.appleLogin(result: result, completion: {_ in }))
+                        backAction()
                     }
                     .padding(.horizontal, 5)
 //                    Text("애플로 로그인하기")

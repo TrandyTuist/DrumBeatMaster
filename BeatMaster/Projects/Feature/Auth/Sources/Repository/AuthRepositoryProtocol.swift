@@ -14,12 +14,12 @@ public protocol AuthRepositoryProtocol {
     func handleAppleLoginResult(
         result: Result<ASAuthorization, Error>,
         completion: @escaping (String) -> Void
-    ) async throws -> Auth
+    )
 }
 
 final class DefaultAuthRepository : AuthRepositoryProtocol {
-    func handleAppleLoginResult(result: Result<ASAuthorization, Error>, completion: @escaping (String) -> Void) async throws -> Model.Auth {
-        return Auth(isLogin: nil, token: "", socialType: nil, name: "", email: "")
+    func handleAppleLoginResult(result: Result<ASAuthorization, Error>, completion: @escaping (String) -> Void)  {
+        
     }
     
     

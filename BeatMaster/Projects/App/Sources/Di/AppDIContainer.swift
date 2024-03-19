@@ -8,7 +8,9 @@
 
 import Foundation
 import Swinject
+import Networkings
 import DiContainer
+import Auth
 
 public final class AppDIContainer {
     public static let shared: AppDIContainer = .init()
@@ -24,15 +26,31 @@ public final class AppDIContainer {
     
     // MARK: - Use Cases
     private func registerUseCases() {
-        
+        registerAuthUseCase()
         
     }
     
-    
+    private func registerAuthUseCase() {
+        diContainer.register(AuthUseCaseProtocol.self) { resolver in
+            AuthUseCase(repository: resolver.resolve(AuthRepositoryProtocol.self)!)
+        }
+        
+        
+//        diContainer.register(ProfileUseCaseProtocol.self) { resolver in
+//            ProfileUseCase(repository: resolver.resolve(ProfileRepositoriesProtocol.self)!)
+//        }
+    }
     
     // MARK: - Repositories  등록
     private func registerRepositories() {
-        
+        registerAuthRepositories()
         
     }
+    
+    private func registerAuthRepositories() {
+        diContainer.register(AuthRepositoryProtocol.self) { _ in
+            AuthRepository()
+        }
+    }
+
 }
