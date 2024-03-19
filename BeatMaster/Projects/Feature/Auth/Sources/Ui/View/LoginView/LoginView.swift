@@ -9,6 +9,7 @@
 import SwiftUI
 import DesignSystem
 import ComposableArchitecture
+import AuthenticationServices
 
 
 public struct LoginView: View {
@@ -53,16 +54,27 @@ fileprivate extension LoginView {
                 .fill(Color.basicBlack.opacity(0.9))
                 .frame(height: 56)
                 .overlay {
-                    Text("애플로 로그인하기")
-                        .foregroundStyle(Color.basicWhite)
-                        .pretendardFont(family: .SemiBold, size: 16)
+                    SignInWithAppleButton(.signIn) { _ in
+                        //
+                    } onCompletion: { result  in
+                        switch result {
+                        case .success(let authResult):
+                            break
+                        case .failure(let error):
+                            break
+                        }
+                    }
+                    .padding(.horizontal, 5)
+//                    Text("애플로 로그인하기")
+//                        .foregroundStyle(Color.basicWhite)
+//                        .pretendardFont(family: .SemiBold, size: 16)
                     
                 }
-                .onTapGesture {
-                    store.send(.isLogin(socialType: .apple), animation: .default)
-                    
-                    backAction()
-                }
+//                .onTapGesture {
+//                    store.send(.isLogin(socialType: .apple), animation: .default)
+//                    
+//                    backAction()
+//                }
             
         }
         .padding(.horizontal, 20)

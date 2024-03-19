@@ -23,7 +23,7 @@ public struct AuthFeature {
         
         var auth: IdentifiedArrayOf<Auth> = []
         var authModel: Auth?
-        var path = StackState<Path.State>()
+//        var path = StackState<Path.State>()
         
         var webLoading: Bool = false
         
@@ -39,7 +39,7 @@ public struct AuthFeature {
     @Dependency(\.dismiss) var dismiss
     
     public enum Action:  BindableAction {
-        case path(StackAction<Path.State, Path.Action>)
+//        case path(StackAction<Path.State, Path.Action>)
         case binding(BindingAction<State>)
         case presentBottomSheet(PresentationAction<LoginFeature.Action>)
         
@@ -52,11 +52,11 @@ public struct AuthFeature {
         case backAction
     }
     
-    @Reducer(state: .equatable)
-    public enum Path {
-        case signup(SignUpFeature)
-        case web(WebFeature)
-    }
+//    @Reducer(state: .equatable)
+//    public enum Path {
+//        case signup(SignUpFeature)
+//        case web(WebFeature)
+//    }
         
     
     
@@ -72,17 +72,13 @@ public struct AuthFeature {
                 return .none
             
             case .appearLogin:
-                state.path.removeAll()
-//                var auths = state.loginFeature
-//                auths?.auth =  state.auth.first ?? .init(isLogin: false, token: "", name: "", email: "")
-//                print("\(state.auth.first?.isLogin)")
-//                state.loginFeature = LoginFeature.State(auth: .init(isLogin: auths?.auth.isLogin ?? false, token: "", name: "", email: ""))
+//                state.path.removeAll()
                 return .none
                 
                 
-            case .path(.element(id: _, action: .signup(.presentPolicyAgreedWeb))):
-                state.path.append(.web(.init(url: "https://scutiuy.github.io/PrivateInfo.github.io/")))
-                return .none
+//            case .path(.element(id: _, action: .signup(.presentPolicyAgreedWeb))):
+//                state.path.append(.web(.init(url: "https://scutiuy.github.io/PrivateInfo.github.io/")))
+//                return .none
                 
                 
             case .presentBottomSheet:
@@ -130,10 +126,11 @@ public struct AuthFeature {
             }
             
         }
-        .forEach(\.path, action: \.path)
+//        .forEach(\.path, action: \.path)
         
         .ifLet(\.$loginFeature, action: \.presentBottomSheet) {
             LoginFeature()
         }
     }
 }
+

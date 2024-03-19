@@ -8,11 +8,13 @@ let project = Project.makeAppModule(
     name: "Auth",
     bundleId: .appBundleID(name: ".Auth"),
     product: .staticFramework,
-    settings: .settings(),
+    settings: .appBaseSetting(appName: "Auth"),
     dependencies: [
         .Shared(implements: .Shareds),
         .Networking(implements: .Networkings)
         
     ],
-    sources: ["Sources/**"]
+    sources: ["Sources/**"],
+//    infoPlist: .file(path: "../Support/Info.plist"),
+    entitlements: .file(path: "../../Entitlements/BeatMaster.entitlements")
 )

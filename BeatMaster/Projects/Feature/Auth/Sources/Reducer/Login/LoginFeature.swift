@@ -11,6 +11,8 @@ import ComposableArchitecture
 import DesignSystem
 import Model
 
+import AuthenticationServices
+
 @Reducer
 public struct LoginFeature {
     public init() {}
@@ -27,15 +29,17 @@ public struct LoginFeature {
         }
     }
     
-    public enum Action: Equatable, BindableAction {
+    public enum Action: BindableAction {
         case backAction
         case isLogin(socialType: SocialType)
         case disappear
         case binding(BindingAction<State>)
+//        case appleLogin(result: Result<ASAuthorization, Error>,completion: (String) -> Void)
         
     }
     
     @Dependency(\.dismiss) var dismiss
+//    @Dependency(\.authUseCase) var authUseCase
     
     public var body: some ReducerOf<Self> {
         BindingReducer()
