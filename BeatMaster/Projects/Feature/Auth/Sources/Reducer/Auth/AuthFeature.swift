@@ -17,21 +17,23 @@ public struct AuthFeature {
     
     @ObservableState
     public struct State: Equatable {
-        public init(
-//            auth: Auth
-        ) {
-//            self.auth = auth
-        }
         
         var authMainImage: ImageAsset = .logoIcon
         var authMainViewTitle: String = "BeatMaster"
         
         var auth: IdentifiedArrayOf<Auth> = []
-        var path: StackState<Path.State> = .init()
+        var authModel: Auth?
+        var path = StackState<Path.State>()
         
         var webLoading: Bool = false
         
         @Presents var loginFeature: LoginFeature.State?
+        
+        public init(
+            authModel: Auth? = nil
+        ) {
+            self.authModel = authModel
+        }
     }
     
     @Dependency(\.dismiss) var dismiss
@@ -94,10 +96,30 @@ public struct AuthFeature {
                 guard let auth = state.loginFeature?.auth
                 else { return .none}
                 state.auth.append(auth)
+                state.authModel = auth
                 state.loginFeature = nil
                 return .run { send in
-                    if auth.isLogin == true {
-                        print("로그인 성공")
+                    switch auth.socialType {
+                    case .apple:
+                        switch auth.isLogin {
+                        case true:
+                            print("로그인 성공")
+                        case false:
+                            print("로그인 실패")
+                        default:
+                            break
+                        }
+                    case .kakao:
+                        switch auth.isLogin {
+                        case true:
+                            print("로그인 성공")
+                        case false:
+                            print("로그인 실패")
+                        default:
+                            break
+                        }
+                    case .none:
+                        break
                     }
                 }
             case .binding(_):

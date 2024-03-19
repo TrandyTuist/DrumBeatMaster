@@ -20,23 +20,25 @@ public struct LoginFeature {
         var loginMainImage: ImageAsset = .logoIcon
         var loginMainViewTitle: String = "BeatMaster"
         var auth: Auth?
+        var isLogin: Bool = false
         
         public init(auth: Auth? = nil) {
             self.auth = auth
         }
     }
     
-    public enum Action: Equatable {
+    public enum Action: Equatable, BindableAction {
         case backAction
-        case isLogin
+        case isLogin(socialType: SocialType)
         case disappear
+        case binding(BindingAction<State>)
         
     }
     
     @Dependency(\.dismiss) var dismiss
     
     public var body: some ReducerOf<Self> {
-//        BindingReducer()
+        BindingReducer()
         Reduce { state, action in
             switch action {
             case .backAction:
@@ -45,17 +47,25 @@ public struct LoginFeature {
                     
                 }
                 
-            case .isLogin:
-                state.auth?.isLogin.toggle()
-                state.auth = state.auth
+            case let .isLogin(socialType: socialType):
+                switch socialType {
+                case .apple:
+                    state.auth = state.auth
+                    state.auth?.socialType = .apple
+                    state.auth?.isLogin?.toggle()
+                case .kakao:
+                    state.auth = state.auth
+                    state.auth?.socialType = .kakao
+                    state.auth?.isLogin?.toggle()
+                }
                 return .none
                 
             case .disappear:
                 state.auth = state.auth
                 return .none
                 
-//            case .binding(_):
-//                return .none
+            case .binding(_):
+                return .none
             }
         }
         

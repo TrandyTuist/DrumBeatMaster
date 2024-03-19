@@ -38,7 +38,7 @@ public struct AuthView: View {
             
             BounceAnimationView(text: store.state.authMainViewTitle, startTime: 0.0, fontSize: 40)
             
-            Text(self.store.auth.first?.isLogin.description ?? "")
+            Text(self.store.authModel?.isLogin?.description ?? "")
             
             signUpButtonView()
             

@@ -19,14 +19,14 @@ public struct AuthModel: Equatable, Identifiable {
 
 public struct Auth : Equatable, Identifiable{
     public var id: UUID = UUID()
-    public var isLogin: Bool
+    public var isLogin: Bool?
     public var socialType: SocialType?
     public var token: String
     public var name: String
     public var email: String
     
     public init(
-        isLogin: Bool,
+        isLogin: Bool? = false,
         token: String,
         socialType: SocialType?,
         name: String,

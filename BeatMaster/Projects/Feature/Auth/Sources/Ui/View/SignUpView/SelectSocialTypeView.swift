@@ -53,7 +53,7 @@ extension SelectSocialTypeView {
                 .fill(Color.basicBlack.opacity(0.9))
                 .frame(height: 56)
                 .overlay {
-                    Text("애플로 로그인하기")
+                    Text("애플로 회원가입하기")
                         .foregroundStyle(Color.basicWhite)
                         .pretendardFont(family: .SemiBold, size: 16)
                     
@@ -78,7 +78,7 @@ extension SelectSocialTypeView {
                 .stroke(Color.basicBlack, style: .init(lineWidth: 2))
                 .frame(height: 56)
                 .overlay {
-                    Text("카카오로 로그인하기")
+                    Text("카카오로 회원가입하기")
                         .foregroundStyle(Color.basicBlack)
                         .pretendardFont(family: .SemiBold, size: 16)
                     

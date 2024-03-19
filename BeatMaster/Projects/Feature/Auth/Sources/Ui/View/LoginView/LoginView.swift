@@ -59,7 +59,7 @@ fileprivate extension LoginView {
                     
                 }
                 .onTapGesture {
-                    store.send(.isLogin, animation: .default)
+                    store.send(.isLogin(socialType: .apple), animation: .default)
                     
                     backAction()
                 }
@@ -81,7 +81,11 @@ fileprivate extension LoginView {
                     Text("카카오로 로그인하기")
                         .foregroundStyle(Color.basicBlack)
                         .pretendardFont(family: .SemiBold, size: 16)
+                }
+                .onTapGesture {
+                    store.send(.isLogin(socialType: .kakao), animation: .default)
                     
+                    backAction()
                 }
             
         }
