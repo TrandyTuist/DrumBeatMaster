@@ -36,6 +36,11 @@ public struct AuthUseCase: AuthUseCaseProtocol  {
         
     }
     
+    public func getAppleRefreshToken(
+        code: String,
+        completionHandler: @escaping (String?) -> Void) {
+        repository.getAppleRefreshToken(code: code, completionHandler: completionHandler)
+    }
 }
 
 extension AuthUseCase: DependencyKey {
@@ -53,22 +58,3 @@ public extension DependencyValues {
 }
 
 
-//public extension DependencyValues {
-//    var authUseCase: AuthUseCaseProtocol {
-//        get { self[AuthUseCase.self] }
-//        set { self[AuthUseCase.self] = newValue as! AuthUseCase }
-//    }
-//}
-//extension NotificationUseCase: DependencyKey {
-//    
-//    public static let liveValue: NotificationUseCase = Self(repository: DIContainer.container.resolve(NotificationRepositoriesProtocol.self)!)
-//}
-//
-//extension DependencyValues {
-//    public var notificationUseCase: NotificationUseCaseProtocol {
-//        get { self[NotificationUseCase.self] }
-//        set { self[NotificationUseCase.self] = newValue as! NotificationUseCase }
-//    }
-//}
-//
-//

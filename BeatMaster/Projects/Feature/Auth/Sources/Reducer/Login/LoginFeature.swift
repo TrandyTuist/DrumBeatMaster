@@ -23,7 +23,7 @@ public struct LoginFeature {
         var loginMainViewTitle: String = "BeatMaster"
         var auth: Auth?
         var isLogin: Bool = false
-        
+        var nonce: String = ""
         public init(auth: Auth? = nil) {
             self.auth = auth
         }
@@ -66,7 +66,7 @@ public struct LoginFeature {
                 return .none
                 
             case let .appleLogin(result: result, completion: completion):
-                return .run {send in
+                return .run { send in
                      authUseCase.handleAppleLoginResult(result: result, completion: completion)
                 }
                 

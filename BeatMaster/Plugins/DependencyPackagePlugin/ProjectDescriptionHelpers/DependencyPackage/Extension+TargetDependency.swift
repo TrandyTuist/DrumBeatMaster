@@ -18,5 +18,6 @@ public extension TargetDependency.SPM {
     static let swinject = TargetDependency.external(name: "Swinject", condition: .none)
     static let supabase = TargetDependency.external(name: "Supabase", condition: .none)
     static let sdwebImage = TargetDependency.external(name: "SDWebImageSwiftUI", condition: .none)
+    static let swiftJWT = TargetDependency.external(name: "SwiftJWT", condition: .none)
 }
 

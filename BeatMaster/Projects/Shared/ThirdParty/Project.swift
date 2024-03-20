@@ -10,7 +10,8 @@ let project = Project.makeAppModule(
     settings:  .settings(),
     dependencies: [
         .SPM.composableArchitecture,
-        .SPM.sdwebImage
+        .SPM.sdwebImage,
+        .SPM.swiftJWT
 //        .SPM.supabase
     ],
     sources: ["Sources/**"]

@@ -15,12 +15,24 @@ public protocol AuthRepositoryProtocol {
         result: Result<ASAuthorization, Error>,
         completion: @escaping (String) -> Void
     )
+    func getAppleRefreshToken(
+        code: String,
+        completionHandler: @escaping (String?) -> Void
+    )
 }
 
 final class DefaultAuthRepository : AuthRepositoryProtocol {
-    func handleAppleLoginResult(result: Result<ASAuthorization, Error>, completion: @escaping (String) -> Void)  {
+    func handleAppleLoginResult(
+        result: Result<ASAuthorization, Error>,
+        completion: @escaping (String) -> Void
+    )  {
         
     }
     
+    func getAppleRefreshToken(
+        code: String,
+        completionHandler: @escaping (String?) -> Void) {
+            
+        }
     
 }

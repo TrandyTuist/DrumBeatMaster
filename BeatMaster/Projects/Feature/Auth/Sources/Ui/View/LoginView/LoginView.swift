@@ -54,23 +54,23 @@ fileprivate extension LoginView {
                 .fill(Color.basicBlack.opacity(0.9))
                 .frame(height: 56)
                 .overlay {
-                    SignInWithAppleButton(.signIn) { _ in
-                        //
+                    SignInWithAppleButton(.continue) { request in
+                        store.nonce = AppleLoginManger.shared.randomNonceString()
+                        request.nonce = AppleLoginManger.shared.sha256(store.nonce)
+                        let appleIDProvider = ASAuthorizationAppleIDProvider()
+                        var request = appleIDProvider.createRequest()
+                        request.requestedScopes = [.fullName, .email]
+                        request = request
                     } onCompletion: { result  in
-                        store.send(.appleLogin(result: result, completion: {_ in }))
+                        store.send(.appleLogin(result: result, completion: { result in
+                            
+                        }))
+                        store.send(.isLogin(socialType: .apple), animation: .default)
                         backAction()
                     }
                     .padding(.horizontal, 5)
-//                    Text("애플로 로그인하기")
-//                        .foregroundStyle(Color.basicWhite)
-//                        .pretendardFont(family: .SemiBold, size: 16)
                     
                 }
-//                .onTapGesture {
-//                    store.send(.isLogin(socialType: .apple), animation: .default)
-//                    
-//                    backAction()
-//                }
             
         }
         .padding(.horizontal, 20)

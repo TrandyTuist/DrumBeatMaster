@@ -11,7 +11,8 @@ let project = Project.makeAppModule(
     settings: .appBaseSetting(appName: "Service"),
     dependencies: [
         .Networking(implements: .ThirdPartys),
-        .Networking(implements: .API)
+        .Networking(implements: .API),
+        .sdk(name: "OSLog", type: .framework)
     ],
     sources: ["Sources/**"]
 )

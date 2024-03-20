@@ -15,4 +15,9 @@ public protocol AuthUseCaseProtocol {
         result: Result<ASAuthorization, Error>,
         completion: @escaping (String) -> Void
     )
+    
+    func getAppleRefreshToken(
+        code: String,
+        completionHandler: @escaping (String?) -> Void
+    )
 }
