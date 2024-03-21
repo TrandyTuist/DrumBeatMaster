@@ -30,10 +30,9 @@ public struct AuthUseCase: AuthUseCaseProtocol  {
     //MARK: -  애플 로그인
     public func handleAppleLoginResult(
         result: Result<ASAuthorization, Error>,
-        nonce: String,
         completion: @escaping () -> Void
     ) async {
-        await repository.handleAppleLoginResult(result: result, nonce: nonce, completion: completion)
+        await repository.handleAppleLoginResult(result: result, completion: completion)
         
     }
     
@@ -43,15 +42,6 @@ public struct AuthUseCase: AuthUseCaseProtocol  {
         repository.getAppleRefreshToken(code: code, completionHandler: completionHandler)
     }
     
-    public func handleAppleLoginWithFirebase(
-        credential: ASAuthorizationAppleIDCredential,
-        nonce: String,
-        completion: @escaping () -> Void) async {
-           await repository.handleAppleLoginWithFirebase(
-            credential: credential,
-            nonce:  nonce,
-            completion: completion)
-    }
     
     public func requestKakaoTokenAsync(
         completion: @escaping () -> Void

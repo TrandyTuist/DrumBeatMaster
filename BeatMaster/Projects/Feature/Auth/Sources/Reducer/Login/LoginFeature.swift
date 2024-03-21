@@ -38,7 +38,6 @@ public struct LoginFeature {
         case binding(BindingAction<State>)
         case appleLogin(
             result: Result<ASAuthorization, Error>,
-            nonce: String,
             completion: () -> Void
         )
         case kakaoLogin(completion: () -> Void)
@@ -74,11 +73,10 @@ public struct LoginFeature {
                 }
                 return .none
                 
-            case let .appleLogin(result: result, nonce: nonce, completion: completion):
+            case let .appleLogin(result: result, completion: completion):
                 return .run { send in
                     await authUseCase.handleAppleLoginResult(
                         result: result,
-                        nonce: nonce,
                         completion: completion
                      )
                 }

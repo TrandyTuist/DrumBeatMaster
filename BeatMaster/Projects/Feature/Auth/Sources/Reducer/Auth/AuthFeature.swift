@@ -76,9 +76,10 @@ public struct AuthFeature {
                 let email: String = (try? Keychain().get("EMAIL")) ?? ""
                 let nickname: String = (try? Keychain().get("NAME")) ?? ""
                 let socialType: String = ( try? Keychain().get("SocialType")) ?? ""
+                let token =  (try? Keychain().get("Token")) ?? ""
                 state.authModel?.name = nickname
                 state.authModel?.email = email
-//                state.authModel?.socialType
+                state.authModel?.token = token
                 guard let auth = state.authModel
                 else { return .none}
                 state.auth.append(auth)
@@ -99,7 +100,8 @@ public struct AuthFeature {
                 let nickname: String = (try? Keychain().get("NAME")) ?? ""
                 let socialTypeDesc: String = ( try? Keychain().get("SocialType")) ?? ""
                 let socialType: SocialType = SocialType(rawValue: socialTypeDesc) ?? .apple
-                state.loginFeature = LoginFeature.State(auth: UserAuth(isLogin: false, token: "", socialType: socialType, name: nickname, email: email))
+                let token =  (try? Keychain().get("Token")) ?? ""
+                state.loginFeature = LoginFeature.State(auth: UserAuth(isLogin: false, token: token, socialType: socialType, name: nickname, email: email))
                 return .none
                 
             case .addLoginBottomSheet:

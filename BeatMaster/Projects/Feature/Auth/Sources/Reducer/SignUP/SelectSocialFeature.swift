@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import AuthenticationServices
+
 import Model
 import ComposableArchitecture
 
@@ -25,14 +27,22 @@ public struct SelectSocialFeature {
         
     }
     
-    public enum Action: Equatable {
-        case selectLogin(socialType: SocialType)
+    @Dependency(AuthUseCase.self) var authUseCase
+    
+    public enum Action {
+        case selectSignUp(socialType: SocialType)
+        case appleSignUp(
+            result: Result<ASAuthorization, Error>,
+            completion: () -> Void
+        )
+        case kakaoSignUp(completion: () -> Void)
     }
+    
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case let .selectLogin(socialType: socialType):
+            case let .selectSignUp(socialType: socialType):
                 switch socialType {
                 case .apple:
                     state.auth?.socialType = .apple
@@ -42,7 +52,16 @@ public struct SelectSocialFeature {
                     print("Apple 회원가입, \(state.auth)")
                 }
                 return .none
+             
+            case let .appleSignUp(result: result, completion: completion):
+                return .run { send in
+                    await authUseCase.handleAppleLoginResult(result: result, completion: completion)
+                }
                 
+            case let .kakaoSignUp(completion: completion):
+                return .run { send in
+                    await authUseCase.requestKakaoTokenAsync(completion: completion)
+                }
             }
         }
     }

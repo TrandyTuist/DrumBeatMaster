@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import AuthenticationServices
 
 import DesignSystem
 
@@ -53,15 +54,20 @@ extension SelectSocialTypeView {
                 .fill(Color.basicBlack.opacity(0.9))
                 .frame(height: 56)
                 .overlay {
-                    Text("애플로 회원가입하기")
-                        .foregroundStyle(Color.basicWhite)
-                        .pretendardFont(family: .SemiBold, size: 16)
+                    SignInWithAppleButton(.signUp) { request in
+                        request.requestedScopes = [.fullName, .email]
+                    } onCompletion: { result in
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            store.send(.appleSignUp(result: result, completion: {
+                                store.send(.selectSignUp(socialType: .apple))
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    selectLoginAction()
+                                }
+                            }), animation: .default)
+                        }
+                    }
+                    .padding(.horizontal, 5)
                     
-                }
-                .onTapGesture {
-                    store.send(.selectLogin(socialType: .apple))
-
-                    selectLoginAction()
                 }
             
         }
@@ -75,18 +81,21 @@ extension SelectSocialTypeView {
         
         LazyVStack {
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.basicBlack, style: .init(lineWidth: 2))
+                .stroke(Color.clear, style: .init(lineWidth: 2))
                 .frame(height: 56)
                 .overlay {
-                    Text("카카오로 회원가입하기")
-                        .foregroundStyle(Color.basicBlack)
-                        .pretendardFont(family: .SemiBold, size: 16)
-                    
+                    Image(asset: .kakao_login)
+                        .resizable()
+                        .scaledToFit()
                 }
                 .onTapGesture {
-                    store.send(.selectLogin(socialType: .kakao))
-
-                    selectLoginAction()
+                    store.send(.kakaoSignUp(completion: {
+                        store.send(.selectSignUp(socialType: .kakao))
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            selectLoginAction()
+                        }
+                    }), animation: .default)
+                    
                 }
             
         }

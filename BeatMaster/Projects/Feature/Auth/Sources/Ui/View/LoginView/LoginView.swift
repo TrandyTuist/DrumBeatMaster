@@ -60,13 +60,11 @@ fileprivate extension LoginView {
                         request.requestedScopes = [.fullName, .email]
                         request.nonce = AppleLoginManger.shared.sha256(store.nonce)
                     } onCompletion: { result in
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            store.send(.appleLogin(result: result, nonce: store.nonce, completion: {
-                                
-                            }))
-                            store.send(.isLogin(socialType: .apple), animation: .default)
-                            backAction()
-                        }
+                        store.send(.appleLogin(result: result, completion: {
+                            
+                        }))
+                        store.send(.isLogin(socialType: .apple), animation: .default)
+                        backAction()
                     }
                     .padding(.horizontal, 5)
                     

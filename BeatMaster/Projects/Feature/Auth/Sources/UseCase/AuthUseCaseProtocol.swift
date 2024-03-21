@@ -13,7 +13,6 @@ import Model
 public protocol AuthUseCaseProtocol {
     func handleAppleLoginResult(
         result: Result<ASAuthorization, Error>,
-        nonce: String,
         completion: @escaping () -> Void
     ) async
     
@@ -22,11 +21,6 @@ public protocol AuthUseCaseProtocol {
         completionHandler: @escaping (String?) -> Void
     )
     
-    func handleAppleLoginWithFirebase(
-        credential : ASAuthorizationAppleIDCredential,
-        nonce: String,
-        completion: @escaping () -> Void
-    ) async 
     
     func requestKakaoTokenAsync(
         completion: @escaping () -> Void

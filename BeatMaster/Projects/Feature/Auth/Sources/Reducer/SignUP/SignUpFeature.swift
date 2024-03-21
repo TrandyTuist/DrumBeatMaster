@@ -43,7 +43,7 @@ public struct SignUpFeature {
         
     }
     
-    public enum Action: Equatable, BindableAction {
+    public enum Action: BindableAction {
         case presentSignUp
         case presentWebTermsofServiceAgreed
         case presentMarketingInformationAgreed
@@ -144,13 +144,17 @@ public struct SignUpFeature {
             case .presntAuthInfo:
                 let email: String = (try? Keychain().get("EMAIL")) ?? ""
                 let nickname: String = (try? Keychain().get("NAME")) ?? ""
-                state.authInformation = AuthInfromationFeature.State(auth: UserAuth(isLogin: false, token: "", socialType: state.auth?.socialType, name: nickname, email: email))
+                let token: String = (try? Keychain().get("Token")) ?? ""
+                state.auth?.token = token
+                state.authInformation = AuthInfromationFeature.State(auth: UserAuth(isLogin: false, token: state.auth?.token ?? "", socialType: state.auth?.socialType, name: nickname, email: email))
                 return .none
                 
             case .selectSocialBottomSheet:
                 let email: String = (try? Keychain().get("EMAIL")) ?? ""
                 let nickname: String = (try? Keychain().get("NAME")) ?? ""
-                state.selectSocial = SelectSocialFeature.State(auth: UserAuth(isLogin: false, token: "", socialType:  state.auth?.socialType, name: nickname, email: email))
+                let token: String = (try? Keychain().get("Token")) ?? ""
+                state.auth?.token = token
+                state.selectSocial = SelectSocialFeature.State(auth: UserAuth(isLogin: false, token: state.auth?.token ?? "", socialType:  state.auth?.socialType, name: nickname, email: email))
                 return .none
             }
         }
