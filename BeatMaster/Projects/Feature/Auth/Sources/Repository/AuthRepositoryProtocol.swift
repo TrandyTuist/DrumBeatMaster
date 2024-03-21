@@ -11,21 +11,32 @@ import AuthenticationServices
 import Model
 
 public protocol AuthRepositoryProtocol {
+    
     func handleAppleLoginResult(
         result: Result<ASAuthorization, Error>,
-        completion: @escaping (String) -> Void
-    )
+        nonce: String,
+        completion: @escaping () -> Void
+    ) async
+    
     func getAppleRefreshToken(
         code: String,
         completionHandler: @escaping (String?) -> Void
     )
+    
+    func handleAppleLoginWithFirebase(
+        credential : ASAuthorizationAppleIDCredential,
+        nonce: String,
+        completion: @escaping () -> Void
+    ) async
 }
 
+
 final class DefaultAuthRepository : AuthRepositoryProtocol {
+    
     func handleAppleLoginResult(
         result: Result<ASAuthorization, Error>,
-        completion: @escaping (String) -> Void
-    )  {
+        nonce: String,
+        completion: @escaping () -> Void)  {
         
     }
     
@@ -35,4 +46,10 @@ final class DefaultAuthRepository : AuthRepositoryProtocol {
             
         }
     
+    func handleAppleLoginWithFirebase(
+        credential: ASAuthorizationAppleIDCredential,
+        nonce: String,
+        completion: @escaping () -> Void) async  {
+        
+    }
 }

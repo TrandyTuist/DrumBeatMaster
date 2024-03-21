@@ -9,6 +9,7 @@
 import Foundation
 import ComposableArchitecture
 import Model
+import KeychainAccess
 
 @Reducer
 public struct SignUpFeature {
@@ -32,11 +33,11 @@ public struct SignUpFeature {
         @Presents var selectSocial: SelectSocialFeature.State?
         @Presents var authInformation: AuthInfromationFeature.State?
         
-        var auth: Auth?
-        var auths: IdentifiedArrayOf<Auth> = []
+        var auth: UserAuth?
+        var auths: IdentifiedArrayOf<UserAuth> = []
         
         
-        public init(auth: Auth? = nil) {
+        public init(auth: UserAuth? = nil) {
             self.auth = auth
         }
         
@@ -141,11 +142,15 @@ public struct SignUpFeature {
                 }
                 
             case .presntAuthInfo:
-                state.authInformation = AuthInfromationFeature.State(auth: Auth(isLogin: false, token: "", socialType: state.auth?.socialType, name: "", email: ""))
+                let email: String = (try? Keychain().get("EMAIL")) ?? ""
+                let nickname: String = (try? Keychain().get("NAME")) ?? ""
+                state.authInformation = AuthInfromationFeature.State(auth: UserAuth(isLogin: false, token: "", socialType: state.auth?.socialType, name: nickname, email: email))
                 return .none
                 
             case .selectSocialBottomSheet:
-                state.selectSocial = SelectSocialFeature.State(auth: Auth(isLogin: false, token: "", socialType:  state.auth?.socialType, name: "", email: ""))
+                let email: String = (try? Keychain().get("EMAIL")) ?? ""
+                let nickname: String = (try? Keychain().get("NAME")) ?? ""
+                state.selectSocial = SelectSocialFeature.State(auth: UserAuth(isLogin: false, token: "", socialType:  state.auth?.socialType, name: nickname, email: email))
                 return .none
             }
         }

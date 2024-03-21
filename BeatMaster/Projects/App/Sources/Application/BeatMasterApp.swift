@@ -4,7 +4,7 @@ import ComposableArchitecture
 
 @main
 struct BeatMasterApp: App {
-    
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     init() {
         registerDependencies()

@@ -43,7 +43,6 @@ public struct LoginView: View {
 
 fileprivate extension LoginView {
     
-    
     @ViewBuilder
     private func appleLoginButton() -> some View {
         Spacer()
@@ -54,19 +53,18 @@ fileprivate extension LoginView {
                 .fill(Color.basicBlack.opacity(0.9))
                 .frame(height: 56)
                 .overlay {
-                    SignInWithAppleButton(.continue) { request in
+                    SignInWithAppleButton(.signIn) { request in
                         store.nonce = AppleLoginManger.shared.randomNonceString()
-                        request.nonce = AppleLoginManger.shared.sha256(store.nonce)
-                        let appleIDProvider = ASAuthorizationAppleIDProvider()
-                        var request = appleIDProvider.createRequest()
                         request.requestedScopes = [.fullName, .email]
-                        request = request
-                    } onCompletion: { result  in
-                        store.send(.appleLogin(result: result, completion: { result in
-                            
-                        }))
-                        store.send(.isLogin(socialType: .apple), animation: .default)
-                        backAction()
+                        request.nonce = AppleLoginManger.shared.sha256(store.nonce)
+                    } onCompletion: { result in
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            store.send(.appleLogin(result: result, nonce: store.nonce, completion: {
+                                
+                            }))
+                            store.send(.isLogin(socialType: .apple), animation: .default)
+                            backAction()
+                        }
                     }
                     .padding(.horizontal, 5)
                     

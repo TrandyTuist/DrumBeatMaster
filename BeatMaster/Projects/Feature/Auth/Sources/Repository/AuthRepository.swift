@@ -8,28 +8,37 @@
 
 import Foundation
 import AuthenticationServices
+import SwiftUI
+
 import Model
 import Service
 import Combine
 import Moya
 import CombineMoya
 import SwiftJWT
+import FirebaseFirestore
+import Firebase
+import FirebaseAuth
+import KeychainAccess
 
-public class AuthRepository: AuthRepositoryProtocol, ObservableObject {
+@Observable public class AuthRepository: AuthRepositoryProtocol {
+    
+    var userSession: Firebase.User?
+    var authModel: UserAuth?
+    var appleAuthModel: AppleTokenResponse?
+    var appleAuthCancellable: AnyCancellable?
+    
     
     public init() {
-        
+        self.userSession = Auth.auth().currentUser
     }
-    
-    @Published var authModel: Auth?
-    @Published var appleAuthModel: AppleTokenResponse?
-    var appleAuthCancellable: AnyCancellable?
     
     //MARK: - 애플 로그인
     public func handleAppleLoginResult(
         result: Result<ASAuthorization, Error>,
-        completion: @escaping (String) -> Void
-    ) {
+        nonce: String,
+        completion: @escaping () -> Void
+    ) async {
         switch result {
         case .success(let authResults):
             switch authResults.credential {
@@ -44,6 +53,9 @@ public class AuthRepository: AuthRepositoryProtocol, ObservableObject {
                 let name = "\(lastName)\(firstName)"
                 let email = appleIDCredential.email ?? ""
                 let userIdentifier = appleIDCredential.user
+                try? Keychain().set(appleIDCredential.email ?? "", key: "EMAIL")
+                try? Keychain().set(name, key: "NAME")
+                
                 
                 if let authorizationCode = appleIDCredential.authorizationCode {
                     let code = String(decoding: authorizationCode, as: UTF8.self)
@@ -55,8 +67,9 @@ public class AuthRepository: AuthRepositoryProtocol, ObservableObject {
                 } else {
                     Log.error("🚧 authorizationCode is nil")
                 }
-                completion(email)
-                completion(identityToken)
+                
+                Log.debug("email: \(email)", (try? Keychain().get("EMAIL")) ?? "",  (try? Keychain().get("NAME")) ?? "")
+                completion()
             default:
                 break
             }
@@ -64,6 +77,130 @@ public class AuthRepository: AuthRepositoryProtocol, ObservableObject {
             Log.error("에러", error.localizedDescription, Self.self ,#function)
         }
     }
+    
+    
+    public func handleAppleLoginWithFirebase(
+        credential: ASAuthorizationAppleIDCredential,
+        nonce: String,
+        completion: @escaping () -> Void
+    ) async  {
+        guard let token = credential.identityToken else {
+            Log.debug("[🔥] 파이어 베이스 로그인 에 실패 하였습니다 ")
+            return
+        }
+        //MARK: - 토큰을 문자열 변환
+        guard let tokenString = String(data: token, encoding: .utf8) else {
+            Log.debug("[🔥]  error with Token")
+            return
+        }
+        
+        let firebaseCredential = OAuthProvider.credential(withProviderID: "apple.com",
+                                                          idToken: tokenString,
+                                                          rawNonce: nonce)
+        
+        Auth.auth().signIn(with: firebaseCredential) { (result , error) in
+            if let error = error {
+                debugPrint("[🔥] 로그인 에 실패 하였습니다 \(error.localizedDescription)")
+                return
+            }   else {
+                guard let user = result?.user else  {return}
+                self.userSession = user
+                debugPrint("[🔥]  로그인에  성공 하였습니다  \(user)")
+                withAnimation(.easeInOut) {
+                    self.authModel?.isLogin = true
+                }
+                self.authModel?.email = result?.user.email ?? ""
+                print("이메일 \(result?.user.email ?? "")")
+                //MARK: - 토크아이디
+                let currentUser = Auth.auth().currentUser
+                currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
+                  if let error = error {
+                    // Handle error
+                    return
+                  }
+//                    self.uid = idToken ?? ""
+//                    APIHeaderManger.shared.firebaseUid = idToken ?? ""
+                }
+                let data = ["email" : result?.user.email ?? "" ,
+                            "uid" : result?.user.uid ?? ""]
+                Firestore.firestore().collection("users")
+                    .document(result?.user.uid ?? "")
+                completion()
+//                    .setData(data) { data in
+//                        debugPrint("DEBUG : Upload user data : \(String(describing: data))")
+//                    }
+
+            }
+        }
+    }
+    
+//    public func appleLogin(credential : ASAuthorizationAppleIDCredential) {
+//        //MARK:  - 토큰 가져오기
+//        guard let token = credential.identityToken else {
+//            debugPrint("[🔥] 파이어 베이스 로그인 에 실패 하였습니다 ")
+//            return
+//        }
+//        //MARK: - 토큰을 문자열 변환
+//        guard let tokenString = String(data: token, encoding: .utf8) else {
+//            debugPrint("[🔥]  error with Token")
+//            return
+//        }
+//        
+//        let firebaseCredential = OAuthProvider.credential(withProviderID: "apple.com",
+//                                                          idToken: tokenString,
+//                                                          rawNonce: nonce)
+//        
+//        //MARK: - 파이어 베이스 로그인
+//        
+//        Auth.auth().signIn(with: firebaseCredential) { (result , error) in
+//            if let error = error {
+//                debugPrint("[🔥] 로그인 에 실패 하였습니다 \(error.localizedDescription)")
+//                return
+//            }   else {
+//                guard let user = result?.user else  {return}
+//                self.userSession = user
+//                debugPrint("[🔥]  로그인에  성공 하였습니다  \(user)")
+//                withAnimation(.easeInOut) {
+//                    self.authModel?.isLogin = true
+//                }
+//                self.authModel?.email = result?.user.email ?? ""
+//                print("이메일 \(result?.user.email ?? "")")
+//                //MARK: - 토크아이디
+//                let currentUser = Auth.auth().currentUser
+//                currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
+//                  if let error = error {
+//                    // Handle error
+//                    return
+//                  }
+////                    self.uid = idToken ?? ""
+////                    APIHeaderManger.shared.firebaseUid = idToken ?? ""
+//                }
+//                let data = ["email" : result?.user.email ?? "" ,
+//                            "uid" : result?.user.uid ?? ""]
+//                Firestore.firestore().collection("users")
+//                    .document(result?.user.uid ?? "")
+////                    .setData(data) { data in
+////                        debugPrint("DEBUG : Upload user data : \(String(describing: data))")
+////                    }
+//
+//            }
+//        }
+//    }
+    
+//    public func getRefreshToken() {
+//        APIHeaderManger.shared.firebaseUid = ""
+//        let currentUser = Auth.auth().currentUser
+//        currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
+//          if let error = error {
+//            // Handle error
+//            return
+//          }
+//            self.uid = idToken ?? ""
+//            APIHeaderManger.shared.firebaseUid = idToken ?? ""
+//            
+//            print("토큰 재생성")
+//        }
+//    }
     
     private func appleAuthToUseCase(_ list: AppleTokenResponse) {
         self.appleAuthModel = list
@@ -129,7 +266,7 @@ public class AuthRepository: AuthRepositoryProtocol, ObservableObject {
                 self?.appleAuthToUseCase(model)
                 Log.network("애플 토큰 발급 성공 ", model)
                 if model.refresh_token == nil {
-                    Log.error("if decodedData.refresh_token == nil")
+                    Log.error("if model.refresh_token == nil")
                 } else {
                     completionHandler(model.refresh_token)
                 }

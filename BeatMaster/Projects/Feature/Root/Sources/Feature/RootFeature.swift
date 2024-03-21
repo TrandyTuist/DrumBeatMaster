@@ -14,6 +14,7 @@ import Model
 
 
 import ComposableArchitecture
+import KeychainAccess
 
 @Reducer
 public struct RootFeature{
@@ -92,7 +93,9 @@ public struct RootFeature{
                 return .none
                 
             case .path(.element(id:_, action: .auth(.presentLogin))):
-                state.path.append(.login(.init()))
+                let email: String = (try? Keychain().get("EMAIL")) ?? ""
+                let nickname: String = (try? Keychain().get("NAME")) ?? ""
+                state.path.append(.login(.init(auth: UserAuth(token: "", socialType: .apple, name: nickname, email: email))))
                 return .none
                 
 //            case .path(.element(id:_, action: .auth(.presentAuthInformation))):
@@ -100,7 +103,9 @@ public struct RootFeature{
 //                return .none
                 
             case .path(.element(id: _, action: .auth(.presentSignUp))):
-                state.path.append(.signUp(.init()))
+                let email: String = (try? Keychain().get("EMAIL")) ?? ""
+                let nickname: String = (try? Keychain().get("NAME")) ?? ""
+                state.path.append(.signUp(.init(auth: UserAuth(token: "", socialType: .apple, name: nickname, email: email))))
                 return .none
                 
             case .path(.element(id: _, action: .signUp(.presentPolicyAgreedWeb))):

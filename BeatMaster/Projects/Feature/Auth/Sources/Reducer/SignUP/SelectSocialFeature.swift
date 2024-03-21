@@ -17,9 +17,9 @@ public struct SelectSocialFeature {
     
     @ObservableState
     public struct State: Equatable {
-        var auth: Auth?
+        var auth: UserAuth?
         
-        public init(auth: Auth? = nil) {
+        public init(auth: UserAuth? = nil) {
             self.auth = auth
         }
         

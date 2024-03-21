@@ -7,11 +7,13 @@
 //
 
 import Foundation
-import ComposableArchitecture
+import AuthenticationServices
+
 import DesignSystem
 import Model
 
-import AuthenticationServices
+import ComposableArchitecture
+import KeychainAccess
 
 @Reducer
 public struct LoginFeature {
@@ -21,10 +23,10 @@ public struct LoginFeature {
     public struct State: Equatable {
         var loginMainImage: ImageAsset = .logoIcon
         var loginMainViewTitle: String = "BeatMaster"
-        var auth: Auth?
+        var auth: UserAuth?
         var isLogin: Bool = false
         var nonce: String = ""
-        public init(auth: Auth? = nil) {
+        public init(auth: UserAuth? = nil) {
             self.auth = auth
         }
     }
@@ -34,7 +36,11 @@ public struct LoginFeature {
         case isLogin(socialType: SocialType)
         case disappear
         case binding(BindingAction<State>)
-        case appleLogin(result: Result<ASAuthorization, Error>,completion: (String) -> Void)
+        case appleLogin(
+            result: Result<ASAuthorization, Error>,
+            nonce: String,
+            completion: () -> Void
+        )
         
     }
     
@@ -56,18 +62,24 @@ public struct LoginFeature {
                 case .apple:
                     state.auth = state.auth
                     state.auth?.socialType = .apple
+                    try? Keychain().set(state.auth?.socialType?.desc ?? "", key: "SocialType")
                     state.auth?.isLogin?.toggle()
                 case .kakao:
                     state.auth = state.auth
                     state.auth?.socialType = .kakao
+                    try? Keychain().set(state.auth?.socialType?.desc ?? "", key: "SocialType")
                     state.auth?.isLogin?.toggle()
                     
                 }
                 return .none
                 
-            case let .appleLogin(result: result, completion: completion):
+            case let .appleLogin(result: result, nonce: nonce, completion: completion):
                 return .run { send in
-                     authUseCase.handleAppleLoginResult(result: result, completion: completion)
+                    await authUseCase.handleAppleLoginResult(
+                        result: result,
+                        nonce: nonce,
+                        completion: completion
+                     )
                 }
                 
             case .disappear:

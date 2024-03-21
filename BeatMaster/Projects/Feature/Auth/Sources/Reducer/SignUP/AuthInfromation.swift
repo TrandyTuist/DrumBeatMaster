@@ -20,8 +20,8 @@ public struct AuthInfromationFeature {
     @ObservableState
     public struct State: Equatable {
         var title: String = "회원가입 정보입력"
-        var auth: Auth?
-        public init(auth: Auth? = nil) {
+        var auth: UserAuth?
+        public init(auth: UserAuth? = nil) {
             self.auth = auth
         }
        

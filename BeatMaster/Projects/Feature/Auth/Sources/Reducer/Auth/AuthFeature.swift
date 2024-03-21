@@ -10,6 +10,7 @@ import Foundation
 import ComposableArchitecture
 import DesignSystem
 import Model
+import KeychainAccess
 
 @Reducer
 public struct AuthFeature {
@@ -21,8 +22,8 @@ public struct AuthFeature {
         var authMainImage: ImageAsset = .logoIcon
         var authMainViewTitle: String = "BeatMaster"
         
-        var auth: IdentifiedArrayOf<Auth> = []
-        var authModel: Auth?
+        var auth: IdentifiedArrayOf<UserAuth> = []
+        var authModel: UserAuth?
 //        var path = StackState<Path.State>()
         
         var webLoading: Bool = false
@@ -30,7 +31,7 @@ public struct AuthFeature {
         @Presents var loginFeature: LoginFeature.State?
         
         public init(
-            authModel: Auth? = nil
+            authModel: UserAuth? = nil
         ) {
             self.authModel = authModel
         }
@@ -72,6 +73,15 @@ public struct AuthFeature {
                 return .none
             
             case .appearLogin:
+                let email: String = (try? Keychain().get("EMAIL")) ?? ""
+                let nickname: String = (try? Keychain().get("NAME")) ?? ""
+                let socialType: String = ( try? Keychain().get("SocialType")) ?? ""
+                state.authModel?.name = nickname
+                state.authModel?.email = email
+//                state.authModel?.socialType
+                guard let auth = state.authModel
+                else { return .none}
+                state.auth.append(auth)
 //                state.path.removeAll()
                 return .none
                 
@@ -85,7 +95,11 @@ public struct AuthFeature {
                 return .none
                 
             case .presntLoginBottomSheet:
-                state.loginFeature = LoginFeature.State(auth: Auth(isLogin: false, token: "", socialType: .apple, name: "", email: ""))
+                let email: String = (try? Keychain().get("EMAIL")) ?? ""
+                let nickname: String = (try? Keychain().get("NAME")) ?? ""
+                let socialTypeDesc: String = ( try? Keychain().get("SocialType")) ?? ""
+                let socialType: SocialType = SocialType(rawValue: socialTypeDesc) ?? .apple
+                state.loginFeature = LoginFeature.State(auth: UserAuth(isLogin: false, token: "", socialType: socialType, name: nickname, email: email))
                 return .none
                 
             case .addLoginBottomSheet:

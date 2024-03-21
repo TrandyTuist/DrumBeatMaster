@@ -9,15 +9,15 @@
 import Foundation
 
 public struct AuthModel: Equatable, Identifiable {
-    public var data: Auth
+    public var data: UserAuth
     public var id: UUID = UUID()
     
-    public init(data: Auth) {
+    public init(data: UserAuth) {
         self.data = data
     }
 }
 
-public struct Auth : Equatable, Identifiable{
+public struct UserAuth : Equatable, Identifiable{
     public var id: UUID = UUID()
     public var isLogin: Bool?
     public var socialType: SocialType?

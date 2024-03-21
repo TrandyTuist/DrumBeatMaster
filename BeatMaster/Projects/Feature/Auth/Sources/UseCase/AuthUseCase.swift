@@ -30,9 +30,10 @@ public struct AuthUseCase: AuthUseCaseProtocol  {
     //MARK: -  애플 로그인
     public func handleAppleLoginResult(
         result: Result<ASAuthorization, Error>,
-        completion: @escaping (String) -> Void
-    ) {
-        repository.handleAppleLoginResult(result: result, completion: completion)
+        nonce: String,
+        completion: @escaping () -> Void
+    ) async {
+        await repository.handleAppleLoginResult(result: result, nonce: nonce, completion: completion)
         
     }
     
@@ -40,6 +41,16 @@ public struct AuthUseCase: AuthUseCaseProtocol  {
         code: String,
         completionHandler: @escaping (String?) -> Void) {
         repository.getAppleRefreshToken(code: code, completionHandler: completionHandler)
+    }
+    
+    public func handleAppleLoginWithFirebase(
+        credential: ASAuthorizationAppleIDCredential,
+        nonce: String,
+        completion: @escaping () -> Void) async {
+           await repository.handleAppleLoginWithFirebase(
+            credential: credential,
+            nonce:  nonce,
+            completion: completion)
     }
 }
 
