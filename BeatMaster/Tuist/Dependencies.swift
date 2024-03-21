@@ -17,6 +17,7 @@ let swiftpackage = SwiftPackageManagerDependencies(
         .remote(url: "https://github.com/Kitura/Swift-JWT.git", requirement: .branch("master")),
         .remote(url: "https://github.com/firebase/firebase-ios-sdk.git", requirement: .upToNextMajor(from: "10.22.0")),
         .remote(url: "https://github.com/kishikawakatsumi/KeychainAccess", requirement: .upToNextMajor(from: "4.2.2")),
+        .remote(url: "https://github.com/kakao/kakao-ios-sdk", requirement: .upToNextMajor(from: "2.21.0"))
 //        .remote(url: "https://github.com/supabase-community/supabase-swift.git", requirement: .upToNextMajor(from: "2.3.1"))
         //    .remote(url: "https://github.com/supabase-community/supabase-swift.git", requirement: .exact("2.0.0"))
     ],

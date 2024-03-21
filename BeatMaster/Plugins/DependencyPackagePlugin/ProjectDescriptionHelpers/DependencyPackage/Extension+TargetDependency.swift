@@ -25,6 +25,9 @@ public extension TargetDependency.SPM {
     static let firebaseMessaging = TargetDependency.external(name: "FirebaseMessaging", condition: .none)
     static let firebaseFirestore = TargetDependency.external(name: "FirebaseFirestore", condition: .none)
     static let keychainAccess = TargetDependency.external(name: "KeychainAccess", condition: .none)
-    
+    static let kakaoSDKAuth = TargetDependency.external(name: "KakaoSDKAuth", condition: .none)
+    static let kakaoSDKUser = TargetDependency.external(name: "KakaoSDKUser", condition: .none)
+    static let kakaoSDKCommon = TargetDependency.external(name: "KakaoSDKCommon", condition: .none)
+
 }
 

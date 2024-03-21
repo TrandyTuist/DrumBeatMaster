@@ -9,10 +9,11 @@
 import Foundation
 import AuthenticationServices
 import SwiftUI
+import Combine
 
 import Model
 import Service
-import Combine
+
 import Moya
 import CombineMoya
 import SwiftJWT
@@ -20,6 +21,8 @@ import FirebaseFirestore
 import Firebase
 import FirebaseAuth
 import KeychainAccess
+import KakaoSDKAuth
+import KakaoSDKUser
 
 @Observable public class AuthRepository: AuthRepositoryProtocol {
     
@@ -134,73 +137,22 @@ import KeychainAccess
         }
     }
     
-//    public func appleLogin(credential : ASAuthorizationAppleIDCredential) {
-//        //MARK:  - 토큰 가져오기
-//        guard let token = credential.identityToken else {
-//            debugPrint("[🔥] 파이어 베이스 로그인 에 실패 하였습니다 ")
-//            return
-//        }
-//        //MARK: - 토큰을 문자열 변환
-//        guard let tokenString = String(data: token, encoding: .utf8) else {
-//            debugPrint("[🔥]  error with Token")
-//            return
-//        }
-//        
-//        let firebaseCredential = OAuthProvider.credential(withProviderID: "apple.com",
-//                                                          idToken: tokenString,
-//                                                          rawNonce: nonce)
-//        
-//        //MARK: - 파이어 베이스 로그인
-//        
-//        Auth.auth().signIn(with: firebaseCredential) { (result , error) in
-//            if let error = error {
-//                debugPrint("[🔥] 로그인 에 실패 하였습니다 \(error.localizedDescription)")
-//                return
-//            }   else {
-//                guard let user = result?.user else  {return}
-//                self.userSession = user
-//                debugPrint("[🔥]  로그인에  성공 하였습니다  \(user)")
-//                withAnimation(.easeInOut) {
-//                    self.authModel?.isLogin = true
-//                }
-//                self.authModel?.email = result?.user.email ?? ""
-//                print("이메일 \(result?.user.email ?? "")")
-//                //MARK: - 토크아이디
-//                let currentUser = Auth.auth().currentUser
-//                currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
-//                  if let error = error {
-//                    // Handle error
-//                    return
-//                  }
-////                    self.uid = idToken ?? ""
-////                    APIHeaderManger.shared.firebaseUid = idToken ?? ""
-//                }
-//                let data = ["email" : result?.user.email ?? "" ,
-//                            "uid" : result?.user.uid ?? ""]
-//                Firestore.firestore().collection("users")
-//                    .document(result?.user.uid ?? "")
-////                    .setData(data) { data in
-////                        debugPrint("DEBUG : Upload user data : \(String(describing: data))")
-////                    }
-//
-//            }
-//        }
-//    }
+
+    public func requestKakaoTokenAsync(
+        completion: @escaping () -> Void
+    ) async {
+         UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+            guard let accessToken = oauthToken?.accessToken else {
+                Log.error(error?.localizedDescription, "requestKakaoTokenAsync")
+//                    continuation.resume(returning: (nil, nil))
+                return
+            }
+             self.authModel?.token = accessToken
+             print("\(accessToken), \(self.authModel?.token)")
+            completion()
+        }
+    }
     
-//    public func getRefreshToken() {
-//        APIHeaderManger.shared.firebaseUid = ""
-//        let currentUser = Auth.auth().currentUser
-//        currentUser?.getIDTokenForcingRefresh(true) { idToken, error in
-//          if let error = error {
-//            // Handle error
-//            return
-//          }
-//            self.uid = idToken ?? ""
-//            APIHeaderManger.shared.firebaseUid = idToken ?? ""
-//            
-//            print("토큰 재생성")
-//        }
-//    }
     
     private func appleAuthToUseCase(_ list: AppleTokenResponse) {
         self.appleAuthModel = list

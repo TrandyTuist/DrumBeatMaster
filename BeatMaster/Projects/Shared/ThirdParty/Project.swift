@@ -16,7 +16,10 @@ let project = Project.makeAppModule(
         .SPM.firebaseDatabase,
         .SPM.firebaseMessaging,
         .SPM.firebaseFirestore,
-        .SPM.keychainAccess
+        .SPM.keychainAccess,
+        .SPM.kakaoSDKAuth,
+        .SPM.kakaoSDKUser,
+        .SPM.kakaoSDKCommon
 //        .SPM.supabase
     ],
     sources: ["Sources/**"]

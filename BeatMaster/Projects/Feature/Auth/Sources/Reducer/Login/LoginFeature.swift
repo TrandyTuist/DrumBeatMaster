@@ -41,6 +41,7 @@ public struct LoginFeature {
             nonce: String,
             completion: () -> Void
         )
+        case kakaoLogin(completion: () -> Void)
         
     }
     
@@ -80,6 +81,11 @@ public struct LoginFeature {
                         nonce: nonce,
                         completion: completion
                      )
+                }
+                
+            case let .kakaoLogin(completion: completion):
+                return .run { send in
+                    await authUseCase.requestKakaoTokenAsync(completion: completion)
                 }
                 
             case .disappear:

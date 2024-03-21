@@ -9,6 +9,8 @@
 import SwiftUI
 import DesignSystem
 import ComposableArchitecture
+import KakaoSDKAuth
+import KakaoSDKUser
 import AuthenticationServices
 
 
@@ -81,16 +83,20 @@ fileprivate extension LoginView {
         
         LazyVStack {
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.basicBlack, style: .init(lineWidth: 2))
+                .stroke(Color.clear, style: .init(lineWidth: 2))
                 .frame(height: 56)
                 .overlay {
-                    Text("카카오로 로그인하기")
-                        .foregroundStyle(Color.basicBlack)
-                        .pretendardFont(family: .SemiBold, size: 16)
+                    Image(asset: .kakao_login)
+                        .resizable()
+                        .scaledToFit()
+                    
                 }
                 .onTapGesture {
-                    store.send(.isLogin(socialType: .kakao), animation: .default)
+                    store.send(.kakaoLogin(completion: {
+                        
+                    }))
                     
+                    store.send(.isLogin(socialType: .kakao), animation: .default)
                     backAction()
                 }
             
@@ -101,3 +107,4 @@ fileprivate extension LoginView {
     
     
 }
+

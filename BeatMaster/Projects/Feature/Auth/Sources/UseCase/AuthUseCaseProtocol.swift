@@ -27,4 +27,8 @@ public protocol AuthUseCaseProtocol {
         nonce: String,
         completion: @escaping () -> Void
     ) async 
+    
+    func requestKakaoTokenAsync(
+        completion: @escaping () -> Void
+    ) async 
 }

@@ -52,6 +52,12 @@ public struct AuthUseCase: AuthUseCaseProtocol  {
             nonce:  nonce,
             completion: completion)
     }
+    
+    public func requestKakaoTokenAsync(
+        completion: @escaping () -> Void
+    ) async {
+        await repository.requestKakaoTokenAsync(completion: completion)
+    }
 }
 
 extension AuthUseCase: DependencyKey {

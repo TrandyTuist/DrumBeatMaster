@@ -28,6 +28,10 @@ public protocol AuthRepositoryProtocol {
         nonce: String,
         completion: @escaping () -> Void
     ) async
+    
+    func requestKakaoTokenAsync(
+        completion: @escaping () -> Void
+    ) async 
 }
 
 
@@ -50,6 +54,12 @@ final class DefaultAuthRepository : AuthRepositoryProtocol {
         credential: ASAuthorizationAppleIDCredential,
         nonce: String,
         completion: @escaping () -> Void) async  {
+        
+    }
+    
+    func requestKakaoTokenAsync(
+        completion: @escaping () -> Void
+    ) async {
         
     }
 }
