@@ -60,7 +60,7 @@ import KakaoSDKUser
                 
                 if let authorizationCode = appleIDCredential.authorizationCode {
                     let code = String(decoding: authorizationCode, as: UTF8.self)
-                    print("Code - \(code), \(email), \(name)")
+                    Log.debug("Code - \(code), \(email), \(name)")
                     self.getAppleRefreshToken(code: code) { [weak self] data in
                         Log.debug("🚧", data ?? "-")
                         try? Keychain().set(data ?? "", key: "Token")
@@ -91,7 +91,7 @@ import KakaoSDKUser
                 return
             }
              try? Keychain().set(accessToken, key: "Token")
-             print("\(accessToken), \(self.authModel?.token)")
+             Log.debug("\(accessToken), \(self.authModel?.token)")
             completion()
         }
     }

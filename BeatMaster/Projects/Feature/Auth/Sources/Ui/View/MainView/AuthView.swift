@@ -50,6 +50,7 @@ public struct AuthView: View {
             store.send(.appearLogin)
         }
         
+        
         .sheet(item: $store.scope(state: \.loginFeature, action: \.presentBottomSheet)) { loginStore in
             LoginView(store: loginStore, backAction: {
                 self.store.send(.addLoginBottomSheet)

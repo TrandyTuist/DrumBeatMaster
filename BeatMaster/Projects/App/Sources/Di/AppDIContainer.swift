@@ -34,11 +34,6 @@ public final class AppDIContainer {
         diContainer.register(AuthUseCaseProtocol.self) { resolver in
             AuthUseCase(repository: resolver.resolve(AuthRepositoryProtocol.self)!)
         }
-        
-        
-//        diContainer.register(ProfileUseCaseProtocol.self) { resolver in
-//            ProfileUseCase(repository: resolver.resolve(ProfileRepositoriesProtocol.self)!)
-//        }
     }
     
     // MARK: - Repositories  등록
