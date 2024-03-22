@@ -54,11 +54,17 @@ public struct SelectSocialFeature {
                 return .none
              
             case let .appleSignUp(result: result, completion: completion):
+                guard let auth = state.auth
+                else {return .none}
+                authUseCase.authModelToReducer(auth: auth)
                 return .run { send in
                     await authUseCase.handleAppleLoginResult(result: result, completion: completion)
                 }
                 
             case let .kakaoSignUp(completion: completion):
+                guard let auth = state.auth
+                else {return .none}
+                authUseCase.authModelToReducer(auth: auth)
                 return .run { send in
                     await authUseCase.requestKakaoTokenAsync(completion: completion)
                 }

@@ -15,7 +15,6 @@ let project = Project.makeAppModule(
         .SPM.firebaseAuth,
         .SPM.firebaseDatabase,
         .SPM.firebaseMessaging,
-        .SPM.firebaseFirestore,
         .SPM.keychainAccess,
         .SPM.kakaoSDKAuth,
         .SPM.kakaoSDKUser,

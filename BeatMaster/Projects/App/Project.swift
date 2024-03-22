@@ -23,7 +23,7 @@ let project = Project.makeAppModule(
         
     ],
     sources: ["Sources/**", "Resources/FontAsset/**"],
-    resources: ["Resources/**"],
+    resources: ["Resources/**", "../Support/**"],
     infoPlist: .file(path: "../Support/Info.plist"),
     entitlements: .file(path: "../Entitlements/BeatMaster.entitlements")
     
