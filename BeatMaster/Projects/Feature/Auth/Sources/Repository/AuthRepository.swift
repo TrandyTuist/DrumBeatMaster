@@ -17,23 +17,24 @@ import Service
 import Moya
 import CombineMoya
 import SwiftJWT
-import FirebaseFirestore
-import Firebase
-import FirebaseAuth
 import KeychainAccess
 import KakaoSDKAuth
 import KakaoSDKUser
 
 @Observable public class AuthRepository: AuthRepositoryProtocol {
     
-    var userSession: Firebase.User?
     var authModel: UserAuth?
     var appleAuthModel: AppleTokenResponse?
     var appleAuthCancellable: AnyCancellable?
     
     
     public init() {
-        self.userSession = Auth.auth().currentUser
+        
+    }
+
+    //MARK: -  모델  값 넘기기
+    public func authModelToReducer(auth: UserAuth) {
+        self.authModel = auth
     }
     
     //MARK: - 애플 로그인
@@ -65,13 +66,20 @@ import KakaoSDKUser
                         Log.debug("🚧", data ?? "-")
                         try? Keychain().set(data ?? "", key: "Token")
                         // UserDefaults.standard.set(data, forKey: "AppleRefreshToken")
+                        guard let acessToken = data
+                        else { return }
+                        let token = (try? Keychain().get("Token")) ?? ""
+                        self?.authModel?.token = token
+                        if !acessToken.isEmpty || acessToken != "" {
+                            completion()
+                        }
                     }
                 } else {
                     Log.error("🚧 authorizationCode is nil")
                 }
-                Log.debug("email: \(email)", (try? Keychain().get("EMAIL")) ?? "",  
+                
+                Log.debug("email: \(email)", (try? Keychain().get("EMAIL")) ?? "",
                           (try? Keychain().get("NAME")) ?? "", self.authModel?.token)
-                completion()
             default:
                 break
             }
@@ -80,7 +88,7 @@ import KakaoSDKUser
         }
     }
     
-    
+    //MARK: -   카카오 로그인 후 토큰 발급
     public func requestKakaoTokenAsync(
         completion: @escaping () -> Void
     ) async {
@@ -91,8 +99,14 @@ import KakaoSDKUser
                 return
             }
              try? Keychain().set(accessToken, key: "Token")
-             print("\(accessToken), \(self.authModel?.token)")
-            completion()
+             Log.debug("\(accessToken), \(self.authModel?.token)")
+             let token = (try? Keychain().get("Token")) ?? ""
+             
+             self.authModel?.token = accessToken
+             
+             if !accessToken.isEmpty || accessToken != "" {
+                 completion()
+             }
         }
     }
     

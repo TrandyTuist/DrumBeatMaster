@@ -48,6 +48,10 @@ public struct AuthUseCase: AuthUseCaseProtocol  {
     ) async {
         await repository.requestKakaoTokenAsync(completion: completion)
     }
+    
+    public func authModelToReducer(auth: UserAuth) {
+        repository.authModelToReducer(auth: auth)
+    }
 }
 
 extension AuthUseCase: DependencyKey {

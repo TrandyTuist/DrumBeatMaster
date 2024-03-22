@@ -26,6 +26,8 @@ public protocol AuthRepositoryProtocol {
     func requestKakaoTokenAsync(
         completion: @escaping () -> Void
     ) async 
+    
+    func authModelToReducer(auth: UserAuth)
 }
 
 
@@ -47,6 +49,10 @@ final class DefaultAuthRepository : AuthRepositoryProtocol {
     func requestKakaoTokenAsync(
         completion: @escaping () -> Void
     ) async {
+        
+    }
+    
+    func authModelToReducer(auth: UserAuth)  {
         
     }
 }

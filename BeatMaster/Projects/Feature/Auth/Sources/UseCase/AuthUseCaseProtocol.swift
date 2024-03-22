@@ -25,4 +25,6 @@ public protocol AuthUseCaseProtocol {
     func requestKakaoTokenAsync(
         completion: @escaping () -> Void
     ) async 
+    
+    func authModelToReducer(auth: UserAuth) 
 }

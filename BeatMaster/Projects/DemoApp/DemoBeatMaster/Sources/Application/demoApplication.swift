@@ -9,6 +9,7 @@
 import SwiftUI
 import Splash
 import ComposableArchitecture
+import Auth
 
 @main
 struct DemoBeatMaster: App {
