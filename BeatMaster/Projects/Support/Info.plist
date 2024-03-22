@@ -80,5 +80,7 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+	<key>LSApplicationCategoryType</key>
+	<string>&quot;../Support/**</string>
 </dict>
 </plist>

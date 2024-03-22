@@ -22,8 +22,8 @@ let project = Project.makeAppModule(
         .Networking(implements: .Networkings),
         
     ],
-    sources: ["Sources/**", "Resources/FontAsset/**", "../Support"],
-    resources: ["Resources/**", "../Support"],
+    sources: ["Sources/**", "Resources/FontAsset/**"],
+    resources: ["Resources/**", "../Support/**"],
     infoPlist: .file(path: "../Support/Info.plist"),
     entitlements: .file(path: "../Entitlements/BeatMaster.entitlements")
     
