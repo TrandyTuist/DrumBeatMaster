@@ -74,7 +74,7 @@ public enum SelectJob: String, CaseIterable {
     public var desc: String {
         switch self {
         case .drummer:
-            return "드러마/연주자"
+            return "드러머/연주자"
         case .drumlesson:
             return "드럼레슨생"
         case .hobbyDrum:
