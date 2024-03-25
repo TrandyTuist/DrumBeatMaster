@@ -27,4 +27,6 @@ public protocol AuthUseCaseProtocol {
     ) async 
     
     func authModelToReducer(auth: UserAuth) 
+    
+    func getUserInfoKakao(auth: UserAuth)
 }

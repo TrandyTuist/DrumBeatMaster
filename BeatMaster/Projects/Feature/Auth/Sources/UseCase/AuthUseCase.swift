@@ -52,6 +52,10 @@ public struct AuthUseCase: AuthUseCaseProtocol  {
     public func authModelToReducer(auth: UserAuth) {
         repository.authModelToReducer(auth: auth)
     }
+    
+    public func getUserInfoKakao(auth: UserAuth) {
+        repository.getUserInfoKakao(auth: auth)
+    }
 }
 
 extension AuthUseCase: DependencyKey {

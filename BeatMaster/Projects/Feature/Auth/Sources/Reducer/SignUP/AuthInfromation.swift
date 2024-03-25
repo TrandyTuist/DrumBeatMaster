@@ -31,6 +31,7 @@ public struct AuthInfromationFeature {
     }
     
     @Dependency(\.dismiss) var dismiss
+    @Dependency(AuthUseCase.self) var authUseCase
     
     public enum Action {
         case backAction

@@ -28,6 +28,8 @@ public protocol AuthRepositoryProtocol {
     ) async 
     
     func authModelToReducer(auth: UserAuth)
+    
+    func getUserInfoKakao(auth: UserAuth)
 }
 
 
@@ -53,6 +55,10 @@ final class DefaultAuthRepository : AuthRepositoryProtocol {
     }
     
     func authModelToReducer(auth: UserAuth)  {
+        
+    }
+    
+    func getUserInfoKakao(auth: UserAuth) {
         
     }
 }

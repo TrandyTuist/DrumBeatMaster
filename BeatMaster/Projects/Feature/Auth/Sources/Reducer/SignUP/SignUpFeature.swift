@@ -142,11 +142,22 @@ public struct SignUpFeature {
                 }
                 
             case .presntAuthInfo:
-                let email: String = (try? Keychain().get("EMAIL")) ?? ""
-                let nickname: String = (try? Keychain().get("NAME")) ?? ""
-                let token: String = (try? Keychain().get("Token")) ?? ""
-                state.auth?.token = token
-                state.authInformation = AuthInfromationFeature.State(auth: UserAuth(isLogin: false, token: state.auth?.token ?? "", socialType: state.auth?.socialType, name: nickname, email: email))
+                switch state.auth?.socialType {
+                case .apple:
+                    let email: String = (try? Keychain().get("EMAIL")) ?? ""
+                    let nickname: String = (try? Keychain().get("NAME")) ?? ""
+                    let token: String = (try? Keychain().get("Token")) ?? ""
+                    state.auth?.token = token
+                    state.authInformation = AuthInfromationFeature.State(auth: UserAuth(isLogin: false, token: state.auth?.token ?? "", socialType: state.auth?.socialType, name: nickname, email: email))
+                case .kakao:
+                    let email: String = (try? Keychain().get("EMAIL")) ?? ""
+                    let nickname: String = (try? Keychain().get("NAME")) ?? ""
+                    let token: String = (try? Keychain().get("Token")) ?? ""
+                    state.auth?.token = token
+                    state.authInformation = AuthInfromationFeature.State(auth: UserAuth(isLogin: false, token: state.auth?.token ?? "", socialType: state.auth?.socialType, name: nickname, email: email))
+                default:
+                    break
+                }
                 return .none
                 
             case .selectSocialBottomSheet:

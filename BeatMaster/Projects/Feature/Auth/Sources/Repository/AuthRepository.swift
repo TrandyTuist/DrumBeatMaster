@@ -106,10 +106,53 @@ import KakaoSDKUser
              
              if !accessToken.isEmpty || accessToken != "" {
                  completion()
+                 
+                 guard let auth = self.authModel
+                 else {return}
+                 self.getUserInfoKakao(auth: auth)
              }
         }
     }
     
+    public func getUserInfoKakao(auth: UserAuth) {
+        UserApi.shared.me { user, error in
+            if let error = error {
+                Log.error("프로필 가져오기 실패", error.localizedDescription)
+            } else {
+                
+                let kakaoAccountEmail = user?.kakaoAccount?.email ?? ""
+                let kakaoAccountName = user?.kakaoAccount?.profile?.nickname ?? ""
+                try? Keychain().set(kakaoAccountEmail, key: "EMAIL")
+                try? Keychain().set(kakaoAccountName , key: "NAME")
+                let email = (try? Keychain().get("EMAIL")) ?? ""
+                let name = (try? Keychain().get("NAME")) ?? ""
+                
+                self.authModel?.email = email
+                self.authModel?.name = name
+                Log.debug("프로필 가져오기",  self.authModel?.email,  self.authModel?.name )
+                
+                
+            }
+        }
+    }
+    
+    
+//    UserApi.shared.me() {(user, error) in
+//        if let error = error {
+//            print(error)
+//        }
+//        else {
+//            print("me() success.")
+//            
+//            print("usernaem: \(user?.kakaoAccount?.profile?.nickname), \(user?.kakaoAccount?.email)")
+//            var kakaoAccount = user?.kakaoAccount?.email ?? ""
+//            var auth = self.auth?.email
+//            auth = kakaoAccount
+//            
+//            print(auth)
+//            
+//        }
+//    }
     
     private func appleAuthToUseCase(_ list: AppleTokenResponse) {
         self.appleAuthModel = list

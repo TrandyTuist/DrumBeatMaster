@@ -82,25 +82,6 @@ fileprivate extension AuthInfromationView {
                     .pretendardFont(family: .SemiBold, size: 30)
                     .foregroundColor(Color.basicBlack)
                 
-                    .onTapGesture {
-                        UserApi.shared.me() {(user, error) in
-                            if let error = error {
-                                print(error)
-                            }
-                            else {
-                                print("me() success.")
-                                
-                                print("usernaem: \(user?.kakaoAccount?.profile?.nickname), \(user?.kakaoAccount?.email)")
-                                var kakaoAccount = user?.kakaoAccount?.email ?? ""
-                                var auth = store.auth?.email
-                                auth = kakaoAccount
-                                
-                                print(auth)
-                                
-                            }
-                        }
-                    }
-                
                 Spacer()
             }
         }
