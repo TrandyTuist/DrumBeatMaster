@@ -49,7 +49,7 @@ public struct SelectSocialFeature {
                     print("Apple 회원가입, \(state.auth)")
                 case .kakao:
                     state.auth?.socialType = .kakao
-                    print("Apple 회원가입, \(state.auth)")
+                    print("카카오 회원가입, \(state.auth)")
                 }
                 return .none
              
