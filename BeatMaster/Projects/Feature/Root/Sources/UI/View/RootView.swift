@@ -10,6 +10,7 @@ import Foundation
 import ComposableArchitecture
 import SwiftUI
 import Auth
+import Profile
 import DesignSystem
 
 public struct RootView: View {
@@ -53,6 +54,8 @@ public struct RootView: View {
             case let .signUp(signUpStore):
                 SignUpView(store: signUpStore) {
                     store.send(.removePath)
+                } profileBackAction: {
+                    store.send(.removeAllPath)
                 }
                 .navigationBarBackButtonHidden()
                 
@@ -63,6 +66,11 @@ public struct RootView: View {
                 )
                 .navigationBarBackButtonHidden()
                 
+            case let .profile(profileStore):
+                ProfileView(store: profileStore) {
+                    store.send(.removePath)
+                }
+                .navigationBarBackButtonHidden()
             }
             
             //MARK: -  1.7 이하

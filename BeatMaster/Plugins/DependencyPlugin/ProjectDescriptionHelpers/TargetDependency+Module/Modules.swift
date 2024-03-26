@@ -33,6 +33,7 @@ public extension ModulePath {
         case Metronome
         case Splash
         case Root
+        case Profile
         
         public static let name: String = "Feature"
     }

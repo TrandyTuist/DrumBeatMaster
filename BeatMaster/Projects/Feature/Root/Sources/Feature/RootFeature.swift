@@ -8,6 +8,7 @@
 
 import Foundation
 import Auth
+import Profile
 import DesignSystem
 import API
 import Model
@@ -45,6 +46,7 @@ public struct RootFeature{
         case auth(AuthFeature)
         case login(LoginFeature)
         case signUp(SignUpFeature)
+        case profile(ProfileFeature)
         case web(WebFeature)
     }
     
@@ -89,7 +91,16 @@ public struct RootFeature{
                 
                 
             case .presentAuth:
-                state.path.append(.auth(.init()))
+                let login: String = (try? Keychain().get("isLogin")) ?? ""
+                
+                switch login {
+                case "true":
+                    state.path.append(.profile(.init()))
+                case "false":
+                    state.path.append(.auth(.init()))
+                default:
+                    state.path.append(.auth(.init()))
+                }
                 return .none
                 
             case .path(.element(id:_, action: .auth(.presentLogin))):

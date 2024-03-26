@@ -11,7 +11,8 @@ let project = Project.makeAppModule(
     settings: .appBaseSetting(appName: "Auth"),
     dependencies: [
         .Shared(implements: .Shareds),
-        .Networking(implements: .Networkings)
+        .Networking(implements: .Networkings),
+        .Feature(implements: .Profile)
         
     ],
     sources: ["Sources/**"],

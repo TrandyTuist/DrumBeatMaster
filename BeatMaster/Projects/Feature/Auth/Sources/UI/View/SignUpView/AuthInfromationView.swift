@@ -12,17 +12,21 @@ import DesignSystem
 import ComposableArchitecture
 import KakaoSDKAuth
 import KakaoSDKUser
+import Profile
 
 public struct AuthInfromationView: View {
     @Bindable var store: StoreOf<AuthInfromationFeature>
     var backAction: ()  -> Void = { }
+    var profileBackAction: () -> Void = { }
     
     public init(
         store: StoreOf<AuthInfromationFeature>,
-        backAction: @escaping () -> Void
+        backAction: @escaping () -> Void,
+        profileBackAction: @escaping () -> Void
     ) {
         self.store = store
         self.backAction = backAction
+        self.profileBackAction = profileBackAction
     }
     
     
@@ -54,6 +58,10 @@ public struct AuthInfromationView: View {
         }
         .onAppear {
             
+        }
+        .navigationDestination(item: $store.scope(state: \.profile, action: \.profile)) { profileStore in
+            ProfileView(store: profileStore, backAction: profileBackAction)
+                .navigationBarBackButtonHidden()
         }
     }
 }
@@ -160,6 +168,9 @@ fileprivate extension AuthInfromationView {
                         .foregroundColor(store.disableSignUpButtonb ? Color.basicWhite : Color.basicBlack)
                 }
                 .disabled(!self.store.disableSignUpButtonb)
+                .onTapGesture {
+                    self.store.send(.presntProfile)
+                }
         }
         .padding(.horizontal, 20)
     }
