@@ -69,6 +69,8 @@ public struct LoginFeature {
                     state.auth?.socialType = .kakao
                     try? Keychain().set(state.auth?.socialType?.desc ?? "", key: "SocialType")
                     state.auth?.isLogin?.toggle()
+                default:
+                    break
                     
                 }
                 return .none

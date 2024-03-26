@@ -41,8 +41,9 @@ public struct UserAuth : Equatable, Identifiable{
 }
 
 public enum SocialType: String {
-    case apple
-    case kakao
+    case apple = "Apple"
+    case kakao = "Kakao"
+    case unknown
     
     public var desc: String {
         switch self {
@@ -50,6 +51,8 @@ public enum SocialType: String {
             return "Apple"
         case .kakao:
             return "Kakao"
+        case .unknown:
+            return "Unknown"
         }
     }
 }

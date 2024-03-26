@@ -17,16 +17,13 @@ import Profile
 public struct AuthInfromationView: View {
     @Bindable var store: StoreOf<AuthInfromationFeature>
     var backAction: ()  -> Void = { }
-    var profileBackAction: () -> Void = { }
     
     public init(
         store: StoreOf<AuthInfromationFeature>,
-        backAction: @escaping () -> Void,
-        profileBackAction: @escaping () -> Void
+        backAction: @escaping () -> Void
     ) {
         self.store = store
         self.backAction = backAction
-        self.profileBackAction = profileBackAction
     }
     
     
@@ -58,10 +55,6 @@ public struct AuthInfromationView: View {
         }
         .onAppear {
             
-        }
-        .navigationDestination(item: $store.scope(state: \.profile, action: \.profile)) { profileStore in
-            ProfileView(store: profileStore, backAction: profileBackAction)
-                .navigationBarBackButtonHidden()
         }
     }
 }

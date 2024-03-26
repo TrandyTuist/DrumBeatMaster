@@ -46,6 +46,7 @@ public struct RootFeature{
         case auth(AuthFeature)
         case login(LoginFeature)
         case signUp(SignUpFeature)
+        case authInfo(AuthInfromationFeature)
         case profile(ProfileFeature)
         case web(WebFeature)
     }
@@ -95,7 +96,14 @@ public struct RootFeature{
                 
                 switch login {
                 case "true":
-                    state.path.append(.profile(.init()))
+                    let email: String = (try? Keychain().get("EMAIL")) ?? ""
+                    let name: String = (try? Keychain().get("NAME")) ?? ""
+                    let token = (try? Keychain().get("Token")) ?? ""
+                    let socialTypeString: String = (try? Keychain().get("SocialType")) ?? ""
+                    let socialType: SocialType = SocialType(rawValue: socialTypeString) ?? .unknown
+                    let login: String = (try? Keychain().get("isLogin")) ?? ""
+                    print(socialTypeString, socialType)
+                    state.path.append(.profile(.init(auth: UserAuth(isLogin: Bool(login) ,token: token, socialType: socialType, name: name, email: email))))
                 case "false":
                     state.path.append(.auth(.init()))
                 default:
@@ -131,6 +139,25 @@ public struct RootFeature{
                 state.path.append(.web(.init(url: APIManger.shared.marketAgreeMentURL)))
                 return .none
                 
+            case .path(.element(id: _, action: .authInfo(.presntProfile))):
+                let email: String = (try? Keychain().get("EMAIL")) ?? ""
+                let name: String = (try? Keychain().get("NAME")) ?? ""
+                let token = (try? Keychain().get("Token")) ?? ""
+                let socialTypeString: String = (try? Keychain().get("SocialType")) ?? ""
+                let socialType: SocialType = SocialType(rawValue: socialTypeString) ?? .unknown
+                let login: String = (try? Keychain().get("isLogin")) ?? ""
+                print(socialTypeString, socialType)
+                state.path.append(.profile(.init(auth: UserAuth(isLogin: Bool(login) ,token: token, socialType: socialType, name: name, email: email))))
+                return .none
+                
+            case .path(.element(id: _, action: .signUp(.presntAuthInfo))):
+                let email: String = (try? Keychain().get("EMAIL")) ?? ""
+                let name: String = (try? Keychain().get("NAME")) ?? ""
+                let token: String = (try? Keychain().get("Token")) ?? ""
+                let socialTypeString: String = (try? Keychain().get("SocialType")) ?? ""
+                let socialType: SocialType = SocialType(rawValue: socialTypeString) ?? .unknown
+                state.path.append(.authInfo(.init(auth: UserAuth(token: token, socialType: socialType, name: name, email: email))))
+                return .none
                 
             case .removePath:
                 state.path.removeLast()

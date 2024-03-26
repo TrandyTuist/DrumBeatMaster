@@ -17,16 +17,13 @@ public struct SignUpView: View {
     @Bindable var store: StoreOf<SignUpFeature>
     
     var backAction: () -> Void = { }
-    var profileBackAction: () -> Void = { }
     
     public init(
         store: StoreOf<SignUpFeature>,
-        backAction: @escaping () -> Void,
-        profileBackAction: @escaping () -> Void
+        backAction: @escaping () -> Void
     ) {
         self.store = store
         self.backAction = backAction
-        self.profileBackAction = profileBackAction
     }
     
     public var body: some View {
@@ -57,12 +54,6 @@ public struct SignUpView: View {
                 .presentationCornerRadius(20)
                 .presentationDragIndicator(.visible)
             
-        }
-        .navigationDestination(item: $store.scope(state: \.authInformation, action: \.authInformation)) { authInfoStore in
-            AuthInfromationView(store: authInfoStore, backAction: {
-                store.send(.appear)
-            }, profileBackAction: profileBackAction)
-            .navigationBarBackButtonHidden()
         }
     }
 }

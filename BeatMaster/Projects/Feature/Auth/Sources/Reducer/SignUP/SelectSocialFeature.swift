@@ -10,7 +10,9 @@ import Foundation
 import AuthenticationServices
 
 import Model
+
 import ComposableArchitecture
+import KeychainAccess
 
 
 @Reducer
@@ -46,10 +48,15 @@ public struct SelectSocialFeature {
                 switch socialType {
                 case .apple:
                     state.auth?.socialType = .apple
+                    try? Keychain().set(state.auth?.socialType?.desc ?? "", key: "SocialType")
                     print("Apple 회원가입, \(state.auth)")
+                    
                 case .kakao:
                     state.auth?.socialType = .kakao
+                    try? Keychain().set(state.auth?.socialType?.desc ?? "", key: "SocialType")
                     print("카카오 회원가입, \(state.auth)")
+                default:
+                    break
                 }
                 return .none
              

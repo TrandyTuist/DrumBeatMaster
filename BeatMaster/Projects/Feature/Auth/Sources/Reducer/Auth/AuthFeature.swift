@@ -132,6 +132,8 @@ public struct AuthFeature {
                         }
                     case .none:
                         break
+                    default:
+                        break
                     }
                 }
             case .binding(_):

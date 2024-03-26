@@ -138,6 +138,8 @@ public struct SignUpFeature {
                         await send(.presntAuthInfo)
                     case .none:
                         break
+                    default:
+                        break
                     }
                 }
                 
