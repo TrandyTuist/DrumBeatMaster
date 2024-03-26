@@ -37,6 +37,7 @@ public struct RootView: View {
                 
                 Spacer()
             }
+            .navigationBarBackButtonHidden()
         } destination: { swithStore in
             switch swithStore.case {
             case let .auth(authStore):
