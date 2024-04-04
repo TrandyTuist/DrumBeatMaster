@@ -17,18 +17,16 @@ public struct WebViews: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @Binding var loading: Bool
     
     public init(
-        store: StoreOf<WebFeature>,
-        loading: Binding<Bool>) {
+        store: StoreOf<WebFeature>
+        ) {
             self.store = store
-            self._loading = loading
         }
     
     public var body: some View {
         VStack {
-            if loading {
+            if store.loading {
                 
                 Spacer()
                 
@@ -50,12 +48,14 @@ public struct WebViews: View {
             }
         }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                loading = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) { // Replace 2 with desired delay
-                    loading = false
-                }
-            }
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+//                loading = true
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 3) { // Replace 2 with desired delay
+//                    loading = false
+//                }
+//            }
+            
+            store.send(.startLoading)
         }
         
     }

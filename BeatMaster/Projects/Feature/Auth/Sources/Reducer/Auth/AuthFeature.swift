@@ -87,11 +87,6 @@ public struct AuthFeature {
                 return .none
                 
                 
-//            case .path(.element(id: _, action: .signup(.presentPolicyAgreedWeb))):
-//                state.path.append(.web(.init(url: "https://scutiuy.github.io/PrivateInfo.github.io/")))
-//                return .none
-                
-                
             case .presentBottomSheet:
                 return .none
                 

@@ -18,6 +18,7 @@ public extension Project {
         deploymentTarget: DeploymentTargets = Environment.deploymentTarget,
         destinations: Destinations = Environment.deploymentDestination,
         settings: Settings,
+        scripts: [TargetScript] = [],
         dependencies: [TargetDependency] = [],
         sources: SourceFilesList = .sources,
         resources: ResourceFileElements? = nil,
@@ -35,7 +36,7 @@ public extension Project {
             sources: sources,
             resources: resources,
             entitlements: entitlements,
-            scripts: [],
+            scripts: scripts,
             dependencies: dependencies
         )
         
@@ -49,7 +50,7 @@ public extension Project {
             sources: sources,
             resources: resources,
             entitlements: entitlements,
-            scripts: [],
+            scripts: scripts,
             dependencies: dependencies
         )
         

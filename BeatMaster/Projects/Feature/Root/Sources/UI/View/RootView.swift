@@ -7,11 +7,13 @@
 //
 
 import Foundation
-import ComposableArchitecture
 import SwiftUI
+
 import Auth
 import Profile
 import DesignSystem
+
+import ComposableArchitecture
 
 public struct RootView: View {
    @Bindable var store: StoreOf<RootFeature>
@@ -60,8 +62,7 @@ public struct RootView: View {
                 
             case let .web(webStore):
                 WebViews(
-                    store: webStore,
-                    loading: $store.webLoading
+                    store: webStore
                 )
                 .navigationBarBackButtonHidden()
                 

@@ -7,12 +7,13 @@
 //
 
 import SwiftUI
+
 import DesignSystem
+import Profile
+import Model
 
 import ComposableArchitecture
-import KakaoSDKAuth
-import KakaoSDKUser
-import Profile
+
 
 public struct AuthInfromationView: View {
     @Bindable var store: StoreOf<AuthInfromationFeature>

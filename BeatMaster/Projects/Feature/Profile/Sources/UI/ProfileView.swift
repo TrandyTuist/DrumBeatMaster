@@ -29,29 +29,71 @@ public struct ProfileView: View {
             Spacer()
                 .frame(height: 20)
             
-            NavigationBackButton(buttonAction: {
-               backAction()
-            })
+            NavigationTitleBackButton(buttonAction: backAction, title: "설정")
+             
+            userAccount()
             
+            logoutButton()
+           
             Spacer()
-            
-            Text(store.state.title)
-                .pretendardFont(family: .Bold, size: 40)
-            
+        }
+    }
+}
+   
+fileprivate extension ProfileView {
+    
+    @ViewBuilder
+    private func userAccount() -> some View {
+        Spacer()
+            .frame(height: 40)
+        
+        LazyVStack {
+            HStack {
+                Text(store.auth?.name ?? "")
+                    .pretendardFont(family: .SemiBold, size: 30)
+                    .foregroundColor(Color.basicBlackDimmed)
+                
+                
+                Spacer()
+            }
             Spacer()
-                .frame(height: 20)
+                .frame(height: 8)
             
-            Text("로그아웃")
-                .pretendardFont(family: .Bold, size: 20)
+            HStack {
+                Text(store.auth?.email ?? "")
+                    .pretendardFont(family: .SemiBold, size: 20)
+                    .foregroundColor(Color.basicBlackDimmed)
+                
+                
+                Spacer()
+            }
+            
+        }
+        .padding(.horizontal, 20)
+    }
+    
+    @ViewBuilder
+    private func logoutButton() -> some View {
+        Spacer()
+            .frame(height: UIScreen.screenHeight*0.65)
+        
+        LazyVStack {
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.lightPurple)
+                .frame(height: 56)
+                .overlay {
+                    Text("로그아웃")
+                        .pretendardFont(family: .Bold, size: 20)
+                        .foregroundColor(Color.basicWhite)
+                }
                 .onTapGesture {
                     store.send(.logout)
                     backAction()
                 }
             
-            Spacer()
         }
+        .padding(.horizontal, 20)
     }
 }
-    
 
 

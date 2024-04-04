@@ -31,7 +31,7 @@ import KakaoSDKUser
     public init() {
         
     }
-
+    
     //MARK: -  모델  값 넘기기
     public func authModelToReducer(auth: UserAuth) {
         self.authModel = auth
@@ -112,6 +112,7 @@ import KakaoSDKUser
                  self.getUserInfoKakao(auth: auth)
              }
         }
+        
     }
     
     public func getUserInfoKakao(auth: UserAuth) {
@@ -136,23 +137,6 @@ import KakaoSDKUser
         }
     }
     
-    
-//    UserApi.shared.me() {(user, error) in
-//        if let error = error {
-//            print(error)
-//        }
-//        else {
-//            print("me() success.")
-//            
-//            print("usernaem: \(user?.kakaoAccount?.profile?.nickname), \(user?.kakaoAccount?.email)")
-//            var kakaoAccount = user?.kakaoAccount?.email ?? ""
-//            var auth = self.auth?.email
-//            auth = kakaoAccount
-//            
-//            print(auth)
-//            
-//        }
-//    }
     
     private func appleAuthToUseCase(_ list: AppleTokenResponse) {
         self.appleAuthModel = list
@@ -223,8 +207,6 @@ import KakaoSDKUser
                     completionHandler(model.refresh_token)
                 }
             })
-        
     }
-    
-    
 }
+

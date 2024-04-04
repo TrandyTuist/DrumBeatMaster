@@ -30,7 +30,8 @@ public struct UserAuth : Equatable, Identifiable{
         token: String,
         socialType: SocialType?,
         name: String,
-        email: String) {
+        email: String
+    ) {
             self.isLogin = isLogin
             self.token = token
             self.name = name

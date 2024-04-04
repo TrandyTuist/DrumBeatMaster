@@ -12,14 +12,12 @@ let project = Project.makeAppModule(
         .SPM.composableArchitecture,
         .SPM.sdwebImage,
         .SPM.swiftJWT,
-        .SPM.firebaseAuth,
-        .SPM.firebaseDatabase,
         .SPM.firebaseMessaging,
         .SPM.keychainAccess,
         .SPM.kakaoSDKAuth,
         .SPM.kakaoSDKUser,
         .SPM.kakaoSDKCommon
-//        .SPM.supabase
+        
     ],
     sources: ["Sources/**"]
 )

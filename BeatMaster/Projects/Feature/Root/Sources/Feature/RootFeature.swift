@@ -27,7 +27,6 @@ public struct RootFeature{
         
         var title: String = "Root"
         var isLogin: Bool = false
-        var webLoading: Bool = false
         var path: StackState<Path.State> = .init()
     }
     

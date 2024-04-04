@@ -36,7 +36,7 @@ public struct AuthInfromationFeature {
     @Dependency(\.dismiss) var dismiss
     @Dependency(AuthUseCase.self) var authUseCase
     
-    public enum Action: Equatable {
+    public enum Action {
         case backAction
         case appear
         case selectJobButton(selectJob: SelectJob?)
@@ -81,22 +81,3 @@ public struct AuthInfromationFeature {
         }
     }
 }
-    
-    public enum SelectJob: String, CaseIterable {
-        case drummer
-        case drumlesson
-        case hobbyDrum
-        
-        public var desc: String {
-            switch self {
-            case .drummer:
-                return "드러머/연주자"
-            case .drumlesson:
-                return "드럼레슨생"
-            case .hobbyDrum:
-                return "드럼 취미생"
-            }
-        }
-        
-    }
-

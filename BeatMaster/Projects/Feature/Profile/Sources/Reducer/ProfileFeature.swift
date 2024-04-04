@@ -10,6 +10,7 @@
 import Foundation
 
 import Model
+import DesignSystem
 
 import ComposableArchitecture
 import KeychainAccess

@@ -16,8 +16,8 @@ SCHEME = "BeatMaster"
 KEYCHAIN_NAME = ENV["KEYCHAIN_NAME"]
 KEYCHAIN_PASSWORD = ENV["KEYCHAIN_PASSWORD"]
 KEYCHAIN_PASSWORD_DB =  ENV["KEYCHAIN_PASSWORD_DB"]
-#require 'spaceship'
-#Spaceship::ConnectAPI::App.const_set('ESSENTIAL_INCLUDES', 'appStoreVersions')
+require 'spaceship'
+Spaceship::ConnectAPI::App.const_set('ESSENTIAL_INCLUDES', 'appStoreVersions')
 ENV["FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT"] = "600"
 
 # Uncomment the line if you want fastlane to automatically update itself
@@ -56,9 +56,12 @@ desc "Install Profiles and Build My App"
   lane :build_ipa do
     clear_derived_data
 
-     sh"tuist signing decrypt"
+    # sh"tuist signing decrypt"
+    # sh"tuist clear"
+    # sh"tuist fetch"
+    # sh"tuist cache warm BeatMaster"	
 
-  install_provisioning_profile(path: "./Tuist/Signing/#{APP_NAME}.Release.mobileprovision")
+ # install_provisioning_profile(path: "./Tuist/Signing/#{APP_NAME}.Release.mobileprovision")
   #unlock_keychain(
     #path: "/Users/suhwonji/Library/Keychains/BeatMaster-db",
    #password: "$KEYCHAIN_PASSWORD_DB"
