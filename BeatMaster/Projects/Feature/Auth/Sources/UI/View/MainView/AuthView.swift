@@ -51,7 +51,7 @@ public struct AuthView: View {
         }
         
         
-        .sheet(item: $store.scope(state: \.loginFeature, action: \.presentBottomSheet)) { loginStore in
+        .sheet(item: $store.scope(state: \.destination?.login, action: \.destination.login)) { loginStore in
             LoginView(store: loginStore, backAction: {
                 self.store.send(.addLoginBottomSheet)
             }, successLoginAction: {
