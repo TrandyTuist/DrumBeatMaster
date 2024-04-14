@@ -23,21 +23,26 @@ public struct ProfileFeature {
     public struct State: Equatable {
         var title: String = "프로필"
         var auth: UserAuth?
+        
         public init(
             auth: UserAuth? = nil
         ) {
             self.auth = auth
         }
+        
     }
     
-    public enum Action: Equatable {
+    public enum Action: BindableAction {
+        case binding(BindingAction<State>)
         case backAction
         case logout
+        case appear
     }
     
     @Dependency(\.dismiss) var dismiss
     
     public var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
             case .backAction:
@@ -48,6 +53,13 @@ public struct ProfileFeature {
             case .logout:
                 state.auth?.isLogin = false
                 try? Keychain().set(state.auth?.isLogin?.description ?? "", key: "isLogin")
+                return .none
+                
+            case .appear:
+                state.auth = state.auth
+                return .none
+                
+            case .binding:
                 return .none
             }
         }

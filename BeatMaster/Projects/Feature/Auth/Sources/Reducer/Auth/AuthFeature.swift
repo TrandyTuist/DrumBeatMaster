@@ -11,6 +11,9 @@ import ComposableArchitecture
 import DesignSystem
 import Model
 import KeychainAccess
+import Profile
+
+
 
 @Reducer
 public struct AuthFeature {
@@ -24,11 +27,13 @@ public struct AuthFeature {
         
         var auth: IdentifiedArrayOf<UserAuth> = []
         var authModel: UserAuth?
-//        var path = StackState<Path.State>()
+        //        var path = StackState<Path.State>()
         
         var webLoading: Bool = false
         
         @Presents var loginFeature: LoginFeature.State?
+        @Presents var profileFeature: ProfileFeature.State? = .init()
+        
         
         public init(
             authModel: UserAuth? = nil
@@ -38,27 +43,24 @@ public struct AuthFeature {
     }
     
     @Dependency(\.dismiss) var dismiss
+    @Dependency(\.continuousClock) var clock
     
     public enum Action:  BindableAction {
-//        case path(StackAction<Path.State, Path.Action>)
+        //        case path(StackAction<Path.State, Path.Action>)
         case binding(BindingAction<State>)
         case presentBottomSheet(PresentationAction<LoginFeature.Action>)
+        case presentProfile(PresentationAction<ProfileFeature.Action>)
         
         case appearLogin
         case presentLogin
         case presentSignUp
+        case presntProfileAuthInfo
         
         case presntLoginBottomSheet
+        case presntProfileData
         case addLoginBottomSheet
         case backAction
     }
-    
-//    @Reducer(state: .equatable)
-//    public enum Path {
-//        case signup(SignUpFeature)
-//        case web(WebFeature)
-//    }
-        
     
     
     public var body: some ReducerOf<Self> {
@@ -71,7 +73,16 @@ public struct AuthFeature {
                 
             case .presentSignUp:
                 return .none
-            
+                
+            case .presentProfile:
+                return .none
+                
+            case .presentBottomSheet:
+                return .none
+                
+            case .presntProfileAuthInfo:
+                return .none
+                
             case .appearLogin:
                 let email: String = (try? Keychain().get("EMAIL")) ?? ""
                 let nickname: String = (try? Keychain().get("NAME")) ?? ""
@@ -83,12 +94,9 @@ public struct AuthFeature {
                 guard let auth = state.authModel
                 else { return .none}
                 state.auth.append(auth)
-//                state.path.removeAll()
+                //                state.path.removeAll()
                 return .none
                 
-                
-            case .presentBottomSheet:
-                return .none
                 
             case .presntLoginBottomSheet:
                 let email: String = (try? Keychain().get("EMAIL")) ?? ""
@@ -96,7 +104,20 @@ public struct AuthFeature {
                 let socialTypeDesc: String = ( try? Keychain().get("SocialType")) ?? ""
                 let socialType: SocialType = SocialType(rawValue: socialTypeDesc) ?? .apple
                 let token =  (try? Keychain().get("Token")) ?? ""
-                state.loginFeature = LoginFeature.State(auth: UserAuth(isLogin: false, token: token, socialType: socialType, name: nickname, email: email))
+                let login: String = (try? Keychain().get("isLogin")) ?? ""
+                state.loginFeature = LoginFeature.State(auth: UserAuth(isLogin: Bool(login), token: token, socialType: socialType, name: nickname, email: email))
+                return .none
+                
+                
+            case .presntProfileData:
+                let email: String = (try? Keychain().get("EMAIL")) ?? ""
+                let nickname: String = (try? Keychain().get("NAME")) ?? ""
+                let socialTypeDesc: String = ( try? Keychain().get("SocialType")) ?? ""
+                let socialType: SocialType = SocialType(rawValue: socialTypeDesc) ?? .apple
+                let token =  (try? Keychain().get("Token")) ?? ""
+                let login: String = (try? Keychain().get("isLogin")) ?? ""
+                
+                state.profileFeature = ProfileFeature.State(auth: UserAuth(isLogin: Bool(login), token: token, socialType: socialType, name: nickname, email: email))
                 return .none
                 
             case .addLoginBottomSheet:
@@ -110,7 +131,9 @@ public struct AuthFeature {
                     case .apple:
                         switch auth.isLogin {
                         case true:
-                            print("로그인 성공")
+                            await send(.presntProfileData)
+                            try await self.clock.sleep(for: .milliseconds(300))
+                            
                         case false:
                             print("로그인 실패")
                         default:
@@ -119,7 +142,10 @@ public struct AuthFeature {
                     case .kakao:
                         switch auth.isLogin {
                         case true:
-                            print("로그인 성공")
+                            await send(.presntProfileData)
+                            try await self.clock.sleep(for: .milliseconds(600))
+                            
+                            
                         case false:
                             print("로그인 실패")
                         default:
@@ -139,10 +165,14 @@ public struct AuthFeature {
             }
             
         }
-//        .forEach(\.path, action: \.path)
+        //        .forEach(\.path, action: \.path)
         
         .ifLet(\.$loginFeature, action: \.presentBottomSheet) {
             LoginFeature()
+        }
+        
+        .ifLet(\.$profileFeature, action: \.presentProfile) {
+            ProfileFeature()
         }
     }
 }

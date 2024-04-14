@@ -105,6 +105,7 @@ import KakaoSDKUser
              self.authModel?.token = accessToken
              
              if !accessToken.isEmpty || accessToken != "" {
+                 print("acces path2: \(accessToken)")
                  completion()
                  
                  guard let auth = self.authModel

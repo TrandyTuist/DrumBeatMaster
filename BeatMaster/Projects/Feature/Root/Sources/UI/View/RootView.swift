@@ -49,9 +49,11 @@ public struct RootView: View {
                 .navigationBarBackButtonHidden()
                 
             case let .login(loginStore):
-                LoginView(store: loginStore) {
+                LoginView(store: loginStore, backAction: {
                     store.send(.removePath)
-                }
+                }, successLoginAction: {
+                    
+                })
                 .navigationBarBackButtonHidden()
                 
             case let .signUp(signUpStore):

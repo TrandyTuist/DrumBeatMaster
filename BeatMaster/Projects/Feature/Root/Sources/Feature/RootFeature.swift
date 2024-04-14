@@ -12,7 +12,7 @@ import Profile
 import DesignSystem
 import API
 import Model
-
+import Service
 
 import ComposableArchitecture
 import KeychainAccess
@@ -109,55 +109,107 @@ public struct RootFeature{
                     state.path.append(.auth(.init()))
                 }
                 return .none
-                
-            case .path(.element(id:_, action: .auth(.presentLogin))):
-                let email: String = (try? Keychain().get("EMAIL")) ?? ""
-                let nickname: String = (try? Keychain().get("NAME")) ?? ""
-                state.path.append(.login(.init(auth: UserAuth(token: "", socialType: .apple, name: nickname, email: email))))
-                return .none
-                
-//            case .path(.element(id:_, action: .auth(.presentAuthInformation))):
-//                state.path.append(.authInformation(.init()))
+               
+                //MARK: - 두가지 방식의 tca 뷰 넘기는 방식
+//            case .path(.element(id:_, action: .auth(.presentLogin))):
+//                let email: String = (try? Keychain().get("EMAIL")) ?? ""
+//                let nickname: String = (try? Keychain().get("NAME")) ?? ""
+//                state.path.append(.login(.init(auth: UserAuth(token: "", socialType: .apple, name: nickname, email: email))))
+//                return .none
+//                
+////            case .path(.element(id:_, action: .auth(.presentAuthInformation))):
+////                state.path.append(.authInformation(.init()))
+////                return .none
+//                
+//            case .path(.element(id: _, action: .auth(.presentSignUp))):
+//                let email: String = (try? Keychain().get("EMAIL")) ?? ""
+//                let nickname: String = (try? Keychain().get("NAME")) ?? ""
+//                state.path.append(.signUp(.init(auth: UserAuth(token: "", socialType: .apple, name: nickname, email: email))))
+//                return .none
+//                
+//            case .path(.element(id: _, action: .signUp(.presentPolicyAgreedWeb))):
+//                state.path.append(.web(.init(url: APIManger.shared.privacyPolicyURL)))
+//                return .none
+//                
+//            case .path(.element(id: _, action: .signUp(.presentWebTermsofServiceAgreed))):
+//                state.path.append(.web(.init(url: APIManger.shared.serviceAgreeMentURL)))
+//                return .none
+//                
+//            case .path(.element(id: _, action: .signUp(.presentMarketingInformationAgreed))):
+//                state.path.append(.web(.init(url: APIManger.shared.marketAgreeMentURL)))
+//                return .none
+//                
+//            case .path(.element(id: _, action: .authInfo(.presntProfile))):
+//                let email: String = (try? Keychain().get("EMAIL")) ?? ""
+//                let name: String = (try? Keychain().get("NAME")) ?? ""
+//                let token = (try? Keychain().get("Token")) ?? ""
+//                let socialTypeString: String = (try? Keychain().get("SocialType")) ?? ""
+//                let socialType: SocialType = SocialType(rawValue: socialTypeString) ?? .unknown
+//                let login: String = (try? Keychain().get("isLogin")) ?? ""
+//                print(socialTypeString, socialType)
+//                state.path.append(.profile(.init(auth: UserAuth(isLogin: Bool(login) ,token: token, socialType: socialType, name: name, email: email))))
+//                return .none
+//             
+//            case .path(.element(id: _, action: .auth(.presntProfileAuthInfo))):
+//                let email: String = (try? Keychain().get("EMAIL")) ?? ""
+//                let name: String = (try? Keychain().get("NAME")) ?? ""
+//                let token = (try? Keychain().get("Token")) ?? ""
+//                let socialTypeString: String = (try? Keychain().get("SocialType")) ?? ""
+//                let socialType: SocialType = SocialType(rawValue: socialTypeString) ?? .unknown
+//                let login: String = (try? Keychain().get("isLogin")) ?? ""
+//                print(socialTypeString, socialType)
+//                state.path.append(.profile(.init(auth: UserAuth(isLogin: Bool(login) ,token: token, socialType: socialType, name: name, email: email))))
 //                return .none
                 
-            case .path(.element(id: _, action: .auth(.presentSignUp))):
-                let email: String = (try? Keychain().get("EMAIL")) ?? ""
-                let nickname: String = (try? Keychain().get("NAME")) ?? ""
-                state.path.append(.signUp(.init(auth: UserAuth(token: "", socialType: .apple, name: nickname, email: email))))
-                return .none
+            case let .path(action):
+                switch action{
+                case .element(id:_, action: .auth(.presentLogin)):
+                    let email: String = (try? Keychain().get("EMAIL")) ?? ""
+                    let nickname: String = (try? Keychain().get("NAME")) ?? ""
+                    state.path.append(.login(.init(auth: UserAuth(token: "", socialType: .apple, name: nickname, email: email))))
+                    
+                case .element(id: _, action: .auth(.presentSignUp)):
+                    let email: String = (try? Keychain().get("EMAIL")) ?? ""
+                    let nickname: String = (try? Keychain().get("NAME")) ?? ""
+                    state.path.append(.signUp(.init(auth: UserAuth(token: "", socialType: .apple, name: nickname, email: email))))
                 
-            case .path(.element(id: _, action: .signUp(.presentPolicyAgreedWeb))):
-                state.path.append(.web(.init(url: APIManger.shared.privacyPolicyURL)))
-                return .none
+                case .element(id: _, action: .signUp(.presentPolicyAgreedWeb)):
+                    state.path.append(.web(.init(url: APIManger.shared.privacyPolicyURL)))
+    
+                case .element(id: _, action: .signUp(.presentWebTermsofServiceAgreed)):
+                    state.path.append(.web(.init(url: APIManger.shared.serviceAgreeMentURL)))
+                                        
+                case .element(id: _, action: .signUp(.presentMarketingInformationAgreed)):
+                    state.path.append(.web(.init(url: APIManger.shared.marketAgreeMentURL)))
+                    
+                case .element(id: _, action: .authInfo(.presntProfile)):
+                    let email: String = (try? Keychain().get("EMAIL")) ?? ""
+                    let name: String = (try? Keychain().get("NAME")) ?? ""
+                    let token = (try? Keychain().get("Token")) ?? ""
+                    let socialTypeString: String = (try? Keychain().get("SocialType")) ?? ""
+                    let socialType: SocialType = SocialType(rawValue: socialTypeString) ?? .unknown
+                    let login: String = (try? Keychain().get("isLogin")) ?? ""
+                    print(socialTypeString, socialType)
+                    state.path.append(.profile(.init(auth: UserAuth(isLogin: Bool(login) ,token: token, socialType: socialType, name: name, email: email))))
+                    return .none
+                 
+                case .element(id: _, action: .auth(.presntProfileAuthInfo)):
+                    let email: String = (try? Keychain().get("EMAIL")) ?? ""
+                    let name: String = (try? Keychain().get("NAME")) ?? ""
+                    let token = (try? Keychain().get("Token")) ?? ""
+                    let socialTypeString: String = (try? Keychain().get("SocialType")) ?? ""
+                    let socialType: SocialType = SocialType(rawValue: socialTypeString) ?? .unknown
+                    let login: String = (try? Keychain().get("isLogin")) ?? ""
+                    print(socialTypeString, socialType)
+                    state.path.append(.profile(.init(auth: UserAuth(isLogin: Bool(login) ,token: token, socialType: socialType, name: name, email: email))))
+                    return .none
+                    
+                default:
+                    break
+                }
                 
-            case .path(.element(id: _, action: .signUp(.presentWebTermsofServiceAgreed))):
-                state.path.append(.web(.init(url: APIManger.shared.serviceAgreeMentURL)))
                 return .none
-                
-            case .path(.element(id: _, action: .signUp(.presentMarketingInformationAgreed))):
-                state.path.append(.web(.init(url: APIManger.shared.marketAgreeMentURL)))
-                return .none
-                
-            case .path(.element(id: _, action: .authInfo(.presntProfile))):
-                let email: String = (try? Keychain().get("EMAIL")) ?? ""
-                let name: String = (try? Keychain().get("NAME")) ?? ""
-                let token = (try? Keychain().get("Token")) ?? ""
-                let socialTypeString: String = (try? Keychain().get("SocialType")) ?? ""
-                let socialType: SocialType = SocialType(rawValue: socialTypeString) ?? .unknown
-                let login: String = (try? Keychain().get("isLogin")) ?? ""
-                print(socialTypeString, socialType)
-                state.path.append(.profile(.init(auth: UserAuth(isLogin: Bool(login) ,token: token, socialType: socialType, name: name, email: email))))
-                return .none
-                
-            case .path(.element(id: _, action: .signUp(.presntAuthInfo))):
-                let email: String = (try? Keychain().get("EMAIL")) ?? ""
-                let name: String = (try? Keychain().get("NAME")) ?? ""
-                let token: String = (try? Keychain().get("Token")) ?? ""
-                let socialTypeString: String = (try? Keychain().get("SocialType")) ?? ""
-                let socialType: SocialType = SocialType(rawValue: socialTypeString) ?? .unknown
-                state.path.append(.authInfo(.init(auth: UserAuth(token: token, socialType: socialType, name: name, email: email))))
-                return .none
-                
+
             case .removePath:
                 state.path.removeLast()
                 return .none
@@ -174,9 +226,9 @@ public struct RootFeature{
             }
         }
         //MARK: -  1.8 이하
-//        .forEach(\.path, action: \.path) {
-//            Path()
-//        }
+        //        .forEach(\.path, action: \.path) {
+        //            Path()
+        //        }
         .forEach(\.path, action: \.path)
     }
 }

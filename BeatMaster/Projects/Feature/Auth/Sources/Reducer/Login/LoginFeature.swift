@@ -64,11 +64,13 @@ public struct LoginFeature {
                     state.auth?.socialType = .apple
                     try? Keychain().set(state.auth?.socialType?.desc ?? "", key: "SocialType")
                     state.auth?.isLogin?.toggle()
+                    try? Keychain().set(state.auth?.isLogin?.description ?? "", key: "isLogin")
                 case .kakao:
                     state.auth = state.auth
                     state.auth?.socialType = .kakao
                     try? Keychain().set(state.auth?.socialType?.desc ?? "", key: "SocialType")
                     state.auth?.isLogin?.toggle()
+                    try? Keychain().set(state.auth?.isLogin?.description ?? "", key: "isLogin")
                 default:
                     break
                     
@@ -94,8 +96,6 @@ public struct LoginFeature {
                 
             case .binding(_):
                 return .none
-            
-                
             }
         }
         

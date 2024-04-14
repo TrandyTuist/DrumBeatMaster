@@ -13,18 +13,19 @@ import KakaoSDKAuth
 import KakaoSDKUser
 import AuthenticationServices
 
-
 public struct LoginView: View {
     @Bindable var store: StoreOf<LoginFeature>
     var backAction: () -> Void = { }
-    
+    var successLoginAction: () -> Void = { }
     
     public init(
         store: StoreOf<LoginFeature>,
-        backAction: @escaping () -> Void
+        backAction: @escaping () -> Void,
+        successLoginAction: @escaping () -> Void
     ) {
         self.store = store
         self.backAction = backAction
+        self.successLoginAction = successLoginAction
     }
     
     public var body: some View {
@@ -61,9 +62,10 @@ fileprivate extension LoginView {
                         request.nonce = AppleLoginManger.shared.sha256(store.nonce)
                     } onCompletion: { result in
                         store.send(.appleLogin(result: result, completion: {
-                            
+                            successLoginAction()
                         }))
                         store.send(.isLogin(socialType: .apple), animation: .default)
+                        
                         backAction()
                     }
                     .padding(.horizontal, 5)
@@ -91,7 +93,7 @@ fileprivate extension LoginView {
                 }
                 .onTapGesture {
                     store.send(.kakaoLogin(completion: {
-                        
+                        successLoginAction()
                     }))
                     
                     store.send(.isLogin(socialType: .kakao), animation: .default)

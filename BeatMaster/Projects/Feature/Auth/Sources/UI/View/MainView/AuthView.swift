@@ -54,6 +54,8 @@ public struct AuthView: View {
         .sheet(item: $store.scope(state: \.loginFeature, action: \.presentBottomSheet)) { loginStore in
             LoginView(store: loginStore, backAction: {
                 self.store.send(.addLoginBottomSheet)
+            }, successLoginAction: {
+                self.store.send(.presntProfileAuthInfo)
             })
                 .presentationDetents([.fraction(0.3)])
                 .presentationCornerRadius(20)
