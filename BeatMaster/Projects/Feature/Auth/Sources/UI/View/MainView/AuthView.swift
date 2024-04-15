@@ -24,42 +24,46 @@ public struct AuthView: View {
     }
     
     public var body: some View {
-        VStack(spacing: .zero) {
+        ZStack {
+            Color.basicGray2
+                .edgesIgnoringSafeArea(.all)
             
-            Spacer()
-                .frame(height: 20)
+            VStack(spacing: .zero) {
+                
+                Spacer()
+                    .frame(height: 20)
+                
+                NavigationBackButton(buttonAction: backAction)
+                
+                logoImage()
+                
+                Spacer()
+                    .frame(height: 20)
+                
+                BounceAnimationView(text: store.state.authMainViewTitle, startTime: 0.0, fontSize: 40)
+                
+                Text(self.store.authModel?.isLogin?.description ?? "")
+                
+                signUpButtonView()
+                
+                loginButtonView()
+                   
+                Spacer()
+            }
+            .onAppear {
+                store.send(.appearLogin)
+            }
             
-            NavigationBackButton(buttonAction: backAction)
-            
-            logoImage()
-            
-            Spacer()
-                .frame(height: 20)
-            
-            BounceAnimationView(text: store.state.authMainViewTitle, startTime: 0.0, fontSize: 40)
-            
-            Text(self.store.authModel?.isLogin?.description ?? "")
-            
-            signUpButtonView()
-            
-            loginButtonView()
-               
-            Spacer()
-        }
-        .onAppear {
-            store.send(.appearLogin)
-        }
-        
-        
-        .sheet(item: $store.scope(state: \.destination?.login, action: \.destination.login)) { loginStore in
-            LoginView(store: loginStore, backAction: {
-                self.store.send(.addLoginBottomSheet)
-            }, successLoginAction: {
-                self.store.send(.presntProfileAuthInfo)
-            })
-                .presentationDetents([.fraction(0.3)])
-                .presentationCornerRadius(20)
-                .presentationDragIndicator(.visible)
+            .sheet(item: $store.scope(state: \.destination?.login, action: \.destination.login)) { loginStore in
+                LoginView(store: loginStore, backAction: {
+                    self.store.send(.addLoginBottomSheet)
+                }, successLoginAction: {
+                    self.store.send(.presntProfileAuthInfo)
+                })
+                    .presentationDetents([.fraction(0.3)])
+                    .presentationCornerRadius(20)
+                    .presentationDragIndicator(.visible)
+            }
         }
     }
 }

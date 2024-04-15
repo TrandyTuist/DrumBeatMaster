@@ -27,33 +27,38 @@ public struct SignUpView: View {
     }
     
     public var body: some View {
-        VStack(spacing: .zero) {
+        ZStack {
+            Color.basicGray2
+                .edgesIgnoringSafeArea(.all)
             
-            Spacer()
-                .frame(height: 20)
-            
-            NavigationBackButton(buttonAction: backAction)
-            
-            policyTitle()
-            
-            serviceUseAgreeTextView()
-            
-            activeServiceButton()
-            
-            Spacer()
-            
-        }
-        .onAppear {
-            store.send(.appear)
-        }
-        .sheet(item: $store.scope(state: \.selectSocial, action: \.selectSocial)) { selectSocialStore in
-            SelectSocialTypeView(store: selectSocialStore, selectLoginAction: {
-                store.send(.saveSelectSocial)
-            })
-                .presentationDetents([.fraction(0.3)])
-                .presentationCornerRadius(20)
-                .presentationDragIndicator(.visible)
-            
+            VStack(spacing: .zero) {
+                
+                Spacer()
+                    .frame(height: 20)
+                
+                NavigationBackButton(buttonAction: backAction)
+                
+                policyTitle()
+                
+                serviceUseAgreeTextView()
+                
+                activeServiceButton()
+                
+                Spacer()
+                
+            }
+            .onAppear {
+                store.send(.appear)
+            }
+            .sheet(item: $store.scope(state: \.selectSocial, action: \.selectSocial)) { selectSocialStore in
+                SelectSocialTypeView(store: selectSocialStore, selectLoginAction: {
+                    store.send(.saveSelectSocial)
+                })
+                    .presentationDetents([.fraction(0.3)])
+                    .presentationCornerRadius(20)
+                    .presentationDragIndicator(.visible)
+                
+            }
         }
     }
 }

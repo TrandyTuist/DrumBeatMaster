@@ -8,9 +8,10 @@
 
 import Foundation
 
-public enum OhterSettingItem: CaseIterable, CustomStringConvertible  {
+public enum OtherSettingItem: CaseIterable, CustomStringConvertible  {
     case privacyPolicy
     case termsOfService
+    case marketingTerm
     case withDraw
     case appVersion
     
@@ -20,6 +21,8 @@ public enum OhterSettingItem: CaseIterable, CustomStringConvertible  {
             return "개인정보처리방침"
         case .termsOfService:
             return "서비스 이용약관"
+        case .marketingTerm:
+            return "마켓팅 이용약관"
         case .withDraw:
             return "회원탈퇴"
         case .appVersion:

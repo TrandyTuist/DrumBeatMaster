@@ -80,6 +80,18 @@ public struct RootView: View {
                     store.send(.removeAllPath)
                 }
                 .navigationBarBackButtonHidden()
+                
+            case let .otherSetting(otherSettingStore):
+                OtherSettingView(store: otherSettingStore) {
+                    store.send(.removePath)
+                }
+                .navigationBarBackButtonHidden()
+                
+            case let .withDraw(withDrawStore):
+                WithDrawView(store: withDrawStore) {
+                    store.send(.removePath)
+                }
+                .navigationBarBackButtonHidden()
             }
             
             //MARK: -  1.7 이하

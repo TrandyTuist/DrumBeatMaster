@@ -27,16 +27,21 @@ public struct SelectSocialTypeView: View {
     
     
     public var body: some View {
-        VStack(spacing: .zero) {
+        ZStack {
+            Color.basicGray2
+                .edgesIgnoringSafeArea(.all)
             
-            Spacer()
-                .frame(height: 20)
-            
-            appleLoginButton()
-            
-            kakoTalkLoginButton()
-               
-            Spacer()
+            VStack(spacing: .zero) {
+                
+                Spacer()
+                    .frame(height: 20)
+                
+                appleLoginButton()
+                
+                kakoTalkLoginButton()
+                   
+                Spacer()
+            }
         }
     }
 }

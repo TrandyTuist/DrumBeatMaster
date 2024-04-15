@@ -47,6 +47,8 @@ public struct RootFeature{
         case signUp(SignUpFeature)
         case authInfo(AuthInfromationFeature)
         case profile(ProfileFeature)
+        case otherSetting(OtherSettingFeature)
+        case withDraw(WithDrawFeature)
         case web(WebFeature)
     }
     
@@ -117,9 +119,9 @@ public struct RootFeature{
 //                state.path.append(.login(.init(auth: UserAuth(token: "", socialType: .apple, name: nickname, email: email))))
 //                return .none
 //                
-////            case .path(.element(id:_, action: .auth(.presentAuthInformation))):
-////                state.path.append(.authInformation(.init()))
-////                return .none
+//            case .path(.element(id:_, action: .auth(.presentAuthInformation))):
+//                state.path.append(.authInformation(.init()))
+//                return .none
 //                
 //            case .path(.element(id: _, action: .auth(.presentSignUp))):
 //                let email: String = (try? Keychain().get("EMAIL")) ?? ""
@@ -189,9 +191,8 @@ public struct RootFeature{
                     let socialTypeString: String = (try? Keychain().get("SocialType")) ?? ""
                     let socialType: SocialType = SocialType(rawValue: socialTypeString) ?? .unknown
                     let login: String = (try? Keychain().get("isLogin")) ?? ""
-                    print(socialTypeString, socialType)
+                    Log.debug(socialTypeString, socialType)
                     state.path.append(.profile(.init(auth: UserAuth(isLogin: Bool(login) ,token: token, socialType: socialType, name: name, email: email))))
-                    return .none
                  
                 case .element(id: _, action: .auth(.presntProfileAuthInfo)):
                     let email: String = (try? Keychain().get("EMAIL")) ?? ""
@@ -200,9 +201,30 @@ public struct RootFeature{
                     let socialTypeString: String = (try? Keychain().get("SocialType")) ?? ""
                     let socialType: SocialType = SocialType(rawValue: socialTypeString) ?? .unknown
                     let login: String = (try? Keychain().get("isLogin")) ?? ""
-                    print(socialTypeString, socialType)
+                    Log.debug(socialTypeString, socialType)
                     state.path.append(.profile(.init(auth: UserAuth(isLogin: Bool(login) ,token: token, socialType: socialType, name: name, email: email))))
-                    return .none
+                    
+                case .element(id: _, action: .profile(.presentSetting)):
+                    state.path.append(.otherSetting(.init()))
+                    
+                case .element(id: _, action: .otherSetting(.presentPrivacyPolicyWeb)):
+                    state.path.append(.web(.init(url:  APIManger.shared.serviceAgreeMentURL)))
+                    
+                case .element(id: _, action: .otherSetting(.presentTermsOfServiceWeb)):
+                    state.path.append(.web(.init(url: APIManger.shared.privacyPolicyURL)))
+                    
+                case .element(id: _, action: .otherSetting(.presentMarketingTerm)):
+                    state.path.append(.web(.init(url: APIManger.shared.marketAgreeMentURL)))
+                    
+                case .element(id: _, action: .otherSetting(.presentWthDraw)):
+                    let email: String = (try? Keychain().get("EMAIL")) ?? ""
+                    let name: String = (try? Keychain().get("NAME")) ?? ""
+                    let token = (try? Keychain().get("Token")) ?? ""
+                    let socialTypeString: String = (try? Keychain().get("SocialType")) ?? ""
+                    let socialType: SocialType = SocialType(rawValue: socialTypeString) ?? .unknown
+                    let login: String = (try? Keychain().get("isLogin")) ?? ""
+                    state.path.append(.withDraw(.init(auth: UserAuth(isLogin: Bool(login) ,token: token, socialType: socialType, name: name, email: email))))
+                   
                     
                 default:
                     break
@@ -221,8 +243,6 @@ public struct RootFeature{
             case  .binding(_):
                 return .none
                 
-            default:
-                return .none
             }
         }
         //MARK: -  1.8 이하

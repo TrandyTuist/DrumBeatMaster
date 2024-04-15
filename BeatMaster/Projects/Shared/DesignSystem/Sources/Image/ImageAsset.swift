@@ -13,5 +13,11 @@ public enum ImageAsset: String {
     case splash
     case logoIcon
     case kakao_login
+    
+    //MARK: - profile setting
+    case review
+    case bug
+    case setting
+    
     case empty
 }

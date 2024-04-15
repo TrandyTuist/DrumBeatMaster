@@ -25,17 +25,24 @@ public struct ProfileView: View {
     }
     
     public var body: some View {
-        VStack {
-            Spacer()
-                .frame(height: 20)
+        ZStack {
+            Color.basicGray2
+                .edgesIgnoringSafeArea(.all)
             
-            NavigationTitleBackButton(buttonAction: backAction, title: "설정")
-             
-            userAccount()
-            
-            logoutButton()
-           
-            Spacer()
+            VStack {
+                Spacer()
+                    .frame(height: 20)
+                
+                NavigationTitleBackButton(buttonAction: backAction, title: "설정")
+                 
+                userAccount()
+                
+                appMangementList()
+                
+                logoutButton()
+               
+                Spacer()
+            }
         }
     }
 }
@@ -45,7 +52,7 @@ fileprivate extension ProfileView {
     @ViewBuilder
     private func userAccount() -> some View {
         Spacer()
-            .frame(height: 40)
+            .frame(height:  24)
         
         LazyVStack {
             HStack {
@@ -56,30 +63,100 @@ fileprivate extension ProfileView {
                 
                 Spacer()
             }
-            Spacer()
-                .frame(height: 8)
             
-            HStack {
-                Text(store.auth?.email ?? "")
-                    .pretendardFont(family: .SemiBold, size: 20)
-                    .foregroundColor(Color.basicBlackDimmed)
-                
-                
-                Spacer()
-            }
+            
+//            Spacer()
+//                .frame(height: 8)
+//            
+//            HStack {
+//                Text(store.auth?.email ?? "")
+//                    .pretendardFont(family: .SemiBold, size: 20)
+//                    .foregroundColor(Color.basicBlackDimmed)
+//                
+//                
+//                Spacer()
+//            }
             
         }
         .padding(.horizontal, 20)
     }
     
     @ViewBuilder
+    private func appMangementList() -> some View {
+        LazyVStack {
+            Spacer()
+                .frame(height:  20)
+            
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color.basicWhite)
+                .frame(height: UIScreen.screenHeight*0.25)
+                .overlay {
+                    LazyVStack {
+                        ForEach(store.profileViewList) { profileComponent in
+                            profileListView(imageName: profileComponent.imageName, content: profileComponent.content, detail: profileComponent.detail)
+                                .onTapGesture {
+                                    switch profileComponent.imageName {
+                                    case "review":
+                                        store.send(.tapReview)
+                                    case "bug":
+                                        store.send(.tapBug)
+                                    case "setting":
+                                        store.send(.presentSetting)
+                                        
+                                    default:
+                                        break
+                                    }
+                                }
+                            if profileComponent.isDevider {
+                                Rectangle()
+                                    .frame(width: UIScreen.main.bounds.width - 80, height: 1)
+                                    .foregroundColor(.basicGray4)
+                            }
+                        }
+                    }
+                }
+        }
+        .padding(.horizontal, 20)
+    }
+    
+    @ViewBuilder
+    private func profileListView(
+        imageName: String,
+        content: String,
+        detail: String
+    ) -> some View {
+        HStack {
+            Image(assetName: imageName)
+                .resizable()
+                .frame(width: 40,height: 40)
+                .padding(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 10))
+            VStack(alignment: .leading) {
+                Text(content)
+                    .pretendardFont(family: .Medium, size: 16)
+                    .foregroundColor(.basicGray8)
+                Spacer()
+                    .frame(height: 2)
+                Text(detail)
+                    .pretendardFont(family: .Regular, size: 12)
+                    .foregroundColor(.basicGray6)
+            }
+            
+            Spacer()
+            Image(systemName: "chevron.right")
+                .padding(.trailing, 25)
+        }
+    }
+    
+    
+    
+    @ViewBuilder
     private func logoutButton() -> some View {
         Spacer()
-            .frame(height: UIScreen.screenHeight*0.65)
+            .frame(height: UIScreen.screenHeight*0.4)
         
         LazyVStack {
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color.lightPurple)
+                .fill(Color.lightPurple200)
                 .frame(height: 56)
                 .overlay {
                     Text("로그아웃")

@@ -11,6 +11,10 @@ import SwiftUI
 
 public extension Color {
     static let lightPurple = Color(hex: "cfd0ff")
+    static let lightPurple100 = Color(hex: "A6A0D8")
+    static let lightPurple200 = Color(hex: "B691D2")
+    static let lightPurple300 = Color(hex: "9B6DC6")
+    static let lightPurple400 = Color(hex: "6756BE")
     
     static let basicWhite = Color(hex: "#FFFFFF")
     static let basicBlack = Color(hex: "#000000")

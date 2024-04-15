@@ -7,3 +7,26 @@
 //
 
 import Foundation
+
+public struct ProfileComponentModel: Identifiable, Equatable {
+    public var isDevider: Bool
+    public var imageName: String
+    public var id: UUID
+    public var content: String
+    public var detail: String
+    
+    public init(
+        isDevider: Bool,
+        imageName: String, 
+        content: String,
+        detail: String
+    ) {
+        self.isDevider = isDevider
+        self.imageName = imageName
+        self.id = UUID()
+        self.content = content
+        self.detail = detail
+    }
+}
+
+

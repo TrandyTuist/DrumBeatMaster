@@ -30,32 +30,36 @@ public struct AuthInfromationView: View {
     
     
     public  var body: some View {
-        VStack {
-            Spacer()
-                .frame(height: 20)
-            
-            NavigationBackButton(buttonAction: {
-                self.store.send(.backAction)
+        ZStack {
+            Color.basicGray2
+                .edgesIgnoringSafeArea(.all)
+            VStack {
+                Spacer()
+                    .frame(height: 20)
                 
-                backAction()
-            })
-            
-            Spacer()
-                .frame(height: 30)
-            
-            headerView()
-            
-            authInfoInputView()
-            
-            selectJob()
-            
-            signUPButton()
-            
-            Spacer()
-            
-        }
-        .onAppear {
-            
+                NavigationBackButton(buttonAction: {
+                    self.store.send(.backAction)
+                    
+                    backAction()
+                })
+                
+                Spacer()
+                    .frame(height: 30)
+                
+                headerView()
+                
+                authInfoInputView()
+                
+                selectJob()
+                
+                signUPButton()
+                
+                Spacer()
+                
+            }
+            .onAppear {
+                
+            }
         }
     }
 }
@@ -129,7 +133,7 @@ fileprivate extension AuthInfromationView {
                     HStack {
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(store.selectJob == item ? Color.clear : Color.basicBlack, style: .init(lineWidth: 1))
-                            .fill(store.selectJob == item ? Color.lightPurple : Color.clear)
+                            .fill(store.selectJob == item ? Color.lightPurple200 : Color.clear)
                             .frame(width: UIScreen.screenWidth*0.3, height: 30)
                             .overlay {
                                 Text(item.desc)
