@@ -54,6 +54,11 @@ jobs:
         run: tuist fetch
         working-directory: ./BeatMaster
 
+
+      - name: Tuist cache
+        run: tuist cache warm BeatMaster
+        working-directory: ./BeatMaster
+
       - name: Tuist Signing Decrypt
         run: tuist signing decrypt
         working-directory: ./BeatMaster
