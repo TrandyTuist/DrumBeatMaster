@@ -18,6 +18,12 @@ public enum ImageAsset: String {
     case review
     case bug
     case setting
+    case withDraw
+    case termsOfService
+    case privacyPolicy
+    case metronomeStorageBox
+    case marketingTerm
+    case appVersion
     
     case empty
 }

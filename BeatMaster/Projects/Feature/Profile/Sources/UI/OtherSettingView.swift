@@ -50,99 +50,82 @@ fileprivate extension OtherSettingView {
     
     @ViewBuilder
     private func otherSettingList() -> some View {
-        VStack{
+        LazyVStack{
             Spacer()
                 .frame(height: 20)
             
-            RoundedRectangle(cornerRadius: 12)
+            RoundedRectangle(cornerRadius: 16)
                 .fill(Color.basicWhite)
-                .frame(height: UIScreen.screenHeight*0.35)
-                .padding(.horizontal, 20)
+                .frame(height: UIScreen.screenHeight*0.45)
                 .overlay {
-                    VStack {
-                        ForEach(OtherSettingItem.allCases, id: \.self) { item in
-                            listItemView(
-                                showArrow:  item != .appVersion ? true : false,
-                                showLine: item == .privacyPolicy
-                                || item == .termsOfService
-                                || item == .marketingTerm
-                                || item == .withDraw ? true : false,
-                                text:  item.description,
-                                versionText:  item == .appVersion ? "v.\(store.appVersion )": "") {
-                                    switch item {
-                                    case .privacyPolicy:
+                    LazyVStack {
+                        ForEach(store.otherSettingList) { otherSettingComponent in
+                            otherSettingListView(imageName: otherSettingComponent.imageName, content: otherSettingComponent.content, detail: otherSettingComponent.detail, notShowLeft: otherSettingComponent.notShowLeft)
+                                .onTapGesture {
+                                    switch otherSettingComponent.imageName {
+                                    case "termsOfService":
                                         store.send(.presentPrivacyPolicyWeb)
-                                    case .termsOfService:
+                                    case "privacyPolicy":
                                         store.send(.presentTermsOfServiceWeb)
-                                    case .marketingTerm:
+                                    case "marketingTerm":
                                         store.send(.presentMarketingTerm)
-                                    case .withDraw:
+                                    case "withDraw":
                                         store.send(.presentWthDraw)
-                                    case .appVersion:
+                                        
+                                    default:
                                         break
-                                   
                                     }
                                 }
+
+                            if otherSettingComponent.isDevider {
+                                Rectangle()
+                                    .frame(width: UIScreen.main.bounds.width - 80, height: 1)
+                                    .foregroundColor(.basicGray4)
+                            }
                         }
                     }
                 }
         }
+        .padding(.horizontal, 20)
     }
     
     @ViewBuilder
-    private func listItemView(
-        showArrow: Bool,
-        showLine: Bool,
-        text: String,
-        versionText: String ,
-        goToDeatilView: @escaping () -> Void
+    private func otherSettingListView(
+        imageName: String,
+        content: String,
+        detail: String,
+        notShowLeft: Bool
     ) -> some View {
-        VStack(spacing: .zero) {
-            Spacer()
-                .frame(height: 20)
+        HStack {
+            Image(assetName: imageName)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 40,height: 40)
+                .padding(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 10))
             
-            HStack {
-                Spacer()
-                    .frame(width: 10)
-                Text(text)
-                    .foregroundColor(Color.basicGray9)
+            VStack(alignment: .leading) {
+                Text(content)
                     .pretendardFont(family: .Medium, size: 16)
-                
+                    .foregroundColor(.basicGray8)
                 Spacer()
-                
-                if showArrow {
-                    Image(systemName: "chevron.right")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 6, height: 12)
-                    
-                }
-                else {
-                    Text(versionText)
-                        .foregroundColor(Color.basicGray9)
-                        .pretendardFont(family: .Medium, size: 14)
-                }
-                Spacer()
-                    .frame(width: 10)
-                
-            }
-            .onTapGesture {
-                if showArrow {
-                    goToDeatilView()
-                }
+                    .frame(height: 2)
+                Text(detail)
+                    .pretendardFont(family: .Regular, size: 12)
+                    .foregroundColor(.basicGray6)
             }
             
             Spacer()
-                .frame(height: 20)
             
-            if showLine {
-                Rectangle()
-                    .fill(Color.basicGray4)
-                    .frame(height: 1)
-                    .padding(.horizontal, 10)
+            if notShowLeft {
+                Text("v.\(store.appVersion)")
+                    .pretendardFont(family: .Regular, size: 12)
+                    .foregroundColor(.basicGray6)
+                    .padding(.trailing, 25)
+            } else {
+                Image(systemName: "chevron.right")
+                    .padding(.trailing, 25)
             }
         }
-        .padding(.horizontal, 20)
-        
     }
+    
 }

@@ -89,7 +89,7 @@ fileprivate extension ProfileView {
             
             RoundedRectangle(cornerRadius: 16)
                 .fill(Color.basicWhite)
-                .frame(height: UIScreen.screenHeight*0.25)
+                .frame(height: UIScreen.screenHeight*0.35)
                 .overlay {
                     LazyVStack {
                         ForEach(store.profileViewList) { profileComponent in
@@ -128,8 +128,10 @@ fileprivate extension ProfileView {
         HStack {
             Image(assetName: imageName)
                 .resizable()
+                .scaledToFit()
                 .frame(width: 40,height: 40)
                 .padding(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 10))
+            
             VStack(alignment: .leading) {
                 Text(content)
                     .pretendardFont(family: .Medium, size: 16)
@@ -147,12 +149,10 @@ fileprivate extension ProfileView {
         }
     }
     
-    
-    
     @ViewBuilder
     private func logoutButton() -> some View {
         Spacer()
-            .frame(height: UIScreen.screenHeight*0.4)
+            .frame(height: UIScreen.screenHeight*0.3)
         
         LazyVStack {
             RoundedRectangle(cornerRadius: 12)

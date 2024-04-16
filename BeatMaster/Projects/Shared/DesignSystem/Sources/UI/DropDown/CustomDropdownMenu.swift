@@ -42,7 +42,7 @@ public struct CustomDropdownMenu: View {
                         
                         VStack(spacing: 0) {
                             DropdownMenuItemView(isSelecting: $isSelecting, selectiontitle: $selectionTitle, selectionId: $selectedRowId, item: .init(id: 1, title: "서비스 이용이 불편해요.", onSelect: {}))
-                            DropdownMenuItemView(isSelecting: $isSelecting, selectiontitle: $selectionTitle, selectionId: $selectedRowId, item: .init(id: 2, title: "명언이 마음에 들지 않아요.", onSelect: {}))
+                            DropdownMenuItemView(isSelecting: $isSelecting, selectiontitle: $selectionTitle, selectionId: $selectedRowId, item: .init(id: 2, title: "메트로놈이 별로에요.", onSelect: {}))
                             DropdownMenuItemView(isSelecting: $isSelecting, selectiontitle: $selectionTitle, selectionId: $selectedRowId, item: .init(id: 3, title: "비슷한 서비스 앱이 더 좋아요.", onSelect: {}))
                             DropdownMenuItemView(isSelecting: $isSelecting, selectiontitle: $selectionTitle, selectionId: $selectedRowId, item: .init(id: 3, title: "자주 사용하지 않아요.", onSelect: {}))
                         }

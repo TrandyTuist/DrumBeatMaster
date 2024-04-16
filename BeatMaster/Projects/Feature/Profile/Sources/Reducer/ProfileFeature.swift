@@ -35,6 +35,7 @@ public struct ProfileFeature {
             self.profileViewList = [
                 ProfileComponentModel(isDevider: true, imageName: "review", content: "앱 리뷰 작성", detail: "서비스에 대한 평가를 남겨주세요."),
                 ProfileComponentModel(isDevider: true, imageName: "bug", content: "버그 신고 및 의견 공유", detail: "더 좋은 서비스를 함께 만들어가요."),
+                ProfileComponentModel(isDevider: true, imageName: "metronomeStorageBox", content: "보관함", detail: "메트로눔 저장 보관함이에요."),
                 ProfileComponentModel(isDevider: false, imageName: "setting", content: "기타 설정", detail: "각종 설정들을 관리해요.")
             ]
         }
