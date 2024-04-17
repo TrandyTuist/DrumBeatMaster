@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -30,8 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-    <key>ITSAppUsesNonExemptEncryption</key> <No>
-	<string>2</string>
+	<string>3</string>
 	<key>KAKAO_APP_KEY</key>
 	<string>5dfd6362e977b585f52d3437e3f65579</string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -72,19 +73,19 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-    <key>UILaunchScreens</key>
-    <dict>
-        <key>UILaunchScreen</key>
-        <dict>
-            <key>New item</key>
-            <dict>
-                <key>UIImageName</key>
-                <string></string>
-                <key>UILaunchScreenIdentifier</key>
-                <string></string>
-            </dict>
-        </dict>
-    </dict>
+	<key>UILaunchScreens</key>
+	<dict>
+		<key>UILaunchScreen</key>
+		<dict>
+			<key>New item</key>
+			<dict>
+				<key>UIImageName</key>
+				<string></string>
+				<key>UILaunchScreenIdentifier</key>
+				<string></string>
+			</dict>
+		</dict>
+	</dict>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
