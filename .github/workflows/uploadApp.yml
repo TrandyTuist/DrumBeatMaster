@@ -27,9 +27,9 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
 
       - name: Setting Master Key
-        uses: actions/checkout@v3
-        with:
-           key: ${{ secrets.MASTER_KEY }}
+        run: echo -n "${{ secrets.MASTER_KEY }}" > ./Tuist/master.key
+        env:
+          MASTER_KEY: ${{ secrets.MASTER_KEY }}
 
       # Corrected indentation for the "Install Tuist" step
       - name: Install Tuist
