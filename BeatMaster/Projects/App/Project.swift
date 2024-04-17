@@ -16,7 +16,7 @@ let project = Project.makeAppModule(
     bundleId: .mainBundleID(),
     product: .app,
     settings: .appMainSetting,
-    scripts: [.FirebaseCrashlyticsString],
+    scripts: [],
     dependencies: [
         .Core(implements: .Core),
 //        .Shared(implements: .Shareds),
