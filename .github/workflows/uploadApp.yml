@@ -70,6 +70,10 @@ jobs:
           KEYCHAIN_NAME: ${{ secrets.KEYCHAIN_NAME }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
 
+      - name: List Keychain Items
+        run: |
+          security find-identity -vp codesign ${{ secrets.KEYCHAIN_NAME }} 
+
       - name: Tuist Genrate
         run: TUIST_ROOT_DIR=${PWD} tuist generate
         working-directory: ./BeatMaster
