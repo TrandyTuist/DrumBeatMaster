@@ -17,6 +17,8 @@ extension Settings {
                 "PUSH_NOTIFICATIONS_ENABLED":"YES",
                 "ENABLE_BACKGROUND_MODES" : "YES",
                 "BACKGROUND_MODES" : "remote-notification",
+                "ARCHS": "$(ARCHS_STANDARD)",
+                    "VALID_ARCHS": "arm64 x86_64",
 //                "ASSOCIATED_DOMAINS": "applinks:PingPong.page.link",
                 "CURRENT_PROJECT_VERSION": .string(.appBuildVersion()),
                 "CODE_SIGN_IDENTITY": "iPhone Developer",
@@ -31,36 +33,40 @@ extension Settings {
                 "DISPLAY_NAME" : "\(Project.Environment.appName)",
                 "PROVISIONING_PROFILE_SPECIFIER": "BeatMaster",
                 "OTHER_LDFLAGS": [
-                      "-all_load", // Set the strip style to non-global symbols
+                    "-ObjC","-all_load",// Set the strip style to non-global symbols
                 ],
                 "STRIP_STYLE": [
                     "non-global"
                 ],
+//                "EXCLUDED_ARCHS[sdk=iphonesimulator*]": "arm64"
+//                "EXCLUDED_ARCHS": "arm64"
             ]),
-            .debug(name: "Dev", settings: [
+            .debug(name: "QA", settings: [
                 "PRODUCT_NAME" : "\(Project.Environment.appDevName)",
                 "DISPLAY_NAME" : "\(Project.Environment.appDevName)",
-                "PROVISIONING_PROFILE_SPECIFIER": "BeatMaster",
+                "PROVISIONING_PROFILE_SPECIFIER": "BeatMasterAppStore",
                 "OTHER_LDFLAGS": [
-                     "-all_load", // Set the strip style to non-global symbols
+                    "-ObjC","-all_load",// Set the strip style to non-global symbols
                 ],
                 "STRIP_STYLE": [
                     "non-global"
                 ],
-                
+//                "EXCLUDED_ARCHS[sdk=iphonesimulator*]": "arm64"
+//                "EXCLUDED_ARCHS": "arm64"
             ]),
             .release(name: .release, settings: [
                 "DEVELOPMENT_ASSET_PATHS": "\"Resources/Preview Content\"",
                 "PRODUCT_NAME" : "\(Project.Environment.appName)" ,
                 "DISPLAY_NAME" : "\(Project.Environment.appName)" ,
-                "PROVISIONING_PROFILE_SPECIFIER": "BeatMaster",
+                "PROVISIONING_PROFILE_SPECIFIER": "BeatMasterAppStore",
                 "OTHER_LDFLAGS": [
-                    "-all_load",
+                    "-ObjC","-all_load",
                 ],
                 "STRIP_STYLE": [
                     "non-global"
                 ],
-                
+//                "EXCLUDED_ARCHS[sdk=iphonesimulator*]": "arm64"
+//                "EXCLUDED_ARCHS": "arm64"
             ])], defaultSettings: .recommended)
     
     public static func appBaseSetting(appName: String) -> Settings {
@@ -70,20 +76,20 @@ extension Settings {
                    "CURRENT_PROJECT_VERSION": .string(.appBuildVersion()),
                    "CODE_SIGN_IDENTITY": "iPhone Developer",
                    "AS_AUTHENTICATION_SERVICES_ENABLED": "YES",
-//                   "CODE_SIGN_STYLE": "Automatic",
-//                   "DEVELOPMENT_TEAM": "\(Project.Environment.organizationTeamId)",
+                   "ARCHS": "$(ARCHS_STANDARD)",
+                       "VALID_ARCHS": "arm64 x86_64",
                    "VERSIONING_SYSTEM": "apple-generic",
                    "DEBUG_INFORMATION_FORMAT": "DWARF with dSYM File"],
             configurations: [
                 .debug(name: .debug, settings: [
                     "PRODUCT_NAME": "\(appName)",
-    //                "PROVISIONING_PROFILE_SPECIFIER": "BeatMaster",
                     "OTHER_LDFLAGS": [
-                          "-all_load", // Set the strip style to non-global symbols
+                        "-ObjC","-all_load", // Set the strip style to non-global symbols
                     ],
                     "STRIP_STYLE": [
                         "non-global"
                     ],
+//                    "EXCLUDED_ARCHS": "arm64"
 //                    "OTHER_SWIFT_FLAGS": [
 //                        "$(inherited)", "-enable-actor-data-race-checks"
 //                    ]
@@ -92,11 +98,12 @@ extension Settings {
                     "PRODUCT_NAME" : "\(appName)-Dev",
     //                "PROVISIONING_PROFILE_SPECIFIER": "BeatMaster",
                     "OTHER_LDFLAGS": [
-                         "-all_load", // Set the strip style to non-global symbols
+                         "-ObjC","-all_load", // Set the strip style to non-global symbols
                     ],
                     "STRIP_STYLE": [
                         "non-global"
                     ],
+//                    "EXCLUDED_ARCHS": "arm64"
 //                    "OTHER_SWIFT_FLAGS": [
 //                        "$(inherited)", "-enable-actor-data-race-checks"
 //                    ]
@@ -106,14 +113,12 @@ extension Settings {
                     "PRODUCT_NAME": "\(appName)",
     //                "PROVISIONING_PROFILE_SPECIFIER": "BeatMaster",
                     "OTHER_LDFLAGS": [
-                        "-all_load",
+                        "-ObjC","-all_load"
                     ],
                     "STRIP_STYLE": [
                         "non-global"
                     ],
-//                    "OTHER_SWIFT_FLAGS": [
-//                        "$(inherited)", "-enable-actor-data-race-checks"
-//                    ]
+//                    "EXCLUDED_ARCHS": "arm64"
                 ])], defaultSettings: .recommended)
         
         return appBaseSetting
@@ -126,6 +131,8 @@ extension Settings {
                    "MARKETING_VERSION": .string(.appVersion()),
                    "CURRENT_PROJECT_VERSION": .string(.appBuildVersion()),
                    "CODE_SIGN_IDENTITY": "iPhone Developer",
+                   "ARCHS": "$(ARCHS_STANDARD)",
+                       "VALID_ARCHS": "arm64 x86_64",
 //                   "CODE_SIGN_STYLE": "Automatic",
 //                   "DEVELOPMENT_TEAM": "\(Project.Environment.organizationTeamId)",
                    "VERSIONING_SYSTEM": "apple-generic",
@@ -135,22 +142,25 @@ extension Settings {
                     "PRODUCT_NAME": "\(appName)",
     //                "PROVISIONING_PROFILE_SPECIFIER": "BeatMaster",
                     "OTHER_LDFLAGS": [
-                          "-all_load", // Set the strip style to non-global symbols
-                    ]
+                        "-ObjC","-all_load", // Set the strip style to non-global symbols
+                    ],
+//                    "EXCLUDED_ARCHS": "arm64"
                 ]),
                 .debug(name: "Dev", settings: [
                     "PRODUCT_NAME" : "\(appName)-Dev",
     //                "PROVISIONING_PROFILE_SPECIFIER": "BeatMaster",
                     "OTHER_LDFLAGS": [
-                         "-all_load", // Set the strip style to non-global symbols
-                    ]
+                        "-ObjC","-all_load", // Set the strip style to non-global symbols
+                    ],
+//                    "EXCLUDED_ARCHS": "arm64"
                 ]),
                 .release(name: .release, settings: [
                     "PRODUCT_NAME": "\(appName)",
     //                "PROVISIONING_PROFILE_SPECIFIER": "BeatMaster",
                     "OTHER_LDFLAGS": [
-                        "-all_load",
-                    ]
+                        "-ObjC","-all_load",
+                    ],
+//                    "EXCLUDED_ARCHS": "arm64"
                 ])], defaultSettings: .recommended)
         
         return appDesignSetting
@@ -166,50 +176,43 @@ extension Settings {
 //                   "CODE_SIGN_STYLE": "Automatic",
 //                   "DEVELOPMENT_TEAM": "\(Project.Environment.organizationTeamId)",
                    "VERSIONING_SYSTEM": "apple-generic",
+                   "ARCHS": "$(ARCHS_STANDARD)",
+                       "VALID_ARCHS": "arm64 x86_64",
                    "DEBUG_INFORMATION_FORMAT": "DWARF with dSYM File"],
             configurations: [
                 .debug(name: .debug, settings: [
                     "PRODUCT_NAME": "\(appName)",
     //                "PROVISIONING_PROFILE_SPECIFIER": "BeatMaster",
                     "OTHER_LDFLAGS": [
-                          "-all_load", // Set the strip style to non-global symbols
+                        "-ObjC","-all_load",  // Set the strip style to non-global symbols
                     ],
                     "STRIP_STYLE": [
                         "non-global"
                     ],
-                    
-                    "OTHER_SWIFT_FLAGS": [
-                        "$(inherited)", "-enable-actor-data-race-checks"
-                    ]
-                    
+//                    "EXCLUDED_ARCHS[sdk=iphonesimulator*]": "arm64"
                 ]),
                 .debug(name: "Dev", settings: [
                     "PRODUCT_NAME" : "\(appName)-Dev",
     //                "PROVISIONING_PROFILE_SPECIFIER": "BeatMaster",
                     "OTHER_LDFLAGS": [
-                         "-all_load", // Set the strip style to non-global symbols
+                        "-ObjC","-all_load", // Set the strip style to non-global symbols
                     ],
                     "STRIP_STYLE": [
                         "non-global"
                     ],
-                    
-                    "OTHER_SWIFT_FLAGS": [
-                        "$(inherited)", "-enable-actor-data-race-checks"
-                    ]
+//                    "EXCLUDED_ARCHS[sdk=iphonesimulator*]": "arm64"
                     
                 ]),
                 .release(name: .release, settings: [
                     "PRODUCT_NAME": "\(appName)",
     //                "PROVISIONING_PROFILE_SPECIFIER": "BeatMaster",
                     "OTHER_LDFLAGS": [
-                        "-all_load",
+                        "-ObjC","-all_load",
                     ],
                     "STRIP_STYLE": [
                         "non-global"
                     ],
-                    "OTHER_SWIFT_FLAGS": [
-                        "$(inherited)", "-enable-actor-data-race-checks"
-                    ]
+//                    "EXCLUDED_ARCHS[sdk=iphonesimulator*]": "arm64"
                 ])], defaultSettings: .recommended)
         
         return appBaseLibraySetting

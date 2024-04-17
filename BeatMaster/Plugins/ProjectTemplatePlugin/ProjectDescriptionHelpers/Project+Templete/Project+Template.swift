@@ -41,7 +41,7 @@ public extension Project {
         )
         
         let appDevTarget = Target(
-            name: "\(name)-Dev",
+            name: "\(name)-QA",
             destinations: destinations,
             product: product,
             bundleId: "\(bundleId)",

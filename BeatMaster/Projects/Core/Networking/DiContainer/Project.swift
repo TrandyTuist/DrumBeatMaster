@@ -8,7 +8,7 @@ let project = Project.makeAppModule(
     name: "DiContainer",
     bundleId: .appBundleID(name: ".DiContainer"),
     product: .staticFramework,
-    settings: .appBaseSetting(appName: "DiContainer"),
+    settings: .appBaseLibraySetting(appName: "DiContainer"),
     dependencies: [
         .SPM.swinject
     ],

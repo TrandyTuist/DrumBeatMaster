@@ -7,7 +7,7 @@ let project = Project.makeAppModule(
     name: "ThirdParty",
     bundleId: .appBundleID(name: ".ThirdParty"),
     product: .staticFramework,
-    settings:  .appBaseLibraySetting(appName: "ThirdParty"),
+    settings:  .appBaseSetting(appName: "ThirdParty"),
     dependencies: [
         .SPM.composableArchitecture,
         .SPM.sdwebImage,

@@ -16,6 +16,6 @@ let project = Project.makeAppModule(
         
     ],
     sources: ["Sources/**"],
-//    infoPlist: .file(path: "../Support/Info.plist"),
-    entitlements: .file(path: "../../Entitlements/BeatMaster.entitlements")
+    infoPlist: .file(path: "../../Support/Info.plist")
+//    entitlements: .file(path: "../../Entitlements/BeatMaster.entitlements")
 )

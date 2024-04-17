@@ -89,8 +89,8 @@ desc "Install Profiles and Build My App"
  # ✅ 테스트 플라이트 업로드
   desc "Push to TestFlight"
   lane :QA do |options|
-    install_provisioning_profile(path: "Tuist/Signing/#{APP_NAME}.Release.mobileprovision")
-   
+	install_provisioning_profile(path: "Tuist/Signing/#{APP_NAME}-QA.Release.mobileprovision")   
+
 # ✅ 앱스토어 커넥트 키 연결
     app_store_connect_api_key(is_key_content_base64: true, in_house: false)
 
@@ -111,10 +111,12 @@ desc "Install Profiles and Build My App"
       workspace: "#{APP_NAME}.xcworkspace",
       scheme: "#{SCHEME}",
       export_method: "app-store",
-      clean: true, # Cleans the project before building.
-      include_bitcode: true, # Include bitcode if required.
-      include_symbols: true, # Include debug symbols if required.
-      verbose: true # Enable verbose logging for troubleshooting.
+      clean: true, 
+      verbose: true, 
+      output_directory: "./fastlane/output/",
+     export_options: {
+       uploadBitcode: false
+      }
     )
 
     # ✅ 테스트 플라이트 업로드
