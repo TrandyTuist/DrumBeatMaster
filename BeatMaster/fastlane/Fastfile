@@ -17,8 +17,8 @@ KEYCHAIN_NAME = ENV["KEYCHAIN_NAME"]
 KEYCHAIN_PASSWORD = ENV["KEYCHAIN_PASSWORD"]
 KEYCHAIN_PASSWORD_DB =  ENV["KEYCHAIN_PASSWORD_DB"]
 
-require 'spaceship'
-Spaceship::ConnectAPI::App.const_set('ESSENTIAL_INCLUDES', 'appStoreVersions')
+#require 'spaceship'
+#Spaceship::ConnectAPI::App.const_set('ESSENTIAL_INCLUDES', 'appStoreVersions')
 ENV["FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT"] = "600"
 
 # Uncomment the line if you want fastlane to automatically update itself
