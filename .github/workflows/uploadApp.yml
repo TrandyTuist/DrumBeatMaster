@@ -61,6 +61,7 @@ jobs:
 
       - name: Set Keychain
         run: fastlane set_keychain
+        working-directory: ./BeatMaster
         env:
           KEYCHAIN_NAME: ${{ secrets.KEYCHAIN_NAME }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
