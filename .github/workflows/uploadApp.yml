@@ -59,6 +59,13 @@ jobs:
         run: tuist signing decrypt
         working-directory: ./BeatMaster
 
+      - name: Set Keychain
+        run: fastlane set_keychain
+        working-directory: ./BeatMaster
+        env:
+          KEYCHAIN_NAME: ${{ secrets.KEYCHAIN_NAME }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+
       - name: Tuist Genrate
         run: TUIST_ROOT_DIR=${PWD} tuist generate
         working-directory: ./BeatMaster
