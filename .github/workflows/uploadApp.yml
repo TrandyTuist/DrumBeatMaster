@@ -16,7 +16,7 @@ jobs:
       - name: Setup Xcode version
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: 15.2.0
+          xcode-version: 15.3.0
 
     
 
@@ -63,8 +63,7 @@ jobs:
         run: TUIST_ROOT_DIR=${PWD} tuist generate
         working-directory: ./BeatMaster
 
-      - name: Upload to TestFlight
-        run: fastlane QA
+      - run: fastlane QA
         env:
           KEYCHAIN_NAME: ${{ secrets.KEYCHAIN_NAME }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
