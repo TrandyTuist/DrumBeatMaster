@@ -18,8 +18,7 @@ jobs:
         with:
           xcode-version: 15.2.0
 
-    
-
+   
       # This step was corrected for proper indentation
       - name: Bring ignored files
         uses: actions/checkout@v3
@@ -27,9 +26,14 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
 
       - name: Setting Master Key
-        uses: actions/checkout@v3
-        with:
-           key: ${{ secrets.MASTER_KEY }}
+        run: echo -n "${{ secrets.MASTER_KEY }}" > ./Tuist/master.key
+        working-directory: ./BeatMaster
+        env:
+          MASTER_KEY: ${{ secrets.MASTER_KEY }}
+
+ # uses: actions/checkout@v3
+    #     with:
+    #        key: ${{ secrets.MASTER_KEY }}
 
       # Corrected indentation for the "Install Tuist" step
       - name: Install Tuist
