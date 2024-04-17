@@ -91,7 +91,7 @@ desc "Install Profiles and Build My App"
   desc "Push to TestFlight"
   lane :QA do |options|
 ENV["MATCH_PASSWORD"] = "Your_Secure_Passphrase"
-	install_provisioning_profile(path: "Tuist/Signing/#{APP_NAME}-QA.Release.mobileprovision")   
+	install_provisioning_profile(path: "Tuist/Signing/#{APP_NAME}.Release.mobileprovision")   
 
 # ✅ 앱스토어 커넥트 키 연결
     app_store_connect_api_key(is_key_content_base64: true, in_house: false)
