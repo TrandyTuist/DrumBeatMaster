@@ -6,3 +6,4 @@ type("appstore")
 
 app_identifier("com.Haejoo.BeatMaster")
 
+username("shuwj81@daum.net")

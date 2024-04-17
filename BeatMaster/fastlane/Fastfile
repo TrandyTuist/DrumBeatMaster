@@ -90,6 +90,7 @@ desc "Install Profiles and Build My App"
  # ✅ 테스트 플라이트 업로드
   desc "Push to TestFlight"
   lane :QA do |options|
+ENV["MATCH_PASSWORD"] = "Your_Secure_Passphrase"
 	install_provisioning_profile(path: "Tuist/Signing/#{APP_NAME}-QA.Release.mobileprovision")   
 
 # ✅ 앱스토어 커넥트 키 연결
@@ -103,7 +104,27 @@ desc "Install Profiles and Build My App"
   increment_build_number(
   xcodeproj: "Projects/App/#{APP_NAME}.xcodeproj"
    )
+  
+
+# match(
+    # git_url: "https://github.com/TrandyTuist/BeatMaster.git",
+     # storage_mode: "git",
+     # type: "appstore",
+     # readonly: true,
+     # keychain_name: "#{KEYCHAIN_NAME}",
+    #  keychain_password: "#{KEYCHAIN_PASSWORD}"
+   # )
     
+  # match(
+    # git_url: "https://github.com/TrandyTuist/BeatMaster.git",
+    # storage_mode: "git",
+    # type: "development",
+   # readonly: true,
+   # keychain_name: "#{KEYCHAIN_NAME}",
+   #keychain_password: "#{KEYCHAIN_PASSWORD}"
+  # )
+
+ 
      clear_derived_data
      sh"tuist fetch"
     # ✅ 빌드
@@ -120,8 +141,12 @@ desc "Install Profiles and Build My App"
     )
 
     # ✅ 테스트 플라이트 업로드
-    upload_to_testflight(skip_waiting_for_build_processing: true)
-
+   upload_to_testflight(
+       demo_account_required: true,
+       beta_app_description:" BeatMaster",
+       ipa:"./fastlane/output/BeatMaster.ipa",
+       changelog:"변경사항",
+       skip_waiting_for_build_processing: true)
 
  end
 end
