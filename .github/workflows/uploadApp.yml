@@ -55,22 +55,21 @@ jobs:
         working-directory: ./BeatMaster
 
 
-      - name: Tuist cache
-        run: tuist cache warm BeatMaster
-        working-directory: ./BeatMaster
-
       - name: Tuist Signing Decrypt
         run: tuist signing decrypt
         working-directory: ./BeatMaster
 
       - name: Tuist Genrate
-        run: tuist generate
+        run: TUIST_ROOT_DIR=${PWD} tuist generate
         working-directory: ./BeatMaster
-        
-      # - name: Run tests
-      #   run: |
-      #     tuist clean
-      #     tuist fetch
-      #     tuist generate --project-directory=BeatMaster/
-      #     xcodebuild clean test -workspace BeatMaster/BeatMaster.xcworkspace -scheme BeatMaster
 
+      - name: Upload to TestFlight
+        run: fastlane QA
+        env:
+          KEYCHAIN_NAME: ${{ secrets.KEYCHAIN_NAME }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+          TEAM_ID: ${{ secrets.TEAM_ID }}
+          APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID }}
+          APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}
+          APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY }}
+        
