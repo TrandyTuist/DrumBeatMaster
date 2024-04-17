@@ -12,7 +12,7 @@ let project = Project.makeAppModule(
         .SPM.composableArchitecture,
         .SPM.sdwebImage,
         .SPM.swiftJWT,
-        .SPM.firebaseMessaging,
+//        .SPM.firebaseMessaging,
         .SPM.keychainAccess,
         .SPM.kakaoSDKAuth,
         .SPM.kakaoSDKUser,

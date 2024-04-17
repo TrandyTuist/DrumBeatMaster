@@ -7,9 +7,9 @@
 //
 
 import SwiftUI
-import UIKit
-import FirebaseCore
-import Firebase
+//import UIKit
+//import FirebaseCore
+//import Firebase
 
 
 class AppDelegate: UIViewController, UIApplicationDelegate{
@@ -18,7 +18,7 @@ class AppDelegate: UIViewController, UIApplicationDelegate{
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
-        FirebaseApp.configure()
+//        FirebaseApp.configure()
 //
 //        if #available(iOS 10.0, *) {
 //            // For iOS 10 display notification (sent via APNS)
