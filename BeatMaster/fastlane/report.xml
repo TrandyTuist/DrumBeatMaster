@@ -5,32 +5,42 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: update_fastlane" time="5.142537">
+      <testcase classname="fastlane.lanes" name="0: update_fastlane" time="4.70203">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: default_platform" time="9.8e-05">
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.000103">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: tuist signing decrypt" time="0.441362">
+      <testcase classname="fastlane.lanes" name="2: install_provisioning_profile" time="0.158448">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: create_keychain" time="0.345843">
+      <testcase classname="fastlane.lanes" name="3: app_store_connect_api_key" time="0.001771">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: import_certificate" time="0.215171">
+      <testcase classname="fastlane.lanes" name="4: increment_build_number" time="0.332532">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: import_certificate" time="0.223528">
+      <testcase classname="fastlane.lanes" name="5: clear_derived_data" time="1.593966">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="6: build_app" time="197.576475">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="7: upload_to_testflight" time="149.094753">
         
       </testcase>
     

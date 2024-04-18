@@ -44,7 +44,7 @@ extension Settings {
             .debug(name: "QA", settings: [
                 "PRODUCT_NAME" : "\(Project.Environment.appDevName)",
                 "DISPLAY_NAME" : "\(Project.Environment.appDevName)",
-                "PROVISIONING_PROFILE_SPECIFIER": "BeatMasterAppStore",
+                "PROVISIONING_PROFILE_SPECIFIER": "BeatMasterRelease",
                 "OTHER_LDFLAGS": [
                     "-ObjC","-all_load",// Set the strip style to non-global symbols
                 ],
@@ -58,7 +58,7 @@ extension Settings {
                 "DEVELOPMENT_ASSET_PATHS": "\"Resources/Preview Content\"",
                 "PRODUCT_NAME" : "\(Project.Environment.appName)" ,
                 "DISPLAY_NAME" : "\(Project.Environment.appName)" ,
-                "PROVISIONING_PROFILE_SPECIFIER": "BeatMasterAppStore",
+                "PROVISIONING_PROFILE_SPECIFIER": "BeatMasterRelease",
                 "OTHER_LDFLAGS": [
                     "-ObjC","-all_load",
                 ],
