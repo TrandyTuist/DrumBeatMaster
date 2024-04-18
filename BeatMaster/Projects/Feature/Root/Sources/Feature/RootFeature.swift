@@ -174,7 +174,17 @@ public struct RootFeature{
                     let email: String = (try? Keychain().get("EMAIL")) ?? ""
                     let nickname: String = (try? Keychain().get("NAME")) ?? ""
                     state.path.append(.signUp(.init(auth: UserAuth(token: "", socialType: .apple, name: nickname, email: email))))
-                
+                    
+                case .element(id: _, action: .signUp(.saveSelectSocial)):
+                    let email: String = (try? Keychain().get("EMAIL")) ?? ""
+                    let name: String = (try? Keychain().get("NAME")) ?? ""
+                    let token = (try? Keychain().get("Token")) ?? ""
+                    let socialTypeString: String = (try? Keychain().get("SocialType")) ?? ""
+                    let socialType: SocialType = SocialType(rawValue: socialTypeString) ?? .unknown
+                    let login: String = (try? Keychain().get("isLogin")) ?? ""
+                    Log.debug(socialTypeString, socialType)
+                    state.path.append(.authInfo(.init(auth: UserAuth(isLogin: Bool(login) ,token: token, socialType: socialType, name: name, email: email))))
+                    
                 case .element(id: _, action: .signUp(.presentPolicyAgreedWeb)):
                     state.path.append(.web(.init(url: APIManger.shared.privacyPolicyURL)))
     

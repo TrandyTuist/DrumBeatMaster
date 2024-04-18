@@ -50,7 +50,8 @@ public struct SignUpView: View {
             .onAppear {
                 store.send(.appear)
             }
-            .sheet(item: $store.scope(state: \.selectSocial, action: \.selectSocial)) { selectSocialStore in
+            
+            .sheet(item: $store.scope(state: \.destination?.selectSocial, action: \.destination.selectSocial)) { selectSocialStore in
                 SelectSocialTypeView(store: selectSocialStore, selectLoginAction: {
                     store.send(.saveSelectSocial)
                 })

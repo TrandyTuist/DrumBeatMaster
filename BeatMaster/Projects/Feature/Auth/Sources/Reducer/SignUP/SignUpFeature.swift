@@ -30,8 +30,10 @@ public struct SignUpFeature {
         var isPrivacyPolicyAgreed: Bool = false
         var isConfirmButtonActivated: Bool = false
         
-        @Presents var selectSocial: SelectSocialFeature.State?
-        @Presents var authInformation: AuthInfromationFeature.State?
+//        @Presents var selectSocial: SelectSocialFeature.State?
+//        @Presents var authInformation: AuthInfromationFeature.State?
+        
+        @Presents var destination: Destination.State?
         
         var auth: UserAuth?
         var auths: IdentifiedArrayOf<UserAuth> = []
@@ -56,12 +58,21 @@ public struct SignUpFeature {
         case didTapAgreePrivacyPolicy
         case didTapAgreeMarketingInformation
         
-        case selectSocial(PresentationAction<SelectSocialFeature.Action>)
-        case authInformation(PresentationAction<AuthInfromationFeature.Action>)
+//   case selectSocial(PresentationAction<SelectSocialFeature.Action>)
+//    case authInformation(PresentationAction<AuthInfromationFeature.Action>)
+        
+        case destination(PresentationAction<Destination.Action>)
+        
         case selectSocialBottomSheet
         case saveSelectSocial
         case presntAuthInfo
         case appear
+    }
+    
+    @Reducer(state: .equatable)
+    public enum Destination {
+        case selectSocial(SelectSocialFeature)
+        case authInformation(AuthInfromationFeature)
     }
     
     public var body: some ReducerOf<Self> {
@@ -118,20 +129,24 @@ public struct SignUpFeature {
                 state.auths = []
                 return .none
                 
-            case .selectSocial:
-                return .none
+//            case .selectSocial:
+//                return .none
+//                
+//            case .authInformation:
+//                return .none
                 
-            case .authInformation:
+            case .destination:
                 return .none
                 
             case .saveSelectSocial:
-                guard let auth = state.selectSocial?.auth
+                guard let auth = state.destination?.selectSocial,
+                      let auths = auth.auth
                 else { return .none}
-                state.auths.append(auth)
-                state.selectSocial = nil
-                state.auth = auth
+                state.auths.append(auths)
+                state.destination = nil
+                state.auth = auths
                 return .run { send in
-                    switch auth.socialType {
+                    switch auths.socialType {
                     case .apple:
                         await send(.presntAuthInfo)
                     case .kakao:
@@ -150,13 +165,13 @@ public struct SignUpFeature {
                     let nickname: String = (try? Keychain().get("NAME")) ?? ""
                     let token: String = (try? Keychain().get("Token")) ?? ""
                     state.auth?.token = token
-                    state.authInformation = AuthInfromationFeature.State(auth: UserAuth(isLogin: false, token: state.auth?.token ?? "", socialType: state.auth?.socialType, name: nickname, email: email))
+                    state.destination = .authInformation(AuthInfromationFeature.State(auth: UserAuth(isLogin: false, token: state.auth?.token ?? "", socialType: state.auth?.socialType, name: nickname, email: email)))
                 case .kakao:
                     let email: String = (try? Keychain().get("EMAIL")) ?? ""
                     let nickname: String = (try? Keychain().get("NAME")) ?? ""
                     let token: String = (try? Keychain().get("Token")) ?? ""
                     state.auth?.token = token
-                    state.authInformation = AuthInfromationFeature.State(auth: UserAuth(isLogin: false, token: state.auth?.token ?? "", socialType: state.auth?.socialType, name: nickname, email: email))
+                    state.destination = .authInformation(AuthInfromationFeature.State(auth: UserAuth(isLogin: false, token: state.auth?.token ?? "", socialType: state.auth?.socialType, name: nickname, email: email)))
                 default:
                     break
                 }
@@ -167,16 +182,18 @@ public struct SignUpFeature {
                 let nickname: String = (try? Keychain().get("NAME")) ?? ""
                 let token: String = (try? Keychain().get("Token")) ?? ""
                 state.auth?.token = token
-                state.selectSocial = SelectSocialFeature.State(auth: UserAuth(isLogin: false, token: state.auth?.token ?? "", socialType:  state.auth?.socialType, name: nickname, email: email))
+                state.destination = .selectSocial(SelectSocialFeature.State(auth: UserAuth(isLogin: false, token: state.auth?.token ?? "", socialType:  state.auth?.socialType, name: nickname, email: email)))
                 return .none
             }
         }
-        .ifLet(\.$selectSocial, action: \.selectSocial){
-            SelectSocialFeature()
-        }
-        .ifLet(\.$authInformation, action: \.authInformation){
-            AuthInfromationFeature()
-        }
+        .ifLet(\.$destination, action: \.destination)
+        
+//        .ifLet(\.$selectSocial, action: \.selectSocial){
+//            SelectSocialFeature()
+//        }
+//        .ifLet(\.$authInformation, action: \.authInformation){
+//            AuthInfromationFeature()
+//        }
     }
 }
 
