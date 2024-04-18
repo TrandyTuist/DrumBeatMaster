@@ -114,17 +114,22 @@ update_project_provisioning(
      clear_derived_data
     #sh"tuist fetch"
     # ✅ 빌드
-    build_app(
+    gym(
       workspace: "#{APP_NAME}.xcworkspace",
       scheme: "#{SCHEME}",
-xcargs: "-allowProvisioningUpdates",
+      xcargs: "-allowProvisioningUpdates",
       export_method: "app-store",
       clean: true, 
       verbose: true, 
       output_directory: "./fastlane/output/",
-     export_options: {
-       uploadBitcode: false
+       export_options: {
+       uploadBitcode: false,
+       provisioningProfiles: {
+        "com.Haejoo.BeatMaste": "BeatMasterRelease"  
       },
+       signingStyle: "manual",
+      signingCertificate: "iOS Development"
+      }
 #cargs: "PROVISIONING_PROFILE_SPECIFIER='BeatMaster'"
     )
 
