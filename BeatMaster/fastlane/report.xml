@@ -5,32 +5,32 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: update_fastlane" time="4.845062">
+      <testcase classname="fastlane.lanes" name="0: update_fastlane" time="5.142537">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: default_platform" time="9.7e-05">
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="9.8e-05">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: tuist signing decrypt" time="0.844205">
+      <testcase classname="fastlane.lanes" name="2: tuist signing decrypt" time="0.441362">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: create_keychain" time="0.418027">
+      <testcase classname="fastlane.lanes" name="3: create_keychain" time="0.345843">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: import_certificate" time="0.086266">
+      <testcase classname="fastlane.lanes" name="4: import_certificate" time="0.215171">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: import_certificate" time="0.411114">
+      <testcase classname="fastlane.lanes" name="5: import_certificate" time="0.223528">
         
       </testcase>
     
