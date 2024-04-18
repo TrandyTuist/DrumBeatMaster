@@ -1,0 +1,9 @@
+git_url("https://github.com/TrandyTuist/BeatMaster.git")
+
+storage_mode("git")
+
+type("appstore")
+
+app_identifier("com.Haejoo.BeatMaster")
+
+username("shuwj81@daum.net")

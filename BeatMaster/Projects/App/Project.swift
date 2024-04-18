@@ -16,15 +16,15 @@ let project = Project.makeAppModule(
     bundleId: .mainBundleID(),
     product: .app,
     settings: .appMainSetting,
-    scripts: [.FirebaseCrashlyticsString],
+    scripts: [],
     dependencies: [
         .Core(implements: .Core),
-        .Shared(implements: .Shareds),
+//        .Shared(implements: .Shareds),
         .Networking(implements: .Networkings),
         
     ],
     sources: ["Sources/**", "Resources/FontAsset/**"],
-    resources: ["Resources/**", "../Support/AuthKey_P552TDR3Q2.p8", "../Support/PrivacyInfo.xcprivacy"],
+    resources: ["Resources/**", "../Support/AuthKey_P552TDR3Q2.p8", "../Support/PrivacyInfo.xcprivacy", "loading.gif"],
     infoPlist: .file(path: "../Support/Info.plist"),
     entitlements: .file(path: "../Entitlements/BeatMaster.entitlements")
     

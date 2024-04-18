@@ -16,8 +16,9 @@ SCHEME = "BeatMaster"
 KEYCHAIN_NAME = ENV["KEYCHAIN_NAME"]
 KEYCHAIN_PASSWORD = ENV["KEYCHAIN_PASSWORD"]
 KEYCHAIN_PASSWORD_DB =  ENV["KEYCHAIN_PASSWORD_DB"]
-require 'spaceship'
-Spaceship::ConnectAPI::App.const_set('ESSENTIAL_INCLUDES', 'appStoreVersions')
+
+#require 'spaceship'
+#Spaceship::ConnectAPI::App.const_set('ESSENTIAL_INCLUDES', 'appStoreVersions')
 ENV["FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT"] = "600"
 
 # Uncomment the line if you want fastlane to automatically update itself
@@ -40,13 +41,13 @@ platform :ios do
     )
 
     import_certificate(
-      certificate_path: "./Tuist/Signing/release.cer",
+      certificate_path: "./Tuist/Signing/development.cer",
       keychain_name: "#{KEYCHAIN_NAME}",
       keychain_password: "#{KEYCHAIN_PASSWORD}"
     )
 
     import_certificate(
-      certificate_path: "./Tuist/Signing/release.p12",
+      certificate_path: "./Tuist/Signing/development.p12",
       keychain_name: "#{KEYCHAIN_NAME}",
       keychain_password: "#{KEYCHAIN_PASSWORD}"
     )
@@ -89,26 +90,63 @@ desc "Install Profiles and Build My App"
  # ✅ 테스트 플라이트 업로드
   desc "Push to TestFlight"
   lane :QA do |options|
-    install_provisioning_profile(path: "Tuist/Signing/#{APP_NAME}.Release.mobileprovision")
-   clear_derived_data
-   # ✅ 빌드
+ENV["MATCH_PASSWORD"] = "Your_Secure_Passphrase"
+	install_provisioning_profile(path: "Tuist/Signing/#{APP_NAME}.Release.mobileprovision")   
+
+# ✅ 앱스토어 커넥트 키 연결
+    app_store_connect_api_key(is_key_content_base64: true, in_house: false)
+
+    # ✅ 버전 및 빌드 번호 가져오기
+  #version_number = get_version_number(xcodeproj: "Projects/App/#{APP_NAME}.xcodeproj", target: "#{SCHEME}")
+   #  build_number = latest_testflight_build_number(app_identifier: "com.Haejoo.BeatMaster") + 1
+
+    # ✅ 빌드 넘버 증가
+  increment_build_number(
+  xcodeproj: "Projects/App/#{APP_NAME}.xcodeproj"
+   )
+  
+
+# match(
+    # git_url: "https://github.com/TrandyTuist/BeatMaster.git",
+     # storage_mode: "git",
+     # type: "appstore",
+     # readonly: true,
+     # keychain_name: "#{KEYCHAIN_NAME}",
+    #  keychain_password: "#{KEYCHAIN_PASSWORD}"
+   # )
+    
+  # match(
+    # git_url: "https://github.com/TrandyTuist/BeatMaster.git",
+    # storage_mode: "git",
+    # type: "development",
+   # readonly: true,
+   # keychain_name: "#{KEYCHAIN_NAME}",
+   #keychain_password: "#{KEYCHAIN_PASSWORD}"
+  # )
+
+ 
+     clear_derived_data
+     sh"tuist fetch"
+    # ✅ 빌드
     build_app(
       workspace: "#{APP_NAME}.xcworkspace",
       scheme: "#{SCHEME}",
-    silent: true,
-    clean: true,
-    output_directory: "./fastlane/output/",
-    output_name: "BeatMaster.ipa",
       export_method: "app-store",
-      export_options: {
-      signingStyle: "automatic",
-          uploadBitcode: false,
-          provisioningProfiles: {
-            "com.Haejoo.BeatMaster" => "BeatMaster",
-             "com.Haejoo.BeatMaster.Demo" => "BeatMasterDemo"
-             }
-        }
+      clean: true, 
+      verbose: true, 
+      output_directory: "./fastlane/output/",
+     export_options: {
+       uploadBitcode: false
+      }
     )
+
+    # ✅ 테스트 플라이트 업로드
+   upload_to_testflight(
+       demo_account_required: true,
+       beta_app_description:" BeatMaster",
+       ipa:"./fastlane/output/BeatMaster.ipa",
+       changelog:"변경사항",
+       skip_waiting_for_build_processing: true)
 
  end
 end
