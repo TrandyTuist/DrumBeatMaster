@@ -58,7 +58,7 @@ extension Settings {
                 "DEVELOPMENT_ASSET_PATHS": "\"Resources/Preview Content\"",
                 "PRODUCT_NAME" : "\(Project.Environment.appName)" ,
                 "DISPLAY_NAME" : "\(Project.Environment.appName)" ,
-                "PROVISIONING_PROFILE_SPECIFIER": "BeatMasterRelease",
+                "PROVISIONING_PROFILE_SPECIFIER": "match AppStore com.Haejoo.BeatMaster",
                 "OTHER_LDFLAGS": [
                     "-ObjC","-all_load",
                 ],
