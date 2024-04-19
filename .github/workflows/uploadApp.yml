@@ -74,6 +74,16 @@ jobs:
         run: TUIST_ROOT_DIR=${PWD} tuist generate
         working-directory: ./BeatMaster
 
+      - name: Decode and Install Certificate
+        run: |
+          echo "${{ secrets.IOS_DEVELOPMENT_P12 }}" | base64 --decode > ./certificate.p12
+          security create-keychain -p "" build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p "" build.keychain
+          security import ./certificate.p12 -k build.keychain -P ${{ secrets.P12_PASSWORD }} -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -s -k "" build.keychain
+          security list-keychains -s build.keychain
+
       - run: fastlane QA
         working-directory: ./BeatMaster
         env:
@@ -83,4 +93,8 @@ jobs:
           APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID }}
           APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}
           APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY }}
+
+      - name: Clean up Keychain
+        if: always()
+        run: security delete-keychain build.keychain
         
