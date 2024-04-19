@@ -7,7 +7,8 @@
 //
 
 import SwiftUI
-//import UIKit
+import UIKit
+
 //import FirebaseCore
 //import Firebase
 
@@ -17,6 +18,7 @@ class AppDelegate: UIViewController, UIApplicationDelegate{
     //MARK: - 앱이 시작 되었을때
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        
         
 //        FirebaseApp.configure()
 //

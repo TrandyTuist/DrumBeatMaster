@@ -10,7 +10,7 @@ let project = Project.makeAppModule(
     product: .staticFramework,
     settings: .appBaseLibraySetting(appName: "DiContainer"),
     dependencies: [
-        .SPM.swinject
+        .XCFrameWork.swinject
     ],
     sources: ["Sources/**"]
 )
