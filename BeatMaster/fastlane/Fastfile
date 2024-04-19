@@ -110,7 +110,21 @@ update_project_provisioning(
   increment_build_number(
   xcodeproj: "Projects/App/#{APP_NAME}.xcodeproj"
    )
-  
+   
+   sync_code_signing(
+      	type: "development",
+      	app_identifier: "com.Haejoo.BeatMaster",
+	force_for_new_devices: true,
+      	readonly: false
+     )
+   
+    sync_code_signing(
+	type: "appstore",
+	app_identifier: "com.Haejoo.BeatMaster",
+	readonly: false
+    )
+
+
      clear_derived_data
     #sh"tuist fetch"
     # ✅ 빌드
