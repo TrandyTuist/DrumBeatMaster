@@ -44,7 +44,7 @@ extension Settings {
             .debug(name: "QA", settings: [
                 "PRODUCT_NAME" : "\(Project.Environment.appDevName)",
                 "DISPLAY_NAME" : "\(Project.Environment.appDevName)",
-                "PROVISIONING_PROFILE_SPECIFIER": "BeatMasterRelease",
+                "PROVISIONING_PROFILE_SPECIFIER": "match AppStore com.Haejoo.BeatMaster",
                 "OTHER_LDFLAGS": [
                     "-ObjC","-all_load",// Set the strip style to non-global symbols
                 ],
