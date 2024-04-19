@@ -54,7 +54,7 @@ jobs:
           tuist fetch
           tuist signing decrypt
           TUIST_ROOT_DIR=${PWD} tuist generate
-          tuist cache warm BeatMaster
+          tuist build BeatMaster
         working-directory: ./BeatMaster
 
       - run: fastlane QA
