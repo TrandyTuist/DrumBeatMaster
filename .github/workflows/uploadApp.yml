@@ -21,9 +21,9 @@ jobs:
    
       # This step was corrected for proper indentation
       - name: Bring ignored files
-        uses: webfactory/ssh-agent@v0.5.3
+        uses: actions/checkout@v3
         with:
-          ssh-private-key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.SSH_KEY }}
 
       - name: Setting Master Key
         run: echo -n "${{ secrets.MASTER_KEY }}" > ./BeatMaster/Tuist/master.key
