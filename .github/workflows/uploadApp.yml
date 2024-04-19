@@ -21,15 +21,12 @@ jobs:
    
       # This step was corrected for proper indentation
       - name: Bring ignored files
-        uses: actions/checkout@v3
+        uses: webfactory/ssh-agent@v0.5.3
         with:
-          key: ${{ secrets.SSH_KEY }}
+          ssh-private-key: ${{ secrets.SSH_KEY }}
 
       - name: Setting Master Key
-        run: echo -n "${{ secrets.MASTER_KEY }}" > ./Tuist/master.key
-        working-directory: ./BeatMaster
-        env:
-          MASTER_KEY: ${{ secrets.MASTER_KEY }}
+        run: echo -n "${{ secrets.MASTER_KEY }}" > ./BeatMaster/Tuist/master.key
 
  # uses: actions/checkout@v3
     #     with:
@@ -50,35 +47,20 @@ jobs:
          ruby-version: '3.3' # Not needed with a .ruby-version file
          bundler-cache: true #
 
-      - name: Tuist clean
-        run: tuist clean
-        working-directory: ./BeatMaster
 
-      - name: Tuist fetch
-        run: tuist fetch
-        working-directory: ./BeatMaster
-
-
-      - name: Tuist Signing Decrypt
-        run: tuist signing decrypt
-        working-directory: ./BeatMaster
-
-      # - name: Set Keychain
-      #   run: fastlane set_keychain
-      #   working-directory: ./BeatMaster
-      #   env:
-      #     KEYCHAIN_NAME: ${{ secrets.KEYCHAIN_NAME }}
-      #     KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-
-      - name: Tuist Genrate
-        run: TUIST_ROOT_DIR=${PWD} tuist generate
+      - name: Execute Tuist tasks
+        run: |
+          tuist clean
+          tuist fetch
+          tuist signing decrypt
+          TUIST_ROOT_DIR=${PWD} tuist generate
         working-directory: ./BeatMaster
 
       - run: fastlane QA
         working-directory: ./BeatMaster
         env:
-          # KEYCHAIN_NAME: ${{ secrets.KEYCHAIN_NAME }}
-          # KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+          KEYCHAIN_NAME: ${{ secrets.KEYCHAIN_NAME }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
           TEAM_ID: ${{ secrets.TEAM_ID }}
           APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID }}
           APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}
