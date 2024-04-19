@@ -143,8 +143,8 @@ update_project_provisioning(
       },
        signingStyle: "manual"
       #signingCertificate: "App Store"
-      }
-#cargs: "PROVISIONING_PROFILE_SPECIFIER='BeatMaster'"
+      },
+    xcargs: "PROVISIONING_PROFILE_SPECIFIER='match AppStore com.Haejoo.BeatMaster'"
     )
 
     # ✅ 테스트 플라이트 업로드
