@@ -90,7 +90,7 @@ desc "Install Profiles and Build My App"
  # ✅ 테스트 플라이트 업로드
   desc "Push to TestFlight"
   lane :QA do |options|
-#ENV["MATCH_PASSWORD"] = "Your_Secure_Passphrase"
+ENV["MATCH_PASSWORD"] = "Your_Secure_Passphrase"
 	install_provisioning_profile(path: "Tuist/Signing/#{APP_NAME}.Release.mobileprovision")  
  sh"tuist signing decrypt" 
 
@@ -103,7 +103,7 @@ desc "Install Profiles and Build My App"
     app_store_connect_api_key(is_key_content_base64: true, in_house: false)
 
     # ✅ 버전 및 빌드 번호 가져오기
-  version_number = get_version_number(xcodeproj: "Projects/App/#{APP_NAME}.xcodeproj", target: "#{SCHEME}")
+  version_number = get_version_number(xcodeproj: "Projects/App/#{APP_NAME}-QA.xcodeproj", target: "#{SCHEME}")
    build_number = latest_testflight_build_number(app_identifier: "com.Haejoo.BeatMaster") + 1
 
     # ✅ 빌드 넘버 증가
