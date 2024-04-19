@@ -115,13 +115,13 @@ update_project_provisioning(
       	type: "development",
       	app_identifier: "com.Haejoo.BeatMaster",
 	force_for_new_devices: true,
-      	readonly: false
+      	readonly: true
      )
    
     sync_code_signing(
 	type: "appstore",
 	app_identifier: "com.Haejoo.BeatMaster",
-	readonly: false
+	readonly: true
     )
 
 
