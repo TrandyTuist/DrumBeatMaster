@@ -63,10 +63,6 @@ jobs:
         run: tuist signing decrypt
         working-directory: ./BeatMaster
 
-      - name: Clean up Keychain
-        if: always()
-        run: security delete-keychain build.keychain
-
       - name: Set Keychain
         run: fastlane set_keychain
         working-directory: ./BeatMaster
@@ -74,7 +70,6 @@ jobs:
           KEYCHAIN_NAME: ${{ secrets.KEYCHAIN_NAME }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
 
-    
       - name: Tuist Genrate
         run: TUIST_ROOT_DIR=${PWD} tuist generate
         working-directory: ./BeatMaster
@@ -89,6 +84,3 @@ jobs:
           APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}
           APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY }}
 
-      - name: Clean up Keychain
-        if: always()
-        run: security delete-keychain build.keychain
