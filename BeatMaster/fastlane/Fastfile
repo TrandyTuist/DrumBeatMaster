@@ -139,7 +139,7 @@ update_project_provisioning(
        export_options: {
        uploadBitcode: false,
        provisioningProfiles: {
-        "com.Haejoo.BeatMaste": "BeatMasterRelease"  
+        "com.Haejoo.BeatMaster": "match AppStore com.Haejoo.BeatMaster"  
       },
        signingStyle: "manual"
       #signingCertificate: "App Store"
