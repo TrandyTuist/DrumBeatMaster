@@ -127,8 +127,8 @@ update_project_provisioning(
        provisioningProfiles: {
         "com.Haejoo.BeatMaste": "BeatMasterRelease"  
       },
-       signingStyle: "manual",
-      signingCertificate: "iOS Development"
+       signingStyle: "manual"
+      #signingCertificate: "App Store"
       }
 #cargs: "PROVISIONING_PROFILE_SPECIFIER='BeatMaster'"
     )
@@ -139,6 +139,7 @@ update_project_provisioning(
        beta_app_description:" BeatMaster",
        ipa:"./fastlane/output/BeatMaster.ipa",
        changelog:"변경사항",
+       groups: ["BeatMaster"],
        skip_waiting_for_build_processing: true)
 
  end
