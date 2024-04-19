@@ -71,6 +71,7 @@ jobs:
       #     KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
 
       - name: Decode and Install Certificate
+        working-directory: ./BeatMaster
         run: |
           echo "${{ secrets.IOS_DEVELOPMENT_P12 }}" | base64 --decode > ./Tuist/Signing/release.p12
           security create-keychain -p "" build.keychain
