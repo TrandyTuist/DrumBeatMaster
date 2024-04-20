@@ -63,6 +63,11 @@ extension AuthUseCase: DependencyKey {
         let authRepository = DependencyContainer.live.resolve(AuthRepositoryProtocol.self) ?? DefaultAuthRepository()
          return AuthUseCase(repository: authRepository)
        }()
+    
+    public static let testValue: AuthUseCase = {
+        let authRepository = DependencyContainer.live.resolve(AuthRepositoryProtocol.self) ?? DefaultAuthRepository()
+         return AuthUseCase(repository: authRepository)
+    }()
 }
 
 public extension DependencyValues {
