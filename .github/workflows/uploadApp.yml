@@ -54,7 +54,7 @@ jobs:
           tuist build BeatMaster
         working-directory: ./BeatMaster
 
-      - run: GitActionQA
+      - run: fastlane QA
         working-directory: ./BeatMaster
         env:
           KEYCHAIN_NAME: ${{ secrets.KEYCHAIN_NAME }}
