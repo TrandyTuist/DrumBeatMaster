@@ -35,7 +35,9 @@ struct BeatMasterApp: App {
     }
     
     private func registerDependencies() {
-        AppDIContainer.shared.registerDependencies()
+        Task {
+            await AppDIContainer.shared.registerDependencies()
+        }
     }
     
     private func initializeKakao() {

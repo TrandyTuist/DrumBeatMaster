@@ -5,72 +5,72 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="00: update_fastlane" time="4.693206">
+      <testcase classname="fastlane.lanes" name="00: update_fastlane" time="4.746665">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="01: default_platform" time="9.7e-05">
+      <testcase classname="fastlane.lanes" name="01: default_platform" time="9.2e-05">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="02: install_provisioning_profile" time="0.198183">
+      <testcase classname="fastlane.lanes" name="02: install_provisioning_profile" time="0.134384">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="03: tuist signing decrypt" time="0.745988">
+      <testcase classname="fastlane.lanes" name="03: tuist signing decrypt" time="0.796814">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="04: update_project_provisioning" time="0.043954">
+      <testcase classname="fastlane.lanes" name="04: update_project_provisioning" time="0.041553">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="05: app_store_connect_api_key" time="0.001376">
+      <testcase classname="fastlane.lanes" name="05: app_store_connect_api_key" time="0.001327">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="06: get_version_number" time="0.075097">
+      <testcase classname="fastlane.lanes" name="06: get_version_number" time="0.012943">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="07: latest_testflight_build_number" time="1.436432">
+      <testcase classname="fastlane.lanes" name="07: latest_testflight_build_number" time="2.355583">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="08: increment_build_number" time="0.401923">
+      <testcase classname="fastlane.lanes" name="08: increment_build_number" time="0.348059">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="09: sync_code_signing" time="2.587961">
+      <testcase classname="fastlane.lanes" name="09: sync_code_signing" time="2.769508">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="10: sync_code_signing" time="2.525926">
+      <testcase classname="fastlane.lanes" name="10: sync_code_signing" time="2.534371">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="11: clear_derived_data" time="0.553465">
+      <testcase classname="fastlane.lanes" name="11: clear_derived_data" time="0.843245">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="12: gym" time="369.14919">
+      <testcase classname="fastlane.lanes" name="12: gym" time="208.030616">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="13: upload_to_testflight" time="140.391896">
+      <testcase classname="fastlane.lanes" name="13: upload_to_testflight" time="133.525903">
         
       </testcase>
     

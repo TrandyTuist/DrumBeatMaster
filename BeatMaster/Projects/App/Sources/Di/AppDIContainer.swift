@@ -7,45 +7,47 @@
 //
 
 import Foundation
-import Swinject
 import Networkings
 import DiContainer
 import Auth
 
 public final class AppDIContainer {
     public static let shared: AppDIContainer = .init()
-    
-    private let diContainer: Container = DIContainer.container
-    
-    private init() {}
 
-    public func registerDependencies() {
-        registerRepositories()
-        registerUseCases()
+    private let diContainer: DependencyContainer = .live
+    
+    private init() {
+    }
+
+    public func registerDependencies() async {
+        await registerRepositories()
+        await registerUseCases()
     }
     
     // MARK: - Use Cases
-    private func registerUseCases() {
-        registerAuthUseCase()
-        
+    private func registerUseCases() async {
+        await registerAuthUseCase()
     }
     
-    private func registerAuthUseCase() {
-        diContainer.register(AuthUseCaseProtocol.self) { resolver in
-            AuthUseCase(repository: resolver.resolve(AuthRepositoryProtocol.self)!)
+    private func registerAuthUseCase() async {
+        await diContainer.registerAsync(AuthUseCaseProtocol.self) {
+            guard let repository = await self.diContainer.resolveAsync(AuthRepositoryProtocol.self) else {
+                assertionFailure("AuthRepositoryProtocol must be registered before registering AuthUseCaseProtocol")
+                return AuthUseCase(repository: DefaultAuthRepository()) // Fallback to a default repository
+            }
+            return AuthUseCase(repository: repository)
         }
     }
     
-    // MARK: - Repositories  등록
-    private func registerRepositories() {
-        registerAuthRepositories()
-        
+    // MARK: - Repositories Registration
+    private func registerRepositories() async {
+        await registerAuthRepositories()
     }
     
-    private func registerAuthRepositories() {
-        diContainer.register(AuthRepositoryProtocol.self) { _ in
+    private func registerAuthRepositories() async {
+        await diContainer.registerAsync(AuthRepositoryProtocol.self) {
             AuthRepository()
         }
     }
-
 }
+

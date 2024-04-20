@@ -60,8 +60,8 @@ public struct AuthUseCase: AuthUseCaseProtocol  {
 
 extension AuthUseCase: DependencyKey {
     public static let liveValue: AuthUseCase = {
-           let authRepository = DIContainer.container.resolve(AuthRepositoryProtocol.self) ?? DefaultAuthRepository()
-           return AuthUseCase(repository: authRepository)
+        let authRepository = DependencyContainer.live.resolve(AuthRepositoryProtocol.self) ?? DefaultAuthRepository()
+         return AuthUseCase(repository: authRepository)
        }()
 }
 

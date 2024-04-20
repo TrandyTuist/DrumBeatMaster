@@ -33,32 +33,34 @@ public protocol AuthRepositoryProtocol {
 }
 
 
-final class DefaultAuthRepository : AuthRepositoryProtocol {
+public final class DefaultAuthRepository : AuthRepositoryProtocol {
     
-    func handleAppleLoginResult(
+    public init() {}
+    
+    public func handleAppleLoginResult(
         result: Result<ASAuthorization, Error>,
         completion: @escaping () -> Void)  {
         
     }
     
-    func getAppleRefreshToken(
+    public func getAppleRefreshToken(
         code: String,
         completionHandler: @escaping (String?) -> Void) {
             
         }
     
     
-    func requestKakaoTokenAsync(
+    public func requestKakaoTokenAsync(
         completion: @escaping () -> Void
     ) async {
         
     }
     
-    func authModelToReducer(auth: UserAuth)  {
+    public func authModelToReducer(auth: UserAuth)  {
         
     }
     
-    func getUserInfoKakao(auth: UserAuth) {
+    public func getUserInfoKakao(auth: UserAuth) {
         
     }
 }

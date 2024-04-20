@@ -21,7 +21,6 @@ let project = Project.makeAppModule(
         .Core(implements: .Core),
 //        .Shared(implements: .Shareds),
         .Networking(implements: .Networkings),
-        
     ],
     sources: ["Sources/**", "Resources/FontAsset/**"],
     resources: ["Resources/**", "../Support/AuthKey_P552TDR3Q2.p8", "../Support/PrivacyInfo.xcprivacy", "loading.gif"],
