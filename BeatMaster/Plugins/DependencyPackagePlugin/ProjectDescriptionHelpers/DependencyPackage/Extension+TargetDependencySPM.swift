@@ -11,8 +11,6 @@ public extension TargetDependency.SPM {
     static let moya = TargetDependency.external(name: "Moya", condition: .none)
     static let combineMoya = TargetDependency.external(name: "CombineMoya", condition: .none)
     static let composableArchitecture = TargetDependency.external(name: "ComposableArchitecture", condition: .none)
-    static let swinject = TargetDependency.external(name: "Swinject", condition: .none)
-    static let needleFoundation = TargetDependency.external(name: "NeedleFoundation", condition: .none)
     static let supabase = TargetDependency.external(name: "Supabase", condition: .none)
     static let sdwebImage = TargetDependency.external(name: "SDWebImageSwiftUI", condition: .none)
     static let swiftJWT = TargetDependency.external(name: "SwiftJWT", condition: .none)

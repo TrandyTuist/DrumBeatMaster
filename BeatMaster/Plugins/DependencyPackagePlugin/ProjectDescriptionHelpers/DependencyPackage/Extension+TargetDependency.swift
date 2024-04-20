@@ -9,7 +9,7 @@ import ProjectDescription
 
 public extension TargetDependency {
     enum SPM {}
-    enum XCFrameWork{}
+    
 }
 
 
