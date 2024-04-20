@@ -160,4 +160,41 @@ update_project_provisioning(
        skip_waiting_for_build_processing: true)
 
  end
+
+ desc "Push to TestFlight"
+  lane :GitActionQA do |options|
+  app_store_connect_api_key(is_key_content_base64: true, in_house: false)
+
+    # ✅ 버전 및 빌드 번호 가져오기
+  version_number = get_version_number(xcodeproj: "Projects/App/#{APP_NAME}.xcodeproj", target: "#{SCHEME}")
+   build_number = latest_testflight_build_number(app_identifier: "com.Haejoo.BeatMaster") + 1
+
+    # ✅ 빌드 넘버 증가
+  increment_build_number(
+  xcodeproj: "Projects/App/#{APP_NAME}.xcodeproj"
+   )
+
+   sync_code_signing(
+        type: "development",
+        app_identifier: "com.Haejoo.BeatMaster",
+        force_for_new_devices: true,
+        readonly: true
+     )
+
+    sync_code_signing(
+        type: "appstore",
+        app_identifier: "com.Haejoo.BeatMaster",
+        readonly: true
+    )
+
+
+  upload_to_testflight(
+       demo_account_required: true,
+       beta_app_description:" BeatMaster",
+       ipa:"./fastlane/output/BeatMaster.ipa",
+       changelog:"변경사항",
+       groups: ["BeatMaster"],
+       skip_waiting_for_build_processing: true)
+
+  end
 end
