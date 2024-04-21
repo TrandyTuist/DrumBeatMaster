@@ -98,20 +98,20 @@ ENV["MATCH_PASSWORD"] = "Your_Secure_Passphrase"
  sh"tuist signing decrypt" 
 
 update_project_provisioning(
- xcodeproj: "Projects/App/#{APP_NAME}.xcodeproj",
-   profile:"Tuist/Signing/#{APP_NAME}-QA.Release.mobileprovision",
+ xcodeproj: "Projects/App/BeatMaster.xcodeproj",
+   profile:"Tuist/Signing/BeatMaster-QA.Release.mobileprovision",
    build_configuration: "Release"
 )
 # ✅ 앱스토어 커넥트 키 연결
     app_store_connect_api_key(is_key_content_base64: true, in_house: false)
 
     # ✅ 버전 및 빌드 번호 가져오기
-  version_number = get_version_number(xcodeproj: "Projects/App/#{APP_NAME}.xcodeproj", target: "#{SCHEME}")
+  version_number = get_version_number(xcodeproj: "Projects/App/BeatMaster.xcodeproj", target: "BeatMaster-QA")
    build_number = latest_testflight_build_number(app_identifier: "com.Haejoo.BeatMaster") + 1
 
     # ✅ 빌드 넘버 증가
   increment_build_number(
-  xcodeproj: "Projects/App/#{APP_NAME}.xcodeproj"
+  xcodeproj: "Projects/App/BeatMaster.xcodeproj"
    )
    
    sync_code_signing(
