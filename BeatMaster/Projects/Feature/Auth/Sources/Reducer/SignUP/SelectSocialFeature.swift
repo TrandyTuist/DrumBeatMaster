@@ -10,6 +10,7 @@ import Foundation
 import AuthenticationServices
 
 import Model
+import UseCase
 
 import ComposableArchitecture
 import KeychainAccess

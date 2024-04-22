@@ -1,8 +1,8 @@
 //
 //  AuthUseCase.swift
-//  Auth
+//  UseCase
 //
-//  Created by 서원지 on 3/19/24.
+//  Created by 서원지 on 4/22/24.
 //  Copyright © 2024 Wonji suh. All rights reserved.
 //
 
@@ -16,8 +16,7 @@ import DiContainer
 import ComposableArchitecture
 
 public struct AuthUseCase: AuthUseCaseProtocol  {
-    
-    
+   
     private let repository: AuthRepositoryProtocol
     
     public init(
@@ -55,6 +54,22 @@ public struct AuthUseCase: AuthUseCaseProtocol  {
     
     public func getUserInfoKakao(auth: UserAuth) {
         repository.getUserInfoKakao(auth: auth)
+    }
+    
+    public func revokeAppleToken(
+        clientSecret: String,
+        token: String,
+        completionHandler: @escaping () -> Void
+    ) async {
+        await repository.revokeAppleToken(
+            clientSecret: clientSecret,
+            token: token, 
+            completionHandler: completionHandler
+        )
+    }
+    
+    public func unlinkKakao(completionHandler: @escaping () -> Void) async {
+        await repository.unlinkKakao(completionHandler: completionHandler)
     }
 }
 

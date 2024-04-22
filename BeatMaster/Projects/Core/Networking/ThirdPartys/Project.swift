@@ -11,7 +11,13 @@ let project = Project.makeAppModule(
     settings: .appBaseSetting(appName: "ThirdPartys") ,
     dependencies: [
         .SPM.combineMoya,
-        .SPM.moya
+        .SPM.moya,
+        .SPM.swiftJWT,
+        .SPM.composableArchitecture,
+        .SPM.keychainAccess,
+        .SPM.kakaoSDKAuth,
+        .SPM.kakaoSDKUser,
+        .SPM.kakaoSDKCommon
     ],
     sources: ["Sources/**"]
 )

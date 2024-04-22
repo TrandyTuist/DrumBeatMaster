@@ -11,6 +11,7 @@ import Foundation
 
 import Model
 import Profile
+import UseCase
 
 import ComposableArchitecture
 import KeychainAccess

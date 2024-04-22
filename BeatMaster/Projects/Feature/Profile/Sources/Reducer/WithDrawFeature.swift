@@ -9,7 +9,10 @@
 import Foundation
 
 import Model
+import UseCase
+
 import ComposableArchitecture
+import KeychainAccess
 
 
 @Reducer
@@ -32,13 +35,61 @@ public struct WithDrawFeature {
     
     public enum Action: BindableAction {
         case binding(BindingAction<State>)
+        case withDraw(
+            socialType: SocialType,
+            completion: () -> Void)
+        case revokeAppleToken(
+            clientSecret: String,
+            token: String,
+            completion: () -> Void)
+        
+        case unlinkKakao(completion: () -> Void)
+        
+        case deleteAuth
     }
+    
+    @Dependency(AuthUseCase.self) var authUseCase
     
     public var body: some ReducerOf<Self> {
         BindingReducer()
         Reduce { state, action in
             switch action {
             case .binding(_):
+                return .none
+            case let.withDraw(socialType: socialType, completion: completion):
+                return .run  { send in
+                    switch socialType {
+                    case .apple:
+                        guard let clientSecret = try? Keychain().get("AppleClientSecret"),
+                        let refreshToken = try? Keychain().get("Token")
+                        else { return  }
+                        await send(.revokeAppleToken(clientSecret: clientSecret , token: refreshToken, completion: completion))
+                        await send(.deleteAuth)
+                    case .kakao:
+                        await send(.unlinkKakao(completion: completion))
+                        await send(.deleteAuth)
+                    case .unknown:
+                        break
+                    }
+                    
+                }
+                
+            case let .revokeAppleToken(clientSecret: clientSecret, token: token, completion: completion):
+                return .run { send in
+                    await authUseCase.revokeAppleToken(
+                        clientSecret: clientSecret,
+                        token: token,
+                        completionHandler:  completion
+                    )
+                }
+                
+            case let .unlinkKakao(completion: completion):
+                return .run { send in
+                    await authUseCase.unlinkKakao(completionHandler: completion)
+                }
+                
+            case .deleteAuth:
+                try? Keychain().removeAll()
                 return .none
             }
         }
