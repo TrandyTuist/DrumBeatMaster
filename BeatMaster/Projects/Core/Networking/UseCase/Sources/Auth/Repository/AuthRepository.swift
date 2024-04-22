@@ -1,8 +1,8 @@
 //
 //  AuthRepository.swift
-//  Auth
+//  UseCase
 //
-//  Created by 서원지 on 3/19/24.
+//  Created by 서원지 on 4/22/24.
 //  Copyright © 2024 Wonji suh. All rights reserved.
 //
 
@@ -16,6 +16,7 @@ import Service
 
 import Moya
 import CombineMoya
+import Alamofire
 import SwiftJWT
 import KeychainAccess
 import KakaoSDKAuth
@@ -25,7 +26,10 @@ import KakaoSDKUser
     
     var authModel: UserAuth?
     var appleAuthModel: AppleTokenResponse?
+    let provider = MoyaProvider<AppleAuthService>(plugins: [MoyaLoggingPlugin()])
     var appleAuthCancellable: AnyCancellable?
+    var revokeAppleTokenCancellable: AnyCancellable?
+    
     
     
     public init() {
@@ -55,9 +59,6 @@ import KakaoSDKUser
                 let firstName = appleIDCredential.fullName?.givenName ?? ""
                 let name = "\(lastName)\(firstName)"
                 let email = appleIDCredential.email ?? ""
-                try? Keychain().set(appleIDCredential.email ?? "", key: "EMAIL")
-                try? Keychain().set(name, key: "NAME")
-                
                 
                 if let authorizationCode = appleIDCredential.authorizationCode {
                     let code = String(decoding: authorizationCode, as: UTF8.self)
@@ -73,13 +74,24 @@ import KakaoSDKUser
                         if !acessToken.isEmpty || acessToken != "" {
                             completion()
                         }
+                        
+                        if name == "" || email == "" {
+                            let appleIDName = try? Keychain().get("NAME")
+                            let appleIDEmail = try? Keychain().get("EMAIL")
+                            
+                            self?.authModel?.email = appleIDEmail ?? ""
+                            self?.authModel?.name = appleIDName ?? ""
+                        } else {
+                            try? Keychain().set(appleIDCredential.email ?? "", key: "EMAIL")
+                            try? Keychain().set(name, key: "NAME")
+                        }
                     }
                 } else {
                     Log.error("🚧 authorizationCode is nil")
                 }
                 
                 Log.debug("email: \(email)", (try? Keychain().get("EMAIL")) ?? "",
-                          (try? Keychain().get("NAME")) ?? "", self.authModel?.token)
+                          (try? Keychain().get("NAME")) ?? "", self.authModel?.token ?? "")
             default:
                 break
             }
@@ -94,12 +106,12 @@ import KakaoSDKUser
     ) async {
          UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
             guard let accessToken = oauthToken?.accessToken else {
-                Log.error(error?.localizedDescription, "requestKakaoTokenAsync")
+                Log.error(error?.localizedDescription ?? "", "requestKakaoTokenAsync")
 //                    continuation.resume(returning: (nil, nil))
                 return
             }
              try? Keychain().set(accessToken, key: "Token")
-             Log.debug("\(accessToken), \(self.authModel?.token)")
+             Log.debug(accessToken, self.authModel?.token ?? "")
              let token = (try? Keychain().get("Token")) ?? ""
              
              self.authModel?.token = accessToken
@@ -131,8 +143,7 @@ import KakaoSDKUser
                 
                 self.authModel?.email = email
                 self.authModel?.name = name
-                Log.debug("프로필 가져오기",  self.authModel?.email,  self.authModel?.name )
-                
+                Log.debug("프로필 가져오기",  self.authModel?.email,  self.authModel?.name ?? "" )
                 
             }
         }
@@ -173,6 +184,7 @@ import KakaoSDKUser
         else {
             return ""
         }
+        try? Keychain().set(signedJWT, key: "AppleClientSecret")
         Log.debug("🗝 singedJWT -", signedJWT)
         return signedJWT
     }
@@ -181,13 +193,12 @@ import KakaoSDKUser
     public func getAppleRefreshToken(
         code: String,
         completionHandler: @escaping (String?) -> Void
-    ) {
+    )  {
         if let cancellable = appleAuthCancellable {
             cancellable.cancel()
         }
         
         let secret = makeJWT()
-        let provider = MoyaProvider<AppleAuthService>(plugins: [MoyaLoggingPlugin()])
         appleAuthCancellable = provider.requestWithProgressPublisher(.getRefreshToken(code: code, clientSecret: secret))
             .compactMap{$0.response?.data}
             .receive(on: DispatchQueue.main)
@@ -209,5 +220,41 @@ import KakaoSDKUser
                 }
             })
     }
+    
+    //MARK: - appleToken 삭제
+    public func revokeAppleToken(
+        clientSecret: String,
+        token: String,
+        completionHandler: @escaping () -> Void
+    ) async {
+        if let cancellable = revokeAppleTokenCancellable {
+            cancellable.cancel()
+        }
+        revokeAppleTokenCancellable = provider.requestWithProgressPublisher(.revokeToken(clientSecret: clientSecret, token: token))
+            .compactMap{$0.response?.data}
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] result in
+                switch result {
+                case .finished:
+                    completionHandler()
+                case .failure(let error):
+                    Log.error("네트워크 에러 ", error.localizedDescription)
+                }
+            }, receiveValue: { [weak self] model in
+                Log.network("애플토큰 삭제", model)
+                completionHandler()
+            })
+    }
+    
+    public func unlinkKakao(completionHandler: @escaping () -> Void) async {
+        UserApi.shared.unlink {(error) in
+            if let error = error {
+                Log.debug("토크 에러", error.localizedDescription)
+            }
+            else {
+                completionHandler()
+                Log.debug("카카오 토큰 삭제")
+            }
+        }
+    }
 }
-

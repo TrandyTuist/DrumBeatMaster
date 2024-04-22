@@ -13,13 +13,16 @@ import ComposableArchitecture
 public struct WithDrawView: View {
     @Bindable var store: StoreOf<WithDrawFeature>
     var backAction: () -> Void = { }
+    var withDrawAction: () -> Void = { }
     
     public init(
         store: StoreOf<WithDrawFeature>,
-        backAction: @escaping () -> Void
+        backAction: @escaping () -> Void,
+        withDrawAction: @escaping () -> Void
     ) {
         self.store = store
         self.backAction = backAction
+        self.withDrawAction = withDrawAction
     }
     
     public var body: some View {
@@ -99,6 +102,11 @@ fileprivate extension WithDrawView {
                     
                 }
                 .disabled(!store.isSelectDropDownMenu)
+                .onTapGesture {
+                    store.send(.withDraw(socialType: store.auth?.socialType ?? .unknown){
+                        withDrawAction()
+                    })
+                }
         }
     }
 }

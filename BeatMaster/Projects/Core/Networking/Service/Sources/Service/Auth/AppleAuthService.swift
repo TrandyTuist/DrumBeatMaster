@@ -12,19 +12,26 @@ import Moya
 
 public enum AppleAuthService {
     case getRefreshToken(code: String, clientSecret: String)
+    case revokeToken(clientSecret: String, token: String)
 }
 
 extension AppleAuthService: AppleLoginTarget {
     public var path: String {
         switch self {
         case .getRefreshToken:
-            return BeatMaserAuthAPI.appleLogin
+            return BeatMaserAuthAPI.appleLoginURL
+            
+        case .revokeToken:
+            return BeatMaserAuthAPI.revokeAppleLoginURL
         }
     }
     
     public var method: Moya.Method {
         switch self {
         case .getRefreshToken:
+            return .post
+            
+        case .revokeToken:
             return .post
         }
     }
@@ -40,6 +47,15 @@ extension AppleAuthService: AppleLoginTarget {
             ]
             return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
             
+            
+        case .revokeToken(let clientSecret, let token):
+            let parameters: [String: Any] = [
+                "client_id": "com.Haejoo.BeatMaster",
+                "client_secret": clientSecret,
+                "token": token,
+                "token_type_hint": "refresh_token"
+            ]
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.httpBody)
         }
     }
 }

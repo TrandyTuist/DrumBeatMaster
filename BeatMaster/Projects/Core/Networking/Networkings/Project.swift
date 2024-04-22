@@ -12,7 +12,8 @@ let project = Project.makeAppModule(
     dependencies: [
         .Networking(implements: .Model),
         .Networking(implements: .Service),
-        .Networking(implements: .DiContainer)
+        .Networking(implements: .DiContainer),
+        .Networking(implements: .UseCase)
     ],
     sources: ["Sources/**"]
 )
