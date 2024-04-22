@@ -202,7 +202,7 @@ public struct RootFeature{
                     let socialType: SocialType = SocialType(rawValue: socialTypeString) ?? .unknown
                     let login: String = (try? Keychain().get("isLogin")) ?? ""
                     Log.debug(socialTypeString, socialType)
-                    state.path.append(.profile(.init(auth: UserAuth(isLogin: Bool(login) ,token: token, socialType: socialType, name: name, email: email))))
+                    state.path.removeAll()
                  
                 case .element(id: _, action: .auth(.presntProfileAuthInfo)):
                     let email: String = (try? Keychain().get("EMAIL")) ?? ""

@@ -46,6 +46,23 @@ public struct WithDrawView: View {
                
             }
         }
+        .withDrawAlert(isPresnt: $store.isPresntAlert) {
+            WithDrawPOPUP(
+                image: .errorCircle_rounded,
+                title: store.alertTitle,
+                subTitle: store.withDrawSubtitle,
+                confirmAction: {
+                    store.send(.confirmAction(socialType: store.auth?.socialType ?? .unknown, completion: {
+                        store.send(.cancelAction)
+                        withDrawAction()
+                    }))
+                },
+                cancelAction: {
+                    store.send(.cancelAction)
+                },
+                noImage: false,
+                noImageButton: false)
+        }
     }
 }
 
@@ -103,9 +120,7 @@ fileprivate extension WithDrawView {
                 }
                 .disabled(!store.isSelectDropDownMenu)
                 .onTapGesture {
-                    store.send(.withDraw(socialType: store.auth?.socialType ?? .unknown){
-                        withDrawAction()
-                    })
+                    store.send(.showAlert)
                 }
         }
     }

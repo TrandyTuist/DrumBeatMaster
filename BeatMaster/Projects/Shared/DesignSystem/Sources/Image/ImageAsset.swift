@@ -24,6 +24,8 @@ public enum ImageAsset: String {
     case metronomeStorageBox
     case marketingTerm
     case appVersion
+    case errorCircle_rounded
     
+
     case empty
 }

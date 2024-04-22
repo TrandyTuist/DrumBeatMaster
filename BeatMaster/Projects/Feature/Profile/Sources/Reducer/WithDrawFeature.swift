@@ -26,6 +26,10 @@ public struct WithDrawFeature {
         var selectWithDrawReason: String = "이런 점이 불편했어요."
         var withDrawtitle: String = "어떤 점이 불편하셨는지"
         var withDrawSubtitle: String = "말씀해 주실 수 있을까요?"
+        var isPresntAlert: Bool = false
+        var alertTitle: String = "정말로 탈퇴 하시겠습니까?"
+        var alertSubTitle: String =  "탈퇴하시면 BeatMaster을 이용하실수 없어요!"
+        
         public init(
             auth: UserAuth?  = nil
         ) {
@@ -42,6 +46,12 @@ public struct WithDrawFeature {
             clientSecret: String,
             token: String,
             completion: () -> Void)
+        
+        case showAlert
+        case confirmAction(
+            socialType: SocialType,
+            completion: () -> Void)
+        case cancelAction
         
         case unlinkKakao(completion: () -> Void)
         
@@ -90,6 +100,19 @@ public struct WithDrawFeature {
                 
             case .deleteAuth:
                 try? Keychain().removeAll()
+                return .none
+                
+            case .showAlert:
+                state.isPresntAlert.toggle()
+                return .none
+                
+            case let .confirmAction(socialType: socialType, completion: completion):
+                return .run { send in
+                    await send(.withDraw(socialType: socialType, completion: completion))
+                }
+                
+            case .cancelAction:
+                state.isPresntAlert = false
                 return .none
             }
         }

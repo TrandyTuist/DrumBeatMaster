@@ -11,6 +11,7 @@ import AuthenticationServices
 
 import Model
 import UseCase
+import Service
 
 import ComposableArchitecture
 import KeychainAccess
@@ -50,12 +51,12 @@ public struct SelectSocialFeature {
                 case .apple:
                     state.auth?.socialType = .apple
                     try? Keychain().set(state.auth?.socialType?.desc ?? "", key: "SocialType")
-                    print("Apple 회원가입, \(state.auth)")
+                    Log.debug("Apple 회원가입", state.auth)
                     
                 case .kakao:
                     state.auth?.socialType = .kakao
                     try? Keychain().set(state.auth?.socialType?.desc ?? "", key: "SocialType")
-                    print("카카오 회원가입, \(state.auth)")
+                    Log.debug("카카오 회원가입", state.auth)
                 default:
                     break
                 }
