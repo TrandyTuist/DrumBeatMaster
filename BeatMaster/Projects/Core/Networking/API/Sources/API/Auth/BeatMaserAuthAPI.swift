@@ -9,5 +9,6 @@
 import Foundation
 
 public enum BeatMaserAuthAPI {
-    public static let appleLogin = "/auth/token"
+    public static let appleLoginURL = "/auth/token"
+    public static let revokeAppleLoginURL = "/auth/revoke"
 }

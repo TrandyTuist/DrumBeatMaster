@@ -18,7 +18,6 @@ extension Settings {
                 "ENABLE_BACKGROUND_MODES" : "YES",
                 "BACKGROUND_MODES" : "remote-notification",
                 "ARCHS": "$(ARCHS_STANDARD)",
-                    "VALID_ARCHS": "arm64 x86_64",
 //                "ASSOCIATED_DOMAINS": "applinks:PingPong.page.link",
                 "CURRENT_PROJECT_VERSION": .string(.appBuildVersion()),
                 "CODE_SIGN_IDENTITY": "iPhone Developer",
@@ -44,7 +43,7 @@ extension Settings {
             .debug(name: "QA", settings: [
                 "PRODUCT_NAME" : "\(Project.Environment.appDevName)",
                 "DISPLAY_NAME" : "\(Project.Environment.appDevName)",
-                "PROVISIONING_PROFILE_SPECIFIER": "BeatMasterRelease",
+                "PROVISIONING_PROFILE_SPECIFIER": "match AppStore com.Haejoo.BeatMaster",
                 "OTHER_LDFLAGS": [
                     "-ObjC","-all_load",// Set the strip style to non-global symbols
                 ],
@@ -58,7 +57,7 @@ extension Settings {
                 "DEVELOPMENT_ASSET_PATHS": "\"Resources/Preview Content\"",
                 "PRODUCT_NAME" : "\(Project.Environment.appName)" ,
                 "DISPLAY_NAME" : "\(Project.Environment.appName)" ,
-                "PROVISIONING_PROFILE_SPECIFIER": "BeatMasterRelease",
+                "PROVISIONING_PROFILE_SPECIFIER": "match AppStore com.Haejoo.BeatMaster",
                 "OTHER_LDFLAGS": [
                     "-ObjC","-all_load",
                 ],
@@ -77,7 +76,6 @@ extension Settings {
                    "CODE_SIGN_IDENTITY": "iPhone Developer",
                    "AS_AUTHENTICATION_SERVICES_ENABLED": "YES",
                    "ARCHS": "$(ARCHS_STANDARD)",
-                       "VALID_ARCHS": "arm64 x86_64",
                    "VERSIONING_SYSTEM": "apple-generic",
                    "DEBUG_INFORMATION_FORMAT": "DWARF with dSYM File"],
             configurations: [
@@ -177,7 +175,6 @@ extension Settings {
 //                   "DEVELOPMENT_TEAM": "\(Project.Environment.organizationTeamId)",
                    "VERSIONING_SYSTEM": "apple-generic",
                    "ARCHS": "$(ARCHS_STANDARD)",
-                       "VALID_ARCHS": "arm64 x86_64",
                    "DEBUG_INFORMATION_FORMAT": "DWARF with dSYM File"],
             configurations: [
                 .debug(name: .debug, settings: [

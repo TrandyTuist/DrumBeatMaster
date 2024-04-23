@@ -42,8 +42,6 @@ public struct AuthView: View {
                 
                 BounceAnimationView(text: store.state.authMainViewTitle, startTime: 0.0, fontSize: 40)
                 
-                Text(self.store.authModel?.isLogin?.description ?? "")
-                
                 signUpButtonView()
                 
                 loginButtonView()
@@ -111,7 +109,7 @@ fileprivate extension AuthView {
     @ViewBuilder
     private func signUpButtonView() -> some View {
         Spacer()
-            .frame(height: UIScreen.screenHeight*0.2)
+            .frame(height: UIScreen.screenHeight*0.25)
         
         LazyVStack {
             RoundedRectangle(cornerRadius: 12)

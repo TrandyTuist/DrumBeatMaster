@@ -109,9 +109,7 @@ fileprivate extension AuthInfromationView {
             
             Spacer()
                 .frame(height: 12)
-            
-            
-            
+               
         }
     }
     

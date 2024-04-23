@@ -13,13 +13,16 @@ import ComposableArchitecture
 public struct WithDrawView: View {
     @Bindable var store: StoreOf<WithDrawFeature>
     var backAction: () -> Void = { }
+    var withDrawAction: () -> Void = { }
     
     public init(
         store: StoreOf<WithDrawFeature>,
-        backAction: @escaping () -> Void
+        backAction: @escaping () -> Void,
+        withDrawAction: @escaping () -> Void
     ) {
         self.store = store
         self.backAction = backAction
+        self.withDrawAction = withDrawAction
     }
     
     public var body: some View {
@@ -42,6 +45,25 @@ public struct WithDrawView: View {
                 Spacer()
                
             }
+        }
+        .withDrawAlert(isPresnt: $store.isPresntAlert) {
+            WithDrawPOPUP(
+                image: .errorCircle_rounded,
+                title: store.alertTitle,
+                subTitle: store.withDrawSubtitle,
+                confirmAction: {
+                    store.send(.confirmAction(socialType: store.auth?.socialType ?? .unknown, completion: {
+                        self.store.send(.cancelAction)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            withDrawAction()
+                        }
+                    }))
+                },
+                cancelAction: {
+                    store.send(.cancelAction)
+                },
+                noImage: false,
+                noImageButton: false)
         }
     }
 }
@@ -99,6 +121,9 @@ fileprivate extension WithDrawView {
                     
                 }
                 .disabled(!store.isSelectDropDownMenu)
+                .onTapGesture {
+                    store.send(.showAlert)
+                }
         }
     }
 }

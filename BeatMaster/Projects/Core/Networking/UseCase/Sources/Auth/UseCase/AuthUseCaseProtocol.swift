@@ -1,8 +1,8 @@
 //
 //  AuthUseCaseProtocol.swift
-//  Auth
+//  UseCase
 //
-//  Created by 서원지 on 3/19/24.
+//  Created by 서원지 on 4/22/24.
 //  Copyright © 2024 Wonji suh. All rights reserved.
 //
 
@@ -21,12 +21,21 @@ public protocol AuthUseCaseProtocol {
         completionHandler: @escaping (String?) -> Void
     )
     
-    
     func requestKakaoTokenAsync(
         completion: @escaping () -> Void
-    ) async 
+    ) async
     
-    func authModelToReducer(auth: UserAuth) 
+    func authModelToReducer(auth: UserAuth)
     
     func getUserInfoKakao(auth: UserAuth)
+    
+    func revokeAppleToken(
+        clientSecret: String,
+        token: String,
+        completionHandler: @escaping () -> Void
+    ) async
+    
+    func unlinkKakao(
+        completionHandler: @escaping () -> Void
+    ) async
 }

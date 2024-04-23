@@ -51,14 +51,13 @@ jobs:
           tuist fetch
           tuist signing decrypt
           TUIST_ROOT_DIR=${PWD} tuist generate
-          tuist build BeatMaster
         working-directory: ./BeatMaster
 
       - run: fastlane QA
         working-directory: ./BeatMaster
         env:
-          KEYCHAIN_NAME: ${{ secrets.KEYCHAIN_NAME }}
-          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+          # KEYCHAIN_NAME: ${{ secrets.KEYCHAIN_NAME }}
+          # KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
           TEAM_ID: ${{ secrets.TEAM_ID }}
           APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID }}
           APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}

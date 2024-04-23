@@ -48,13 +48,6 @@ public struct WebViews: View {
             }
         }
         .onAppear {
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-//                loading = true
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 3) { // Replace 2 with desired delay
-//                    loading = false
-//                }
-//            }
-            
             store.send(.startLoading)
         }
         
