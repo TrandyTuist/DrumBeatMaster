@@ -92,8 +92,8 @@ extension Settings {
 //                        "$(inherited)", "-enable-actor-data-race-checks"
 //                    ]
                 ]),
-                .debug(name: "Dev", settings: [
-                    "PRODUCT_NAME" : "\(appName)-Dev",
+                .debug(name: "QA", settings: [
+                    "PRODUCT_NAME" : "\(appName)-QA",
     //                "PROVISIONING_PROFILE_SPECIFIER": "BeatMaster",
                     "OTHER_LDFLAGS": [
                          "-ObjC","-all_load", // Set the strip style to non-global symbols
@@ -144,8 +144,8 @@ extension Settings {
                     ],
 //                    "EXCLUDED_ARCHS": "arm64"
                 ]),
-                .debug(name: "Dev", settings: [
-                    "PRODUCT_NAME" : "\(appName)-Dev",
+                .debug(name: "QA", settings: [
+                    "PRODUCT_NAME" : "\(appName)-QA",
     //                "PROVISIONING_PROFILE_SPECIFIER": "BeatMaster",
                     "OTHER_LDFLAGS": [
                         "-ObjC","-all_load", // Set the strip style to non-global symbols
@@ -188,8 +188,8 @@ extension Settings {
                     ],
 //                    "EXCLUDED_ARCHS[sdk=iphonesimulator*]": "arm64"
                 ]),
-                .debug(name: "Dev", settings: [
-                    "PRODUCT_NAME" : "\(appName)-Dev",
+                .debug(name: "QA", settings: [
+                    "PRODUCT_NAME" : "\(appName)-QA",
     //                "PROVISIONING_PROFILE_SPECIFIER": "BeatMaster",
                     "OTHER_LDFLAGS": [
                         "-ObjC","-all_load", // Set the strip style to non-global symbols
