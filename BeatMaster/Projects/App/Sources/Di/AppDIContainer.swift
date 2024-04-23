@@ -9,7 +9,7 @@
 import Foundation
 import Networkings
 import DiContainer
-import Auth
+import UseCase
 
 public final class AppDIContainer {
     public static let shared: AppDIContainer = .init()
@@ -30,10 +30,10 @@ public final class AppDIContainer {
     }
     
     private func registerAuthUseCase() async {
-        await diContainer.registerAsync(AuthUseCaseProtocol.self) {
-            guard let repository = await self.diContainer.resolveAsync(AuthRepositoryProtocol.self) else {
+        await diContainer.register(AuthUseCaseProtocol.self) {
+            guard let repository =  self.diContainer.resolve(AuthRepositoryProtocol.self) else {
                 assertionFailure("AuthRepositoryProtocol must be registered before registering AuthUseCaseProtocol")
-                return AuthUseCase(repository: DefaultAuthRepository()) // Fallback to a default repository
+                return AuthUseCase(repository: DefaultAuthRepository()) 
             }
             return AuthUseCase(repository: repository)
         }
@@ -45,7 +45,7 @@ public final class AppDIContainer {
     }
     
     private func registerAuthRepositories() async {
-        await diContainer.registerAsync(AuthRepositoryProtocol.self) {
+        await diContainer.register(AuthRepositoryProtocol.self) {
             AuthRepository()
         }
     }

@@ -88,8 +88,10 @@ public struct RootView: View {
                 .navigationBarBackButtonHidden()
                 
             case let .withDraw(withDrawStore):
-                WithDrawView(store: withDrawStore) {
+                WithDrawView(store:withDrawStore) {
                     store.send(.removePath)
+                } withDrawAction: {
+                    store.send(.removeAllPath)
                 }
                 .navigationBarBackButtonHidden()
             }

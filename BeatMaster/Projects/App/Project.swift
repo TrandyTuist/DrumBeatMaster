@@ -19,7 +19,7 @@ let project = Project.makeAppModule(
     scripts: [],
     dependencies: [
         .Core(implements: .Core),
-//        .Shared(implements: .Shareds),
+        .Shared(implements: .Shareds),
         .Networking(implements: .Networkings),
     ],
     sources: ["Sources/**", "Resources/FontAsset/**"],
