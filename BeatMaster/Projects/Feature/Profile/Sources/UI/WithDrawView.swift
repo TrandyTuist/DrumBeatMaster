@@ -53,8 +53,10 @@ public struct WithDrawView: View {
                 subTitle: store.withDrawSubtitle,
                 confirmAction: {
                     store.send(.confirmAction(socialType: store.auth?.socialType ?? .unknown, completion: {
-                        store.send(.cancelAction)
-                        withDrawAction()
+                        self.store.send(.cancelAction)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            withDrawAction()
+                        }
                     }))
                 },
                 cancelAction: {

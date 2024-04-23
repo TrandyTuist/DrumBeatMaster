@@ -18,7 +18,6 @@ extension Settings {
                 "ENABLE_BACKGROUND_MODES" : "YES",
                 "BACKGROUND_MODES" : "remote-notification",
                 "ARCHS": "$(ARCHS_STANDARD)",
-                    "VALID_ARCHS": "arm64 x86_64",
 //                "ASSOCIATED_DOMAINS": "applinks:PingPong.page.link",
                 "CURRENT_PROJECT_VERSION": .string(.appBuildVersion()),
                 "CODE_SIGN_IDENTITY": "iPhone Developer",
@@ -77,7 +76,6 @@ extension Settings {
                    "CODE_SIGN_IDENTITY": "iPhone Developer",
                    "AS_AUTHENTICATION_SERVICES_ENABLED": "YES",
                    "ARCHS": "$(ARCHS_STANDARD)",
-                       "VALID_ARCHS": "arm64 x86_64",
                    "VERSIONING_SYSTEM": "apple-generic",
                    "DEBUG_INFORMATION_FORMAT": "DWARF with dSYM File"],
             configurations: [
@@ -177,7 +175,6 @@ extension Settings {
 //                   "DEVELOPMENT_TEAM": "\(Project.Environment.organizationTeamId)",
                    "VERSIONING_SYSTEM": "apple-generic",
                    "ARCHS": "$(ARCHS_STANDARD)",
-                       "VALID_ARCHS": "arm64 x86_64",
                    "DEBUG_INFORMATION_FORMAT": "DWARF with dSYM File"],
             configurations: [
                 .debug(name: .debug, settings: [

@@ -30,8 +30,6 @@ import KakaoSDKUser
     var appleAuthCancellable: AnyCancellable?
     var revokeAppleTokenCancellable: AnyCancellable?
     
-    
-    
     public init() {
         
     }
@@ -203,6 +201,7 @@ import KakaoSDKUser
             .compactMap{$0.response?.data}
             .receive(on: DispatchQueue.main)
             .decode(type: AppleTokenResponse.self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
             .sink(receiveCompletion: { [weak self] result in
                 switch result {
                 case .finished:
@@ -233,6 +232,7 @@ import KakaoSDKUser
         revokeAppleTokenCancellable = provider.requestWithProgressPublisher(.revokeToken(clientSecret: clientSecret, token: token))
             .compactMap{$0.response?.data}
             .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
             .sink(receiveCompletion: { [weak self] result in
                 switch result {
                 case .finished:

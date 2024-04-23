@@ -109,7 +109,7 @@ fileprivate extension AuthView {
     @ViewBuilder
     private func signUpButtonView() -> some View {
         Spacer()
-            .frame(height: UIScreen.screenHeight*0.2)
+            .frame(height: UIScreen.screenHeight*0.25)
         
         LazyVStack {
             RoundedRectangle(cornerRadius: 12)
