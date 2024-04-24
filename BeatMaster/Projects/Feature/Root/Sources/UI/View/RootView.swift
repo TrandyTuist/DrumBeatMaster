@@ -12,6 +12,7 @@ import SwiftUI
 import Auth
 import Profile
 import BPMCounter
+import Metronome
 import DesignSystem
 
 import ComposableArchitecture
@@ -41,8 +42,9 @@ public struct RootView: View {
                 
                     Spacer()
                 
-                Text(store.state.title)
-                    .pretendardFont(family: .Bold, size: 40)
+                MetronomeView(store: Store(initialState: MetronomeFeature.State(), reducer: {
+                    MetronomeFeature()
+                }))
                 
                
                 Spacer()
