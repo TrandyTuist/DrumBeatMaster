@@ -25,26 +25,6 @@ jobs:
       - name: Setting Master Key
         run: echo -n "${{ secrets.MASTER_KEY }}" > ./BeatMaster/Tuist/master.key
 
- # uses: actions/checkout@v3
-    #     with:
-    #        key: ${{ secrets.MASTER_KEY }}
-
-      # Corrected indentation for the "Install Tuist" step
-      - name: Install Tuist
-        run: curl -Ls https://install.tuist.io | bash
-        working-directory: ./BeatMaster
-
-      # Corrected indentation for the "Install Fastlane" step
-      - name: Install Fastlane
-        run: brew install fastlane
-        working-directory: ./BeatMaster
-
-      - uses: ruby/setup-ruby@v1
-        with:
-         ruby-version: '3.3' # Not needed with a .ruby-version file
-         bundler-cache: true #
-
-
       - name: Execute Tuist tasks
         run: |
           tuist clean
