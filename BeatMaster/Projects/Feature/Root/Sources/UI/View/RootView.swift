@@ -11,6 +11,7 @@ import SwiftUI
 
 import Auth
 import Profile
+import BPMCounter
 import DesignSystem
 
 import ComposableArchitecture
@@ -32,11 +33,18 @@ public struct RootView: View {
                 settingTap()
                 
                 Spacer()
+                    .frame(height: 20)
                     
+                BPMCounterView(store: Store(initialState: BPMCounterFeature.State(), reducer: {
+                    BPMCounterFeature()
+                }))
+                
+                    Spacer()
                 
                 Text(store.state.title)
                     .pretendardFont(family: .Bold, size: 40)
                 
+               
                 Spacer()
             }
             .navigationBarBackButtonHidden()

@@ -11,6 +11,7 @@ import Auth
 import Profile
 import DesignSystem
 import API
+import BPMCounter
 import Model
 import Service
 
@@ -28,10 +29,13 @@ public struct RootFeature{
         var title: String = "Root"
         var isLogin: Bool = false
         var path: StackState<Path.State> = .init()
+        
+        @Presents var destination: Destination.State?
     }
     
     public enum Action: BindableAction{
         case path(StackAction<Path.State, Path.Action>)
+        case destination(PresentationAction<Destination.Action>)
         
         case binding(BindingAction<State>)
         case presentAuth
@@ -50,6 +54,11 @@ public struct RootFeature{
         case otherSetting(OtherSettingFeature)
         case withDraw(WithDrawFeature)
         case web(WebFeature)
+    }
+    
+    @Reducer(state: .equatable)
+    public enum Destination {
+        case bpm(BPMCounterFeature)
     }
     
     //MARK: - 1.8 이하 버전 path 추가
@@ -243,6 +252,8 @@ public struct RootFeature{
             case  .binding(_):
                 return .none
                 
+            case .destination(_):
+                return .none
             }
         }
         //MARK: -  1.8 이하
@@ -250,6 +261,7 @@ public struct RootFeature{
         //            Path()
         //        }
         .forEach(\.path, action: \.path)
+        .ifLet(\.$destination, action: \.destination)
     }
 }
 

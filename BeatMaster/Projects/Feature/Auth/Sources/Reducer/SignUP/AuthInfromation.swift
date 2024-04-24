@@ -74,6 +74,7 @@ public struct AuthInfromationFeature {
                 state.auth?.isLogin = true
                 state.profile = ProfileFeature.State(auth: nil)
                 try? Keychain().set(state.auth?.isLogin?.description ?? "", key: "isLogin")
+                UserDefaults.standard.set("false", forKey: "isDelete")
                 return .none
             }
         }

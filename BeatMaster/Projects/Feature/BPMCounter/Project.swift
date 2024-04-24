@@ -1,6 +1,8 @@
 import Foundation
 import ProjectDescription
 import ProjectTemplatePlugin
+import DependencyPackagePlugin
+import DependencyPlugin
 
 
 let project = Project.makeAppModule(
@@ -9,7 +11,8 @@ let project = Project.makeAppModule(
     product: .staticFramework,
     settings: .appBaseSetting(appName: "BPMCounter"),
     dependencies: [
-        
+        .Shared(implements: .Shareds),
+        .Networking(implements: .Networkings)
     ],
     sources: ["Sources/**"]
 )

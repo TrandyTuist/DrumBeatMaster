@@ -11,7 +11,9 @@ let project = Project.makeAppModule(
     settings: .appBaseSetting(appName: "Root"),
     dependencies: [
         .Shared(implements: .Shareds),
-        .Feature(implements: .Auth)
+        .Feature(implements: .Auth),
+        .Feature(implements: .BPMCounter),
+        .Feature(implements: .Metronome)
     ],
     sources: ["Sources/**"]
 )

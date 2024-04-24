@@ -16,7 +16,8 @@ let project = Project.makeAppModule(
         .SPM.keychainAccess,
         .SPM.kakaoSDKAuth,
         .SPM.kakaoSDKUser,
-        .SPM.kakaoSDKCommon
+        .SPM.kakaoSDKCommon,
+//        .SPM.supabase
         
     ],
     sources: ["Sources/**"]

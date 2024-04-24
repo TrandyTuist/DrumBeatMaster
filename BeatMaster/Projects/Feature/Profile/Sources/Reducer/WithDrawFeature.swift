@@ -85,6 +85,7 @@ public struct WithDrawFeature {
                 }
                 
             case let .revokeAppleToken(clientSecret: clientSecret, token: token, completion: completion):
+                UserDefaults.standard.set(false, forKey: "isDelete")
                 return .run { send in
                     await authUseCase.revokeAppleToken(
                         clientSecret: clientSecret,

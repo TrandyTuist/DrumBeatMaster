@@ -2,16 +2,19 @@ import SwiftUI
 //import Auth
 import KakaoSDKCommon
 import KakaoSDKAuth
+import KeychainAccess
 
 import ComposableArchitecture
 
 @main
 struct BeatMasterApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @State var isDeleteApp = UserDefaults.standard.string(forKey: "isDelete")
     
     init() {
         initializeKakao()
         registerDependencies()
+        isDeleteApplication()
     }
     
     var body: some Scene {
@@ -45,5 +48,11 @@ struct BeatMasterApp: App {
             return
         }
         KakaoSDK.initSDK(appKey: kakaoAppKey)
+    }
+    
+    private func isDeleteApplication() {
+        if isDeleteApp == nil {
+            try? Keychain().removeAll()
+        }
     }
 }

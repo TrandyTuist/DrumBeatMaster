@@ -39,6 +39,14 @@ Install Profiles and Build My App
 
 Push to TestFlight
 
+### ios GitActionQA
+
+```sh
+[bundle exec] fastlane ios GitActionQA
+```
+
+Push to TestFlight
+
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.
