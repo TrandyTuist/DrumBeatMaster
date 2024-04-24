@@ -62,8 +62,8 @@ jobs:
             
       - uses: maierj/fastlane-action@v3.1.0
         with:
-          lane: 'fastlane QA'
-          working-directory: ./BeatMaster
+          lane: fastlane QA
+          subdirectory: ./BeatMaster
         env:
           TEAM_ID: ${{ secrets.TEAM_ID }}
           APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID }}
