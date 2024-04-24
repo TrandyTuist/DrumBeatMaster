@@ -17,44 +17,44 @@ jobs:
 
    
       # This step was corrected for proper indentation
-      - name: Bring ignored files
-        uses: actions/checkout@v3
-        with:
-          key: ${{ secrets.SSH_KEY }}
+      # - name: Bring ignored files
+      #   uses: actions/checkout@v3
+      #   with:
+      #     key: ${{ secrets.SSH_KEY }}
 
-      - name: Setting Master Key
-        run: echo -n "${{ secrets.MASTER_KEY }}" > ./BeatMaster/Tuist/master.key
+      # - name: Setting Master Key
+      #   run: echo -n "${{ secrets.MASTER_KEY }}" > ./BeatMaster/Tuist/master.key
 
-      - name: Install Tuist
-        run: curl -Ls https://install.tuist.io | bash
-        working-directory: ./BeatMaster
+      # - name: Install Tuist
+      #   run: curl -Ls https://install.tuist.io | bash
+      #   working-directory: ./BeatMaster
 
-      - name: Install Fastlane
-        run: brew install fastlane
-        working-directory: ./BeatMaster
+      # - name: Install Fastlane
+      #   run: brew install fastlane
+      #   working-directory: ./BeatMaster
 
-      - uses: ruby/setup-ruby@v1
-        with:
-         ruby-version: '3.3' # Not needed with a .ruby-version file
-         bundler-cache: true #
+      # - uses: ruby/setup-ruby@v1
+      #   with:
+      #    ruby-version: '3.3' # Not needed with a .ruby-version file
+      #    bundler-cache: true #
 
-      - name: Install Tuist mise
-        run: curl https://mise.run | sh
-        working-directory: ./BeatMaster
+      # - name: Install Tuist mise
+      #   run: curl https://mise.run | sh
+      #   working-directory: ./BeatMaster
 
-      - name: Execute Tuist mise task
-        run: |
-          mise install tuist@3.42.2
-          mise use -g tuist@3.42.2
-        working-directory: ./BeatMaster
+      # - name: Execute Tuist mise task
+      #   run: |
+      #     mise install tuist@3.42.2
+      #     mise use -g tuist@3.42.2
+      #   working-directory: ./BeatMaster
       
 
       - name: Execute Tuist tasks
         run: |
-          tuist clean
-          tuist fetch
-          tuist signing decrypt
-          TUIST_ROOT_DIR=${PWD} tuist generate
+          make clean
+          make fetch
+          # tuist signing decrypt
+          TUIST_ROOT_DIR=${PWD} make generate
         working-directory: ./BeatMaster
 
         
