@@ -20,10 +20,31 @@ public struct MetronomeView: View {
     }
     public var body: some View {
         VStack {
-            Text(store.title)
-                .pretendardFont(family: .Medium, size: 30)
-                .foregroundColor(Color.basicBlack)
+            tapPlayMetronomeButton()
         }
-        
+    }
+    
+}
+
+
+
+extension MetronomeView {
+    
+    @ViewBuilder
+    private func tapPlayMetronomeButton() -> some View {
+        ZStack {
+            Color.basicGray2
+                .edgesIgnoringSafeArea(.all)
+            
+            
+            Circle()
+                .stroke(Color.basicGray4, style: .init(lineWidth: 2))
+                .fill(Color.basicWhite)
+                .frame(width: 150, height: 150)
+                .onTapGesture {
+                    store.send(.playMetronome)
+                }
+            
+        }
     }
 }

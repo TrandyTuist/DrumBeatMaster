@@ -81,4 +81,5 @@ public extension Color {
     static let drama = Color(hex: "#708C95")
     static let animation = Color(hex: "#6B6B95")
     static let book = Color(hex: "#C194D0")
+        
 }

@@ -26,6 +26,7 @@ struct BeatMasterApp: App {
                         reducer: {
                             AppFeature()
                                 ._printChanges()
+                                ._printChanges(.actionLabels)
                         }
                     )
             )

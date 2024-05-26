@@ -12,22 +12,36 @@ import OSLog
 
 public final class DependencyContainer {
     private var registry = [String: Any]()
-    private var asyncRegistry = [String: () async -> Any]()
+    private var releaseHandlers = [String: () -> Void]()
 
     public init() { }
 
     @discardableResult
-    public func register<T>(_ type: T.Type, build: @escaping () -> T) async -> Self {
+    public func register<T>(_ type: T.Type, build: @escaping () -> T) async -> () -> Void {
         let key = String(describing: type)
         registry[key] = build
         Log.debug("Registered", key)
-        return self
+        
+        // Closure to release memory
+        let releaseHandler = { [weak self] in
+            self?.registry[key] = nil
+            self?.releaseHandlers[key] = nil
+            Log.debug("Released", key)
+        }
+        // Store release handler for later use
+        releaseHandlers[key] = releaseHandler
+        return releaseHandler
     }
 
-    public func resolve<T>(_ type: T.Type)  -> T? {
+    public func resolve<T>(_ type: T.Type) -> T? {
         let key = String(describing: type)
         if let factory = registry[key] as? () -> T {
-            return factory()
+            // If factory exists, call the release handler after resolving
+            let result = factory()
+            if let releaseHandler = releaseHandlers[key] {
+                releaseHandler()
+            }
+            return result
         } else {
             fatalError("No registered dependency found for \(key)")
         }
@@ -35,6 +49,7 @@ public final class DependencyContainer {
 }
 
 public extension DependencyContainer {
-    
     static let live = DependencyContainer()
 }
+
+

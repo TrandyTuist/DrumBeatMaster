@@ -24,9 +24,10 @@ public struct LoginFeature {
     public struct State: Equatable {
         var loginMainImage: ImageAsset = .logoIcon
         var loginMainViewTitle: String = "BeatMaster"
-        var auth: UserAuth?
+         var auth: UserAuth?
         var isLogin: Bool = false
         var nonce: String = ""
+        
         public init(auth: UserAuth? = nil) {
             self.auth = auth
         }

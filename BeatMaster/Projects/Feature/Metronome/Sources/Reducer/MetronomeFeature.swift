@@ -8,6 +8,7 @@
 
 import Foundation
 import ComposableArchitecture
+import Service
 
 @Reducer
 public struct MetronomeFeature {
@@ -20,13 +21,21 @@ public struct MetronomeFeature {
     }
     
     public enum Action: Equatable {
-        
+        case playMetronome
+        case tapBeat
+        case tapMeter
     }
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-                
+            case .playMetronome:
+                Log.debug("playMeronme touch")
+                return .none
+            case .tapBeat:
+                return .none
+            case .tapMeter:
+                return .none
             }
         }
     }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Service
 import ComposableArchitecture
 import DesignSystem
 import Model
@@ -26,8 +27,7 @@ public struct AuthFeature {
         var authMainViewTitle: String = "BeatMaster"
         
         var auth: IdentifiedArrayOf<UserAuth> = []
-        var authModel: UserAuth?
-        
+         var authModel: UserAuth?
         var webLoading: Bool = false
         
         //        @Presents var loginFeature: LoginFeature.State?
@@ -80,28 +80,23 @@ public struct AuthFeature {
                 
             case .presentSignUp:
                 return .none
-                
-                //            case .presentProfile:
-                //                return .none
-                //
-                //            case .presentBottomSheet:
-                //                return .none
-                
+                  
             case .presntProfileAuthInfo:
                 return .none
                 
             case .destination:
                 return .none
                 
-                
             case .appearLogin:
                 let email: String = (try? Keychain().get("EMAIL")) ?? ""
                 let nickname: String = (try? Keychain().get("NAME")) ?? ""
-                let socialType: String = ( try? Keychain().get("SocialType")) ?? ""
+                let socialTypeDesc: String = ( try? Keychain().get("SocialType")) ?? ""
+                let socialType: SocialType = SocialType(rawValue: socialTypeDesc) ?? .apple
                 let token =  (try? Keychain().get("Token")) ?? ""
                 state.authModel?.name = nickname
                 state.authModel?.email = email
                 state.authModel?.token = token
+                state.authModel?.socialType = socialType
                 guard let auth = state.authModel
                 else { return .none}
                 state.auth.append(auth)
@@ -116,7 +111,6 @@ public struct AuthFeature {
                 let token =  (try? Keychain().get("Token")) ?? ""
                 let login: String = (try? Keychain().get("isLogin")) ?? ""
                 state.destination = .login(LoginFeature.State(auth: UserAuth(isLogin: Bool(login), token: token, socialType: socialType, name: nickname, email: email)))
-                //                state.loginFeature = LoginFeature.State(auth: UserAuth(isLogin: Bool(login), token: token, socialType: socialType, name: nickname, email: email))
                 return .none
                 
                 
@@ -128,7 +122,6 @@ public struct AuthFeature {
                 let token =  (try? Keychain().get("Token")) ?? ""
                 let login: String = (try? Keychain().get("isLogin")) ?? ""
                 state.destination = .profile(ProfileFeature.State(auth: UserAuth(isLogin: Bool(login), token: token, socialType: socialType, name: nickname, email: email)))
-                //  state.profileFeature = ProfileFeature.State(auth: UserAuth(isLogin: Bool(login), token: token, socialType: socialType, name: nickname, email: email))
                 return .none
                 
                 
@@ -161,7 +154,7 @@ public struct AuthFeature {
                             try await self.clock.sleep(for: .milliseconds(600))
                             
                         case false:
-                            print("로그인 실패")
+                            Log.debug("로그인 실패")
                         default:
                             break
                         }
@@ -191,6 +184,12 @@ public struct AuthFeature {
         
         //MARK: - 멀티플로 stack 처럼 넘기는 방식
         .ifLet(\.$destination, action: \.destination)
+        .onChange(of: \.authModel) { oldValue, newValue in
+            Reduce { state, action in
+                state.authModel = newValue
+                return .none
+            }
+        }
     }
 }
 

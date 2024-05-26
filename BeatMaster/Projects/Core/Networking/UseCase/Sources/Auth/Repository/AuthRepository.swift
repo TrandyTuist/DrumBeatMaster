@@ -115,7 +115,7 @@ import KakaoSDKUser
              self.authModel?.token = accessToken
              
              if !accessToken.isEmpty || accessToken != "" {
-                 print("acces path2: \(accessToken)")
+                 Log.debug("acces path2: \(accessToken)")
                  completion()
                  
                  guard let auth = self.authModel
@@ -229,6 +229,7 @@ import KakaoSDKUser
         if let cancellable = revokeAppleTokenCancellable {
             cancellable.cancel()
         }
+        
         revokeAppleTokenCancellable = provider.requestWithProgressPublisher(.revokeToken(clientSecret: clientSecret, token: token))
             .compactMap{$0.response?.data}
             .receive(on: DispatchQueue.main)
