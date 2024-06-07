@@ -92,7 +92,7 @@ public struct AuthFeature {
                 let nickname: String = (try? Keychain().get("NAME")) ?? ""
                 let socialTypeDesc: String = ( try? Keychain().get("SocialType")) ?? ""
                 let socialType: SocialType = SocialType(rawValue: socialTypeDesc) ?? .apple
-                let token =  (try? Keychain().get("Token")) ?? ""
+                let token =  (try? Keychain().get("AuthCode")) ?? ""
                 state.authModel?.name = nickname
                 state.authModel?.email = email
                 state.authModel?.token = token
@@ -108,9 +108,9 @@ public struct AuthFeature {
                 let nickname: String = (try? Keychain().get("NAME")) ?? ""
                 let socialTypeDesc: String = ( try? Keychain().get("SocialType")) ?? ""
                 let socialType: SocialType = SocialType(rawValue: socialTypeDesc) ?? .apple
-                let token =  (try? Keychain().get("Token")) ?? ""
+                let token =  (try? Keychain().get("AuthCode")) ?? ""
                 let login: String = (try? Keychain().get("isLogin")) ?? ""
-                state.destination = .login(LoginFeature.State(auth: UserAuth(isLogin: Bool(login), token: token, socialType: socialType, name: nickname, email: email)))
+                state.destination = .login(LoginFeature.State(auth: UserAuth(isLogin: Bool(login), token:  token, socialType: socialType, name: nickname, email: email)))
                 return .none
                 
                 
@@ -119,7 +119,7 @@ public struct AuthFeature {
                 let nickname: String = (try? Keychain().get("NAME")) ?? ""
                 let socialTypeDesc: String = ( try? Keychain().get("SocialType")) ?? ""
                 let socialType: SocialType = SocialType(rawValue: socialTypeDesc) ?? .apple
-                let token =  (try? Keychain().get("Token")) ?? ""
+                let token =  (try? Keychain().get("AuthCode")) ?? ""
                 let login: String = (try? Keychain().get("isLogin")) ?? ""
                 state.destination = .profile(ProfileFeature.State(auth: UserAuth(isLogin: Bool(login), token: token, socialType: socialType, name: nickname, email: email)))
                 return .none

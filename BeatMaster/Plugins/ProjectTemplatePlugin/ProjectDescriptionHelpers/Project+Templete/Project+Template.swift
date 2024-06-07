@@ -12,21 +12,24 @@ public extension Project {
         name: String = Environment.appName,
         bundleId: String,
         platform: Platform = .iOS,
-        product: Product,
+        product: ProjectDescription.Product,
         organizationName: String = Environment.organizationName,
         packages: [Package] = [],
-        deploymentTarget: DeploymentTargets = Environment.deploymentTarget,
-        destinations: Destinations = Environment.deploymentDestination,
-        settings: Settings,
-        scripts: [TargetScript] = [],
-        dependencies: [TargetDependency] = [],
-        sources: SourceFilesList = .sources,
-        resources: ResourceFileElements? = nil,
-        infoPlist: InfoPlist = .default,
-        entitlements: Entitlements? = nil,
-        schemes: [Scheme] = []
+        deploymentTarget: ProjectDescription.DeploymentTargets = Environment.deploymentTarget,
+        destinations: ProjectDescription.Destinations = Environment.deploymentDestination,
+        settings: ProjectDescription.Settings,
+        scripts: [ProjectDescription.TargetScript] = [],
+        dependencies: [ProjectDescription.TargetDependency] = [],
+        sources: ProjectDescription.SourceFilesList = ["Sources/**"],
+        resources: ProjectDescription.ResourceFileElements? = nil,
+        infoPlist: ProjectDescription.InfoPlist = .default,
+        entitlements: ProjectDescription.Entitlements? = nil,
+        schemes: [ProjectDescription.Scheme] = []
     ) -> Project {
-        let appTarget = Target(
+        
+        
+        
+        let appTarget: Target = .target(
             name: name,
             destinations: destinations,
             product: product,
@@ -40,7 +43,7 @@ public extension Project {
             dependencies: dependencies
         )
         
-        let appDevTarget = Target(
+        let appDevTarget: Target = .target(
             name: "\(name)-QA",
             destinations: destinations,
             product: product,
@@ -54,7 +57,7 @@ public extension Project {
             dependencies: dependencies
         )
         
-        let appTestTarget = Target(
+        let appTestTarget : Target = .target(
             name: "\(name)Tests",
             destinations: destinations,
             product: .unitTests,
@@ -79,9 +82,10 @@ public extension Project {
 }
 
 
+
 extension Scheme {
     public static func makeScheme(target: ConfigurationName, name: String) -> Scheme {
-        return Scheme(
+        return Scheme.scheme(
             name: name,
             shared: true,
             buildAction: .buildAction(targets: ["\(name)"]),
@@ -94,7 +98,9 @@ extension Scheme {
             archiveAction: .archiveAction(configuration: target),
             profileAction: .profileAction(configuration: target),
             analyzeAction: .analyzeAction(configuration: target)
+            
         )
+        
     }
     
 }

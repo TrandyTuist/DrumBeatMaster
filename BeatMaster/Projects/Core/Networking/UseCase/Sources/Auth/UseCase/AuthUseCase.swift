@@ -30,8 +30,8 @@ public struct AuthUseCase: AuthUseCaseProtocol  {
     public func handleAppleLoginResult(
         result: Result<ASAuthorization, Error>,
         completion: @escaping () -> Void
-    ) async {
-        await repository.handleAppleLoginResult(result: result, completion: completion)
+    ) async throws  {
+        try? await repository.handleAppleLoginResult(result: result, completion: completion)
         
     }
     
@@ -44,32 +44,32 @@ public struct AuthUseCase: AuthUseCaseProtocol  {
     
     public func requestKakaoTokenAsync(
         completion: @escaping () -> Void
-    ) async {
-        await repository.requestKakaoTokenAsync(completion: completion)
+    ) async  throws {
+        try? await repository.requestKakaoTokenAsync(completion: completion)
     }
     
     public func authModelToReducer(auth: UserAuth) {
         repository.authModelToReducer(auth: auth)
     }
     
-    public func getUserInfoKakao(auth: UserAuth) {
-        repository.getUserInfoKakao(auth: auth)
+    public func getUserInfoKakao(auth: UserAuth) async  throws  {
+        try? await repository.getUserInfoKakao(auth: auth)
     }
     
     public func revokeAppleToken(
         clientSecret: String,
         token: String,
         completionHandler: @escaping () -> Void
-    ) async {
-        await repository.revokeAppleToken(
+    ) async  throws {
+        try? await repository.revokeAppleToken(
             clientSecret: clientSecret,
             token: token, 
             completionHandler: completionHandler
         )
     }
     
-    public func unlinkKakao(completionHandler: @escaping () -> Void) async {
-        await repository.unlinkKakao(completionHandler: completionHandler)
+    public func unlinkKakao(completionHandler: @escaping () -> Void) async throws {
+        try? await repository.unlinkKakao(completionHandler: completionHandler)
     }
 }
 

@@ -60,17 +60,18 @@ extension String {
 }
 
 
-var defaultDate: String {
+var defaultDate: Template.Attribute.Value {
     let today = Date()
     let formatter = DateFormatter()
     formatter.dateFormat = "yyyy/MM/dd"
     let formattedDate = formatter.string(from: today)
-    return formattedDate
+    return .string(formattedDate)
 }
 
-var defaultYear: String {
+var defaultYear: Template.Attribute.Value {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy"
-    return dateFormatter.string(from: Date())
+    return .string(dateFormatter.string(from: Date()))
 }
+
 

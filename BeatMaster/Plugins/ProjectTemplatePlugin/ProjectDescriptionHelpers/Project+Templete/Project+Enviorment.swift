@@ -15,8 +15,8 @@ public extension Project {
         public static let appDevName = "BeatMaster-Dev"
         public static let organizationName = "Wonji suh"
         public static let organizationTeamId = "N94CS4N6VR"
-        public static let deploymentTarget = DeploymentTargets(iOS: "17.0")
-        public static let deploymentDestination: Destinations = [.iPhone, .iPad]
+        public static let deploymentTarget : ProjectDescription.DeploymentTargets = .iOS("17.0")
+        public static let deploymentDestination: ProjectDescription.Destinations = [.iPhone, .iPad]
         public static let bundlePrefix = "com.Haejoo.BeatMaster"
         public static let appVersion = "1.0.0"
         public static let mainBundleId = "com.BeatCounter"

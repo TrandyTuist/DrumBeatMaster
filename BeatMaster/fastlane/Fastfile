@@ -94,12 +94,12 @@ desc "Install Profiles and Build My App"
   desc "Push to TestFlight"
   lane :QA do |options|
 ENV["MATCH_PASSWORD"] = "Your_Secure_Passphrase"
-	install_provisioning_profile(path: "Tuist/Signing/#{APP_NAME}-QA.Release.mobileprovision")  
- sh"tuist signing decrypt" 
+	install_provisioning_profile(path: "./fastlane/Signing/#{APP_NAME}-QA.Release.mobileprovision")  
+
 
 update_project_provisioning(
  xcodeproj: "Projects/App/BeatMaster.xcodeproj",
-   profile:"Tuist/Signing/BeatMaster-QA.Release.mobileprovision",
+   profile:"fastlane/Signing/BeatMaster-QA.Release.mobileprovision",
    build_configuration: "Release"
 )
 # ✅ 앱스토어 커넥트 키 연결

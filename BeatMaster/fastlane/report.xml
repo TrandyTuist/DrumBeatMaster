@@ -5,72 +5,69 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="00: update_fastlane" time="4.985752">
+      <testcase classname="fastlane.lanes" name="00: update_fastlane" time="5.386898">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="01: default_platform" time="9.9e-05">
+      <testcase classname="fastlane.lanes" name="01: default_platform" time="9.3e-05">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="02: install_provisioning_profile" time="0.160536">
+      <testcase classname="fastlane.lanes" name="02: install_provisioning_profile" time="0.198406">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="03: tuist signing decrypt" time="0.788785">
+      <testcase classname="fastlane.lanes" name="03: update_project_provisioning" time="0.054306">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="04: update_project_provisioning" time="0.277591">
+      <testcase classname="fastlane.lanes" name="04: app_store_connect_api_key" time="0.087232">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="05: app_store_connect_api_key" time="0.001606">
+      <testcase classname="fastlane.lanes" name="05: get_version_number" time="0.014739">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="06: get_version_number" time="0.084399">
+      <testcase classname="fastlane.lanes" name="06: latest_testflight_build_number" time="1.222351">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="07: latest_testflight_build_number" time="1.893938">
+      <testcase classname="fastlane.lanes" name="07: increment_build_number" time="0.41171">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="08: increment_build_number" time="0.532771">
+      <testcase classname="fastlane.lanes" name="08: sync_code_signing" time="3.757369">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="09: sync_code_signing" time="2.864087">
+      <testcase classname="fastlane.lanes" name="09: sync_code_signing" time="2.669082">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="10: sync_code_signing" time="2.597636">
+      <testcase classname="fastlane.lanes" name="10: clear_derived_data" time="0.867213">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="11: clear_derived_data" time="1.725955">
+      <testcase classname="fastlane.lanes" name="11: gym" time="67.108355">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="12: gym" time="216.843736">
+      <testcase classname="fastlane.lanes" name="12: upload_to_testflight" time="6.702745">
         
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="13: upload_to_testflight" time="148.361449">
+          <failure message="/opt/homebrew/Cellar/fastlane/2.220.0/libexec/gems/fastlane-2.220.0/fastlane/lib/fastlane/actions/actions_helper.rb:67:in `execute_action&apos;&#10;/opt/homebrew/Cellar/fastlane/2.220.0/libexec/gems/fastlane-2.220.0/fastlane/lib/fastlane/runner.rb:255:in `block in execute_action&apos;&#10;/opt/homebrew/Cellar/fastlane/2.220.0/libexec/gems/fastlane-2.220.0/fastlane/lib/fastlane/runner.rb:229:in `chdir&apos;&#10;/opt/homebrew/Cellar/fastlane/2.220.0/libexec/gems/fastlane-2.220.0/fastlane/lib/fastlane/runner.rb:229:in `execute_action&apos;&#10;/opt/homebrew/Cellar/fastlane/2.220.0/libexec/gems/fastlane-2.220.0/fastlane/lib/fastlane/runner.rb:157:in `trigger_action_by_name&apos;&#10;/opt/homebrew/Cellar/fastlane/2.220.0/libexec/gems/fastlane-2.220.0/fastlane/lib/fastlane/fast_file.rb:159:in `method_missing&apos;&#10;Fastfile:154:in `block (2 levels) in parsing_binding&apos;&#10;/opt/homebrew/Cellar/fastlane/2.220.0/libexec/gems/fastlane-2.220.0/fastlane/lib/fastlane/lane.rb:41:in `call&apos;&#10;/opt/homebrew/Cellar/fastlane/2.220.0/libexec/gems/fastlane-2.220.0/fastlane/lib/fastlane/runner.rb:49:in `block in execute&apos;&#10;/opt/homebrew/Cellar/fastlane/2.220.0/libexec/gems/fastlane-2.220.0/fastlane/lib/fastlane/runner.rb:45:in `chdir&apos;&#10;/opt/homebrew/Cellar/fastlane/2.220.0/libexec/gems/fastlane-2.220.0/fastlane/lib/fastlane/runner.rb:45:in `execute&apos;&#10;/opt/homebrew/Cellar/fastlane/2.220.0/libexec/gems/fastlane-2.220.0/fastlane/lib/fastlane/lane_manager.rb:46:in `cruise_lane&apos;&#10;/opt/homebrew/Cellar/fastlane/2.220.0/libexec/gems/fastlane-2.220.0/fastlane/lib/fastlane/command_line_handler.rb:34:in `handle&apos;&#10;/opt/homebrew/Cellar/fastlane/2.220.0/libexec/gems/fastlane-2.220.0/fastlane/lib/fastlane/commands_generator.rb:110:in `block (2 levels) in run&apos;&#10;/opt/homebrew/Cellar/fastlane/2.220.0/libexec/gems/commander-4.6.0/lib/commander/command.rb:187:in `call&apos;&#10;/opt/homebrew/Cellar/fastlane/2.220.0/libexec/gems/commander-4.6.0/lib/commander/command.rb:157:in `run&apos;&#10;/opt/homebrew/Cellar/fastlane/2.220.0/libexec/gems/commander-4.6.0/lib/commander/runner.rb:444:in `run_active_command&apos;&#10;/opt/homebrew/Cellar/fastlane/2.220.0/libexec/gems/fastlane-2.220.0/fastlane_core/lib/fastlane_core/ui/fastlane_runner.rb:124:in `run!&apos;&#10;/opt/homebrew/Cellar/fastlane/2.220.0/libexec/gems/commander-4.6.0/lib/commander/delegates.rb:18:in `run!&apos;&#10;/opt/homebrew/Cellar/fastlane/2.220.0/libexec/gems/fastlane-2.220.0/fastlane/lib/fastlane/commands_generator.rb:363:in `run&apos;&#10;/opt/homebrew/Cellar/fastlane/2.220.0/libexec/gems/fastlane-2.220.0/fastlane/lib/fastlane/commands_generator.rb:43:in `start&apos;&#10;/opt/homebrew/Cellar/fastlane/2.220.0/libexec/gems/fastlane-2.220.0/fastlane/lib/fastlane/cli_tools_distributor.rb:123:in `take_off&apos;&#10;/opt/homebrew/Cellar/fastlane/2.220.0/libexec/gems/fastlane-2.220.0/bin/fastlane:23:in `&lt;top (required)&gt;&apos;&#10;/opt/homebrew/Cellar/fastlane/2.220.0/libexec/bin/fastlane:25:in `load&apos;&#10;/opt/homebrew/Cellar/fastlane/2.220.0/libexec/bin/fastlane:25:in `&lt;main&gt;&apos;&#10;&#10;Error uploading ipa file: &#10; [Application Loader Error Output]: Error uploading &apos;/var/folders/df/mvnc49l14tx_80zrmvx0q8xm0000gn/T/2ad8e8cd-ba25-4fe8-93b0-dfc618723b68.ipa&apos;.&#10;[Application Loader Error Output]: The provided entity includes an attribute with a value that has already been used The bundle version must be higher than the previously uploaded version: ‘29’. (ID: f3b5f31e-6154-4feb-9f14-6895e47abe71) (-19232)&#10;[Application Loader Error Output]: The call to the altool completed with a non-zero exit status: 1. This indicates a failure." />
         
       </testcase>
     

@@ -8,6 +8,7 @@
 import Foundation
 import ProjectDescription
 
+
 let demoModuleLayer = Template.Attribute.required("layer")
 let demoModuleName = Template.Attribute.required("name")
 let demoModuleAuthor: Template.Attribute = .required("author")
@@ -42,20 +43,14 @@ enum DemoModuleTemplate: CaseIterable {
         switch self {
         case .appFile:
             return .file(path: .demoBasePath + "/Sources/Application/demoApplication.swift", templatePath: "demoApplication.stencil")
-            
         case .project:
             return .file(path: .demoBasePath + "/Project.swift", templatePath: "Project.stencil")
-            
         case .baseFile:
             return .file(path: .demoBasePath + "/Sources/Base.swift", templatePath: "base.stencil")
-            
         case .testProject:
             return .file(path:  .demoTestBasePath + "/Sources/Test.swift", templatePath: "test.stencil")
-            
         case .resources:
             return .directory(path: .demoBasePath + "Resources/Assets.xcassets" , sourcePath: "Assets.xcassets")
-//            Resources
-            
         }
     }
 }
@@ -75,16 +70,16 @@ extension String {
 }
 
 
-var demoDefaultDate: String {
+var demoDefaultDate: Template.Attribute.Value {
     let today = Date()
     let formatter = DateFormatter()
     formatter.dateFormat = "yyyy/MM/dd"
     let formattedDate = formatter.string(from: today)
-    return formattedDate
+    return .string(formattedDate)
 }
 
-var demoDefaultYear: String {
+var demoDefaultYear: Template.Attribute.Value {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy"
-    return dateFormatter.string(from: Date())
+    return .string(dateFormatter.string(from: Date()))
 }

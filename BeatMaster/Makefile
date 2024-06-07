@@ -1,8 +1,9 @@
 GENERATE = tuist generate
 FETCH = tuist fetch
 BUILD = tuist build
-CACHE = tuist cache warm BeatMaster
+CACHE = tuist cache BeatMaster
 CLEAN = tuist clean
+INSTALL = tuist install
 
 CURRENT_DATE = $(shell run scripts/current_date.swift)
 
@@ -20,9 +21,8 @@ clean:
 	$(CLEAN)
 
 .PHONY: fetch
-fetch:
-	$(FETCH)
-
+install:
+	$(INSTALL)
 
 .PHONY: cache
 

@@ -26,8 +26,9 @@ public struct AuthInfromationFeature {
         var auth: UserAuth?
         var selectJob: SelectJob? = nil
         var disableSignUpButtonb: Bool = false
+         
+        @Presents var destination: Destination.State?
         
-        @Presents var profile: ProfileFeature.State?
         public init(auth: UserAuth? = nil) {
             self.auth = auth
         }
@@ -41,8 +42,13 @@ public struct AuthInfromationFeature {
         case backAction
         case appear
         case selectJobButton(selectJob: SelectJob?)
-        case profile(PresentationAction<ProfileFeature.Action>)
+        case destination(PresentationAction<Destination.Action>)
         case presntProfile
+    }
+    
+    @Reducer(state: .equatable)
+    public enum Destination {
+        case profile(ProfileFeature)
     }
     
     public var body: some ReducerOf<Self> {
@@ -57,7 +63,7 @@ public struct AuthInfromationFeature {
                 state.auth = state.auth
                 return .none
                 
-            case .profile:
+            case .destination:
                 return .none
                 
             case let .selectJobButton(selectJob: selectJob):
@@ -72,14 +78,20 @@ public struct AuthInfromationFeature {
             case .presntProfile:
                 //MARK: - api 호출후 로직 처리
                 state.auth?.isLogin = true
-                state.profile = ProfileFeature.State(auth: nil)
+                state.destination = .profile(ProfileFeature.State(auth: nil))
                 try? Keychain().set(state.auth?.isLogin?.description ?? "", key: "isLogin")
                 UserDefaults.standard.set("false", forKey: "isDelete")
                 return .none
             }
         }
-        .ifLet(\.$profile, action: \.profile) {
-            ProfileFeature()
+        
+        .ifLet(\.$destination, action: \.destination)
+        
+        .onChange(of: \.auth) { oldValue, newValue in
+            Reduce { state, action in
+                state.auth = newValue
+                return .none
+            }
         }
     }
 }

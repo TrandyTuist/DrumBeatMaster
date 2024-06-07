@@ -15,7 +15,7 @@ public protocol AuthRepositoryProtocol {
     func handleAppleLoginResult(
         result: Result<ASAuthorization, Error>,
         completion: @escaping () -> Void
-    ) async
+    ) async throws
     
     func getAppleRefreshToken(
         code: String,
@@ -25,20 +25,20 @@ public protocol AuthRepositoryProtocol {
         
     func requestKakaoTokenAsync(
         completion: @escaping () -> Void
-    ) async
-    
+    ) async throws
+     
     func authModelToReducer(auth: UserAuth)
     
-    func getUserInfoKakao(auth: UserAuth)
+    func getUserInfoKakao(auth: UserAuth) async throws
     
     func revokeAppleToken(
         clientSecret: String,
         token: String, 
         completionHandler: @escaping () -> Void
-    ) async
+    ) async throws
     
     func unlinkKakao(
         completionHandler: @escaping () -> Void
-    ) async
+    ) async throws
     
 }

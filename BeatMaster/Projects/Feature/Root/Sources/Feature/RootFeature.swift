@@ -108,7 +108,7 @@ public struct RootFeature{
                 case "true":
                     let email: String = (try? Keychain().get("EMAIL")) ?? ""
                     let name: String = (try? Keychain().get("NAME")) ?? ""
-                    let token = (try? Keychain().get("Token")) ?? ""
+                    let token = (try? Keychain().get("AuthCode")) ?? ""
                     let socialTypeString: String = (try? Keychain().get("SocialType")) ?? ""
                     let socialType: SocialType = SocialType(rawValue: socialTypeString) ?? .unknown
                     let login: String = (try? Keychain().get("isLogin")) ?? ""
@@ -191,7 +191,7 @@ public struct RootFeature{
                 case .element(id: _, action: .signUp(.saveSelectSocial)):
                     let email: String = (try? Keychain().get("EMAIL")) ?? ""
                     let name: String = (try? Keychain().get("NAME")) ?? ""
-                    let token = (try? Keychain().get("Token")) ?? ""
+                    let token = (try? Keychain().get("AuthCode")) ?? ""
                     let socialTypeString: String = (try? Keychain().get("SocialType")) ?? ""
                     let socialType: SocialType = SocialType(rawValue: socialTypeString) ?? .unknown
                     let login: String = (try? Keychain().get("isLogin")) ?? ""
@@ -228,7 +228,7 @@ public struct RootFeature{
                 case .element(id: _, action: .otherSetting(.presentWthDraw)):
                     let email: String = (try? Keychain().get("EMAIL")) ?? ""
                     let name: String = (try? Keychain().get("NAME")) ?? ""
-                    let token = (try? Keychain().get("Token")) ?? ""
+                    let token = (try? Keychain().get("AuthCode")) ?? ""
                     let socialTypeString: String = (try? Keychain().get("SocialType")) ?? ""
                     let socialType: SocialType = SocialType(rawValue: socialTypeString) ?? .unknown
                     let login: String = (try? Keychain().get("isLogin")) ?? ""

@@ -71,7 +71,7 @@ public struct WithDrawFeature {
                     switch socialType {
                     case .apple:
                         guard let clientSecret = try? Keychain().get("AppleClientSecret"),
-                        let refreshToken = try? Keychain().get("Token")
+                        let refreshToken = try? Keychain().get("AuthCode")
                         else { return  }
                         await send(.revokeAppleToken(clientSecret: clientSecret , token: refreshToken, completion: completion))
                         await send(.deleteAuth)
@@ -87,7 +87,7 @@ public struct WithDrawFeature {
             case let .revokeAppleToken(clientSecret: clientSecret, token: token, completion: completion):
                 UserDefaults.standard.set(false, forKey: "isDelete")
                 return .run { send in
-                    await authUseCase.revokeAppleToken(
+                    try? await authUseCase.revokeAppleToken(
                         clientSecret: clientSecret,
                         token: token,
                         completionHandler:  completion
@@ -96,7 +96,7 @@ public struct WithDrawFeature {
                 
             case let .unlinkKakao(completion: completion):
                 return .run { send in
-                    await authUseCase.unlinkKakao(completionHandler: completion)
+                    try? await authUseCase.unlinkKakao(completionHandler: completion)
                 }
                 
             case .deleteAuth:

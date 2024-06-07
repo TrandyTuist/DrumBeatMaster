@@ -82,7 +82,7 @@ public struct LoginFeature {
             case let .appleLogin(result: result, completion: completion):
                 return .run { send in
                     UserDefaults.standard.set(false, forKey: "isDelete")
-                    await authUseCase.handleAppleLoginResult(
+                    try? await authUseCase.handleAppleLoginResult(
                         result: result,
                         completion: completion
                      )
@@ -91,7 +91,7 @@ public struct LoginFeature {
             case let .kakaoLogin(completion: completion):
                 return .run { send in
                     UserDefaults.standard.set("false", forKey: "isDelete")
-                    await authUseCase.requestKakaoTokenAsync(completion: completion)
+                    try? await authUseCase.requestKakaoTokenAsync(completion: completion)
                 }
                 
             case .disappear:
@@ -99,6 +99,12 @@ public struct LoginFeature {
                 return .none
                 
             case .binding(_):
+                return .none
+            }
+        }
+        .onChange(of: \.auth) { oldValue, newValue in
+            Reduce { state, action in
+                state.auth = newValue
                 return .none
             }
         }

@@ -30,7 +30,7 @@ extension Settings {
             .debug(name: .debug, settings: [
                 "PRODUCT_NAME" : "\(Project.Environment.appName)",
                 "DISPLAY_NAME" : "\(Project.Environment.appName)",
-                "PROVISIONING_PROFILE_SPECIFIER": "BeatMaster",
+                "PROVISIONING_PROFILE_SPECIFIER": "match AppStore com.Haejoo.BeatMaster",
                 "OTHER_LDFLAGS": [
                     "-ObjC","-all_load",// Set the strip style to non-global symbols
                 ],

@@ -67,7 +67,7 @@ public struct SelectSocialFeature {
                 else {return .none}
                 authUseCase.authModelToReducer(auth: auth)
                 return .run { send in
-                    await authUseCase.handleAppleLoginResult(result: result, completion: completion)
+                    try? await authUseCase.handleAppleLoginResult(result: result, completion: completion)
                 }
                 
             case let .kakaoSignUp(completion: completion):
@@ -75,8 +75,14 @@ public struct SelectSocialFeature {
                 else {return .none}
                 authUseCase.authModelToReducer(auth: auth)
                 return .run { send in
-                    await authUseCase.requestKakaoTokenAsync(completion: completion)
+                    try? await authUseCase.requestKakaoTokenAsync(completion: completion)
                 }
+            }
+        }
+        .onChange(of: \.auth) { oldValue, newValue in
+            Reduce { state, action in
+                state.auth = newValue
+                return .none
             }
         }
     }

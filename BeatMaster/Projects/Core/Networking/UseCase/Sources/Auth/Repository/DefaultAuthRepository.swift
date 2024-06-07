@@ -37,7 +37,7 @@ public final class DefaultAuthRepository : AuthRepositoryProtocol {
         
     }
     
-    public func getUserInfoKakao(auth: UserAuth) {
+    public func getUserInfoKakao(auth: UserAuth)  async throws {
         
     }
     

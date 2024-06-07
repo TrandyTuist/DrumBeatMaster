@@ -43,7 +43,7 @@ import KakaoSDKUser
     public func handleAppleLoginResult(
         result: Result<ASAuthorization, Error>,
         completion: @escaping () -> Void
-    ) async {
+    ) async throws {
         switch result {
         case .success(let authResults):
             switch authResults.credential {
@@ -63,11 +63,11 @@ import KakaoSDKUser
                     Log.debug("Code - \(code), \(email), \(name)")
                     self.getAppleRefreshToken(code: code) { [weak self] data in
                         Log.debug("🚧", data ?? "-")
-                        try? Keychain().set(data ?? "", key: "Token")
+                        try? Keychain().set(data ?? "", key: "AuthCode")
                         // UserDefaults.standard.set(data, forKey: "AppleRefreshToken")
                         guard let acessToken = data
                         else { return }
-                        let token = (try? Keychain().get("Token")) ?? ""
+                        let token = (try? Keychain().get("AuthCode")) ?? ""
                         self?.authModel?.token = token
                         if !acessToken.isEmpty || acessToken != "" {
                             completion()
@@ -101,16 +101,16 @@ import KakaoSDKUser
     //MARK: -   카카오 로그인 후 토큰 발급
     public func requestKakaoTokenAsync(
         completion: @escaping () -> Void
-    ) async {
+    ) async throws {
          UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
             guard let accessToken = oauthToken?.accessToken else {
                 Log.error(error?.localizedDescription ?? "", "requestKakaoTokenAsync")
 //                    continuation.resume(returning: (nil, nil))
                 return
             }
-             try? Keychain().set(accessToken, key: "Token")
+             try? Keychain().set(accessToken, key: "AuthCode")
              Log.debug(accessToken, self.authModel?.token ?? "")
-             let token = (try? Keychain().get("Token")) ?? ""
+             let token = (try? Keychain().get("AuthCode")) ?? ""
              
              self.authModel?.token = accessToken
              
@@ -225,14 +225,14 @@ import KakaoSDKUser
         clientSecret: String,
         token: String,
         completionHandler: @escaping () -> Void
-    ) async {
+    ) async  throws {
         if let cancellable = revokeAppleTokenCancellable {
             cancellable.cancel()
         }
         
         revokeAppleTokenCancellable = provider.requestWithProgressPublisher(.revokeToken(clientSecret: clientSecret, token: token))
             .compactMap{$0.response?.data}
-            .receive(on: DispatchQueue.main)
+            .receive(on: DispatchQueue.global(qos: .default))
             .eraseToAnyPublisher()
             .sink(receiveCompletion: { [weak self] result in
                 switch result {

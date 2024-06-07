@@ -187,6 +187,12 @@ public struct SignUpFeature {
             }
         }
         .ifLet(\.$destination, action: \.destination)
+        .onChange(of: \.auth) { oldValue, newValue in
+            Reduce { state, action in
+                state.auth = newValue
+                return .none
+            }
+        }
         
 //        .ifLet(\.$selectSocial, action: \.selectSocial){
 //            SelectSocialFeature()
