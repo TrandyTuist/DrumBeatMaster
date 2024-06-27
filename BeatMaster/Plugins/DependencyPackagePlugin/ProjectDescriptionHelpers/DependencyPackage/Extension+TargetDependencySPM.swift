@@ -23,5 +23,6 @@ public extension TargetDependency.SPM {
     static let kakaoSDKAuth = TargetDependency.external(name: "KakaoSDKAuth", condition: .none)
     static let kakaoSDKUser = TargetDependency.external(name: "KakaoSDKUser", condition: .none)
     static let kakaoSDKCommon = TargetDependency.external(name: "KakaoSDKCommon", condition: .none)
+    static let popupView = TargetDependency.external(name: "PopupView", condition: .none)
 
 }

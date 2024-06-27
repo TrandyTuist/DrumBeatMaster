@@ -1,4 +1,4 @@
-git_url("https://github.com/TrandyTuist/DrumBeatMaster.git")
+git_url("https://github.com/TrandyTuist/DrumBeatMaster_Fastlane.git")
 
 storage_mode("git")
 

@@ -17,7 +17,7 @@ let project = Project.makeAppModule(
         .SPM.kakaoSDKAuth,
         .SPM.kakaoSDKUser,
         .SPM.kakaoSDKCommon,
-//        .SPM.supabase
+        .SPM.popupView
         
     ],
     sources: ["Sources/**"]

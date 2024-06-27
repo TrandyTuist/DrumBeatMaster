@@ -29,6 +29,7 @@ let package = Package(
         .package(url: "https://github.com/Kitura/Swift-JWT.git", from: "4.0.0"),
         .package(url: "https://github.com/kishikawakatsumi/KeychainAccess", from: "4.2.2"),
         .package(url: "https://github.com/kakao/kakao-ios-sdk", from: "2.21.0"),
+        .package(url: "https://github.com/exyte/PopupView.git", from: "2.10.4"),
         
         
         

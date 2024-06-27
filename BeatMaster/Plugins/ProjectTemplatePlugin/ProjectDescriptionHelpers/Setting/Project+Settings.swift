@@ -25,6 +25,7 @@ extension Settings {
                 "DEVELOPMENT_TEAM": "\(Project.Environment.organizationTeamId)",
                 "VERSIONING_SYSTEM": "apple-generic",
                 "DEBUG_INFORMATION_FORMAT": "DWARF with dSYM File",
+//                "PROVISIONING_PROFILE_SPECIFIER": "match AppStore com.Haejoo.BeatMaster",
                 "DEVELOPMENT_ASSET_PATH" : "\"Resources/Preview Content\""]
         ,configurations: [
             .debug(name: .debug, settings: [
