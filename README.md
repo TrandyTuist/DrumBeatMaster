@@ -58,10 +58,6 @@ tuist generate
 - 6. In Origin **Dev**, resolve conflict and merge
 - 7. Fetch and rebase Origin **Dev** from Local **Dev**
 
-
-
-
-
 ## Commit 규칙
 > 커밋 제목은 최대 50자 입력 </br>
 본문은 한 줄 최대 72자 입력 </br>
