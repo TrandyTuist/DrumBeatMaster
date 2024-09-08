@@ -10,14 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Execute Tuist tasks
-        run: |
-          make clean
-          make fetch
-          # tuist signing decrypt
-          TUIST_ROOT_DIR=${PWD} make generate
-        working-directory: ./BeatMaster
-            
       - run: fastlane QA
         working-directory: ./BeatMaster
         env:
